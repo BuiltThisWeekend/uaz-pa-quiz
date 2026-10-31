@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0C234B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="UA PA Prep" />
+  <title>UArizona PA 2027 | Pre-Matriculation Study & Daily Quiz PWA</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            uablue: {
+              DEFAULT: '#0C234B',
+              light: '#1E3A6D',
+              dark: '#06142E',
+            },
+            uared: {
+              DEFAULT: '#AB0520',
+              light: '#D11936',
+              dark: '#820317',
+            },
+            uasand: '#F8FAFC'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #071329;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    /* Custom Scrollbar for smooth mobile feel */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .safe-bottom {
+      padding-bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+    }
+    @keyframes pulseSubtle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .animate-pulse-subtle {
+      animation: pulseSubtle 2.2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex justify-center items-start text-slate-800">
+
+  <!-- Mobile App Shell Container (Responsive mobile frame on desktop, full width on phone) -->
+  <div class="w-full max-w-md min-h-screen bg-slate-50 shadow-2xl flex flex-col relative overflow-x-hidden border-x border-slate-800/20">
+
+    <!-- Top App Header (UArizona Blue & Cardinal Red Accent) -->
+    <header class="bg-uablue text-white sticky top-0 z-30 shadow-md border-b-4 border-uared">
+      <div class="px-4 pt-3 pb-2.5 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-uared flex items-center justify-center font-extrabold text-white shadow-inner border border-white/20 text-sm tracking-tighter">
+            UA
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <h1 class="font-extrabold text-sm tracking-tight leading-none">UArizona PA '27</h1>
+              <span class="text-[10px] bg-white/15 px-1.5 py-0.5 rounded font-semibold uppercase tracking-wider text-sky-200">PWA</span>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-0.5">Fall 2027 Pre-Matriculation Companion</p>
+          </div>
+        </div>
+
+        <!-- Install / Backup Buttons -->
+        <div class="flex items-center space-x-1.5">
+          <button onclick="openModal('pwaModal')" class="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 active:scale-95 transition text-xs font-semibold flex items-center space-x-1 border border-white/15" title="Install on Phone">
+            <i class="fa-solid fa-mobile-screen-button text-sky-300"></i>
+            <span>Install</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Metrics Ribbon (Streak, 70% Pass Threshold Monitor, Cards Due) -->
+      <div class="bg-uablue-dark/90 px-4 py-2 grid grid-cols-3 gap-2 text-center border-t border-white/10">
+        <!-- Daily Streak -->
+        <div class="bg-white/5 rounded-lg py-1 px-2 flex flex-col items-center justify-center">
+          <div class="flex items-center space-x-1 text-amber-400 font-bold text-xs">
+            <i class="fa-solid fa-fire"></i>
+            <span id="headerStreak">0</span>
+            <span>Day Streak</span>
+          </div>
+          <span class="text-[10px] text-slate-300" id="headerTodayStatus">0/10 today</span>
+        </div>
+
+        <!-- UArizona 70.0% No-Rounding Benchmark -->
+        <div class="bg-white/5 rounded-lg py-1 px-2 flex flex-col items-center justify-center">
+          <div class="flex items-center space-x-1 font-bold text-xs" id="headerAccuracyColor">
+            <i class="fa-solid fa-chart-line"></i>
+            <span id="headerAccuracy">--%</span>
+          </div>
+          <span class="text-[10px] text-slate-300">Min Pass: 70.0%</span>
+        </div>
+
+        <!-- Mastered & Custom Cards -->
+        <div class="bg-white/5 rounded-lg py-1 px-2 flex flex-col items-center justify-center">
+          <div class="flex items-center space-x-1 text-emerald-400 font-bold text-xs">
+            <i class="fa-solid fa-layer-group"></i>
+            <span id="headerDeckCount">28</span>
+            <span>Cards</span>
+          </div>
+          <span class="text-[10px] text-slate-300" id="headerMasteredCount">0 Mastered</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Toast Notification Banner -->
+    <div id="toastBanner" class="fixed top-28 left-1/2 -translate-x-1/2 z-50 hidden max-w-xs w-11/12 bg-slate-900 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-xl border border-slate-700 flex items-center space-x-2 transition-all">
+      <i class="fa-solid fa-circle-check text-emerald-400"></i>
+      <span id="toastMessage">Saved!</span>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 px-3.5 pt-3.5 safe-bottom overflow-y-auto">
+
+      <!-- ========================================== -->
+      <!-- VIEW 1: 4-PHASE STUDY PLAN & ROADMAP       -->
+      <!-- ========================================== -->
+      <section id="view-phases" class="space-y-4">
+        <!-- Hero Banner -->
+        <div class="bg-gradient-to-br from-uablue to-uablue-light text-white rounded-2xl p-4 shadow-md relative overflow-hidden">
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] uppercase tracking-wider font-bold bg-uared px-2 py-0.5 rounded-full">10-Month Roadmap</span>
+              <span class="text-[11px] text-sky-200 font-medium"><i class="fa-regular fa-calendar mr-1"></i>Nov 2026 – Aug 2027</span>
+            </div>
+            <h2 class="text-base font-extrabold mt-1">UArizona Fall I Readiness Plan</h2>
+            <p class="text-xs text-slate-200 mt-1 leading-relaxed">
+              Designed for your 20-credit Fall I load (<span class="font-semibold text-white">PAP 601, PAP 611, PAP 621, SPAN 661</span>). Build your daily recall habit now without burning out before August orientation.
+            </p>
+            <!-- Overall Progress Bar -->
+            <div class="mt-3 bg-white/10 rounded-xl p-2.5 backdrop-blur-sm">
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span>Milestone Completion</span>
+                <span id="overallRoadmapPct">0%</span>
+              </div>
+              <div class="w-full h-2 bg-slate-900/50 rounded-full overflow-hidden">
+                <div id="overallRoadmapBar" class="h-full bg-emerald-400 transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Daily 10 CTA Card -->
+        <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-11 h-11 rounded-xl bg-uared/10 text-uared flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-slate-800">Morning "Daily 10" Quiz</h3>
+              <p class="text-xs text-slate-500" id="dailyQuizSubtext">Keep your 15-min morning active recall streak alive</p>
+            </div>
+          </div>
+          <button onclick="startPhaseQuiz('daily10')" class="bg-uared hover:bg-uared-dark active:scale-95 transition text-white text-xs font-bold px-3.5 py-2.5 rounded-xl shadow-sm flex items-center space-x-1.5 shrink-0">
+            <span>Start</span>
+            <i class="fa-solid fa-play text-[10px]"></i>
+          </button>
+        </div>
+
+        <!-- Dynamic 4 Phases Container -->
+        <div id="phasesContainer" class="space-y-3.5"></div>
+      </section>
+
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: DAILY QUIZ ENGINE                  -->
+      <!-- ========================================== -->
+      <section id="view-quiz" class="hidden space-y-3.5">
+        <!-- Filter Bar -->
+        <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              <i class="fa-solid fa-sliders text-uablue mr-1"></i>Select Study Deck
+            </span>
+            <span id="quizSessionCounter" class="text-xs font-bold text-uared bg-uared/10 px-2 py-0.5 rounded-full">Card 1 of 10</span>
+          </div>
+          <div class="flex space-x-1.5 overflow-x-auto pb-1" id="quizFilterPills">
+            <button onclick="setQuizFilter('daily10')" data-filter="daily10" class="quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-uablue text-white">🔥 Daily 10 Mix</button>
+            <button onclick="setQuizFilter('phase1')" data-filter="phase1" class="quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700">Phase 1: Term & Span</button>
+            <button onclick="setQuizFilter('phase2')" data-filter="phase2" class="quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700">Phase 2: Physio</button>
+            <button onclick="setQuizFilter('phase3')" data-filter="phase3" class="quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700">Phase 3: Pharm & H&P</button>
+            <button onclick="setQuizFilter('phase4')" data-filter="phase4" class="quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700">Phase 4: Admin/HIPAA</button>
+            <button onclick="setQuizFilter('weak')" data-filter="weak" class="quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700">⚠️ Weak Spots</button>
+          </div>
+        </div>
+
+        <!-- UArizona 70% Threshold Live Gauge -->
+        <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-bold text-slate-600">Session Score (UArizona 70.0% No-Rounding Rule)</span>
+            <div class="w-48 sm:w-56 h-2 bg-slate-100 rounded-full mt-1 overflow-hidden relative">
+              <!-- 70% marker line -->
+              <div class="absolute top-0 bottom-0 left-[70%] w-0.5 bg-slate-800 z-10" title="70% Minimum Passing Line"></div>
+              <div id="sessionScoreBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="text-right">
+            <span id="sessionScoreText" class="text-sm font-extrabold text-slate-800">0/0 (--)</span>
+            <p id="sessionPassBadge" class="text-[10px] font-semibold text-slate-400">Target: ≥70.0%</p>
+          </div>
+        </div>
+
+        <!-- Active Quiz Card -->
+        <div id="quizCardBox" class="bg-white rounded-2xl p-4 shadow-md border border-slate-200 space-y-4">
+          <!-- Course & Phase Metadata Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-1.5">
+              <span id="qPhaseBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-uablue/10 text-uablue">Phase 1</span>
+              <span id="qCourseBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-uared/10 text-uared">SPAN 661</span>
+            </div>
+            <!-- Audio button for Spanish / Pronunciation -->
+            <button id="qAudioBtn" onclick="speakCurrentQuestion()" class="hidden text-xs font-bold text-uablue bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg flex items-center space-x-1 active:scale-95 transition">
+              <i class="fa-solid fa-volume-high text-uared"></i>
+              <span>Listen in Spanish</span>
+            </button>
+          </div>
+
+          <!-- Question Prompt -->
+          <h3 id="qPromptText" class="text-base font-bold text-slate-900 leading-snug">
+            Loading question...
+          </h3>
+
+          <!-- 4 Options List -->
+          <div id="qOptionsList" class="space-y-2.5"></div>
+
+          <!-- Clinical Pearl & Spaced Repetition Footer (Revealed on Answer) -->
+          <div id="qFeedbackBox" class="hidden pt-3 border-t border-slate-200 space-y-3">
+            <div id="qPearlBanner" class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs leading-relaxed text-slate-700">
+              <div class="font-bold text-uablue mb-1 flex items-center space-x-1">
+                <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                <span>UArizona Clinical Pearl:</span>
+              </div>
+              <p id="qPearlText"></p>
+            </div>
+
+            <!-- Spaced Repetition Confidence Buttons -->
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 text-center mb-1.5">
+                Rate difficulty to schedule next review & advance:
+              </p>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="rateCardAndNext('again')" class="py-2 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-bold text-xs flex flex-col items-center active:scale-95 transition">
+                  <span>Again</span>
+                  <span class="text-[10px] font-normal text-rose-500">1 Day (Weak)</span>
+                </button>
+                <button onclick="rateCardAndNext('good')" class="py-2 px-2 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-sky-700 font-bold text-xs flex flex-col items-center active:scale-95 transition">
+                  <span>Good</span>
+                  <span class="text-[10px] font-normal text-sky-500">3 Days</span>
+                </button>
+                <button onclick="rateCardAndNext('easy')" class="py-2 px-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 font-bold text-xs flex flex-col items-center active:scale-95 transition">
+                  <span>Easy</span>
+                  <span class="text-[10px] font-normal text-emerald-500">7 Days (Mastered)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ========================================== -->
+      <!-- VIEW 3: CARD CREATOR & 3-BULLET LAB        -->
+      <!-- ========================================== -->
+      <section id="view-lab" class="hidden space-y-4">
+        <!-- Sub-Tab Switcher -->
+        <div class="grid grid-cols-2 gap-2 bg-slate-200/80 p-1 rounded-xl">
+          <button id="subtab-addcard" onclick="switchLabSubtab('addcard')" class="py-2 rounded-lg text-xs font-bold bg-white text-uablue shadow-sm transition">
+            <i class="fa-solid fa-plus-circle mr-1"></i>Add Quiz Card
+          </button>
+          <button id="subtab-pathway" onclick="switchLabSubtab('pathway')" class="py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">
+            <i class="fa-solid fa-list-ol mr-1"></i>3-Bullet Pathways
+          </button>
+        </div>
+
+        <!-- SUB-VIEW 3A: Custom Card Creator (Phase 2 Milestone: Add 10 cards/day) -->
+        <div id="lab-addcard-panel" class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800">Add Custom Study Card</h3>
+              <p class="text-[11px] text-slate-500">Supports Phase 2 Habit: Add cards from Costanzo or Spanish</p>
+            </div>
+            <span class="text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md">Saved Offline</span>
+          </div>
+
+          <form id="customCardForm" onsubmit="handleCreateCard(event)" class="space-y-3 text-xs">
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Roadmap Phase</label>
+                <select id="newCardPhase" class="w-full rounded-xl border border-slate-300 px-2.5 py-2 bg-slate-50 font-medium focus:outline-none focus:border-uablue">
+                  <option value="phase1">Phase 1 (Nov–Jan)</option>
+                  <option value="phase2">Phase 2 (Feb–Apr)</option>
+                  <option value="phase3">Phase 3 (May–Jun)</option>
+                  <option value="phase4">Phase 4 (Jul–Aug)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">UArizona Course</label>
+                <select id="newCardCourse" class="w-full rounded-xl border border-slate-300 px-2.5 py-2 bg-slate-50 font-medium focus:outline-none focus:border-uablue">
+                  <option value="SPAN 661">SPAN 661 (Med Spanish)</option>
+                  <option value="PAP 601">PAP 601 (Physiology)</option>
+                  <option value="PAP 611">PAP 611 (Pharm/Clin Med)</option>
+                  <option value="PAP 621">PAP 621 (Clin Skills/H&P)</option>
+                  <option value="EDGE / Admin">UAccess EDGE / Admin</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Question Prompt</label>
+              <textarea id="newCardPrompt" required rows="2" placeholder="e.g., How do you ask 'Does the pain radiate anywhere?' in Medical Spanish?" class="w-full rounded-xl border border-slate-300 p-2.5 bg-slate-50 focus:outline-none focus:border-uablue"></textarea>
+            </div>
+
+            <div class="space-y-2">
+              <label class="block font-semibold text-slate-700">Answer Choices (Mark Correct Option)</label>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="correctOpt" value="0" checked class="accent-uared w-4 h-4" />
+                <input type="text" id="opt0" required placeholder="Option A (Default Correct)" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="correctOpt" value="1" class="accent-uared w-4 h-4" />
+                <input type="text" id="opt1" required placeholder="Option B" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="correctOpt" value="2" class="accent-uared w-4 h-4" />
+                <input type="text" id="opt2" required placeholder="Option C" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+              <div class="flex items-center space-x-2">
+                <input type="radio" name="correctOpt" value="3" class="accent-uared w-4 h-4" />
+                <input type="text" id="opt3" required placeholder="Option D" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">1-Sentence Clinical Pearl</label>
+              <input type="text" id="newCardPearl" required placeholder="Why is the right answer right and others wrong?" class="w-full rounded-xl border border-slate-300 px-2.5 py-2 bg-slate-50 focus:outline-none focus:border-uablue" />
+            </div>
+
+            <button type="submit" class="w-full py-2.5 rounded-xl bg-uablue hover:bg-uablue-light text-white font-bold shadow-sm active:scale-95 transition">
+              <i class="fa-solid fa-plus mr-1"></i>Save Card to My Quiz Deck
+            </button>
+          </form>
+
+          <!-- Deck Export / Import Backup Controls -->
+          <div class="pt-3 border-t border-slate-200 flex items-center justify-between gap-2">
+            <button onclick="exportStudyData()" class="flex-1 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-center space-x-1.5">
+              <i class="fa-solid fa-download"></i>
+              <span>Export Backup JSON</span>
+            </button>
+            <label class="flex-1 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-center space-x-1.5 cursor-pointer">
+              <i class="fa-solid fa-upload"></i>
+              <span>Import JSON</span>
+              <input type="file" accept=".json" onchange="importStudyData(event)" class="hidden" />
+            </label>
+          </div>
+        </div>
+
+        <!-- SUB-VIEW 3B: 3-Bullet Pathway Summarizer (Phase 2 Milestone) -->
+        <div id="lab-pathway-panel" class="hidden space-y-3.5">
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-uablue/10 text-uablue">Phase 2 Milestone Tool</span>
+              <h3 class="text-sm font-bold text-slate-800 mt-1">3-Bullet Physiology Pathway Summarizer</h3>
+              <p class="text-xs text-slate-500">
+                Practice condensing complex cardiopulmonary, renal, or autonomic mechanisms into 3 high-yield bullets (Trigger → Cascade → End-Organ Effect).
+              </p>
+            </div>
+
+            <form onsubmit="handleSavePathway(event)" class="space-y-2.5 text-xs">
+              <input type="text" id="pwTitle" required placeholder="Pathway Name (e.g., RAAS Cascade, Bohr Effect, Frank-Starling)" class="w-full rounded-xl border border-slate-300 px-3 py-2 font-semibold bg-slate-50" />
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded-full bg-uablue text-white font-bold flex items-center justify-center shrink-0">1</span>
+                <input type="text" id="pwBullet1" required placeholder="Trigger / Stimulus (e.g., ↓ Renal perfusion / ↓ NaCl at macula densa)" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded-full bg-uablue text-white font-bold flex items-center justify-center shrink-0">2</span>
+                <input type="text" id="pwBullet2" required placeholder="Mechanism / Conversion (e.g., Renin → Ang I → ACE in lungs → Ang II)" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-5 h-5 rounded-full bg-uared text-white font-bold flex items-center justify-center shrink-0">3</span>
+                <input type="text" id="pwBullet3" required placeholder="Clinical Effect (e.g., Efferent constriction + Aldosterone ↑ Na/H2O retention)" class="flex-1 rounded-xl border border-slate-300 px-2.5 py-1.5 bg-slate-50" />
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-uared hover:bg-uared-dark text-white font-bold shadow-sm active:scale-95 transition">
+                Save 3-Bullet Summary
+              </button>
+            </form>
+          </div>
+
+          <!-- Saved Pathways List -->
+          <div id="savedPathwaysList" class="space-y-2.5"></div>
+        </div>
+      </section>
+
+
+      <!-- ========================================== -->
+      <!-- VIEW 4: UARIZONA ADMIN & COMPLIANCE        -->
+      <!-- ========================================== -->
+      <section id="view-checklist" class="hidden space-y-3.5">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-sm font-extrabold text-uablue">UArizona PA Onboarding & Compliance</h2>
+              <p class="text-xs text-slate-500">Track mandatory requirements before Fall 2027 orientation</p>
+            </div>
+            <span id="checklistCountBadge" class="text-xs font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-xl">0/8 Done</span>
+          </div>
+        </div>
+
+        <div id="adminChecklistContainer" class="space-y-2.5"></div>
+      </section>
+
+    </main>
+
+    <!-- PERSISTENT MOBILE BOTTOM NAVIGATION BAR -->
+    <nav class="fixed bottom-0 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-1.5 grid grid-cols-4 gap-1 z-30 shadow-lg">
+      <button onclick="switchTab('phases')" id="nav-phases" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl text-uared font-bold transition">
+        <i class="fa-solid fa-map-location-dot text-base mb-0.5"></i>
+        <span class="text-[10px]">4 Phases</span>
+      </button>
+      <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-semibold hover:text-slate-700 transition">
+        <i class="fa-solid fa-brain text-base mb-0.5"></i>
+        <span class="text-[10px]">Daily Quiz</span>
+      </button>
+      <button onclick="switchTab('lab')" id="nav-lab" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-semibold hover:text-slate-700 transition">
+        <i class="fa-solid fa-Square-plus fa-square-plus text-base mb-0.5"></i>
+        <span class="text-[10px]">Deck & Lab</span>
+      </button>
+      <button onclick="switchTab('checklist')" id="nav-checklist" class="nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-semibold hover:text-slate-700 transition">
+        <i class="fa-solid fa-clipboard-check text-base mb-0.5"></i>
+        <span class="text-[10px]">UA Admin</span>
+      </button>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- MODAL: HOW TO INSTALL PWA ON PHONE         -->
+    <!-- ========================================== -->
+    <div id="pwaModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-4 animate-fade-in">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-uablue text-white flex items-center justify-center font-bold">
+              <i class="fa-solid fa-mobile-screen"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-extrabold text-slate-800">Install as Phone App ($0 PWA)</h3>
+              <p class="text-[11px] text-slate-500">Works offline • Zero App Store fees</p>
+            </div>
+          </div>
+          <button onclick="closeModal('pwaModal')" class="text-slate-400 hover:text-slate-600 p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 text-xs text-slate-600 leading-relaxed">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-bold text-slate-800 mb-1"><i class="fa-brands fa-apple mr-1 text-slate-900"></i>On iPhone (Safari):</p>
+            <p>1. Host this file free on <span class="font-semibold">Vercel</span> or <span class="font-semibold">GitHub Pages</span>.<br>
+               2. Open the URL in <span class="font-semibold">Safari</span>, tap <span class="font-semibold">Share</span> <i class="fa-solid fa-arrow-up-from-bracket"></i>, then tap <span class="font-semibold">"Add to Home Screen"</span>.</p>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-bold text-slate-800 mb-1"><i class="fa-brands fa-android mr-1 text-emerald-600"></i>On Android (Chrome):</p>
+            <p>1. Open your hosted URL in <span class="font-semibold">Chrome</span>.<br>
+               2. Tap the <span class="font-semibold">three dots (⋮)</span> in the top-right and select <span class="font-semibold">"Add to Home screen / Install app"</span>.</p>
+          </div>
+        </div>
+
+        <div class="pt-1 flex space-x-2">
+          <button onclick="downloadManifestFile()" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center space-x-1.5">
+            <i class="fa-solid fa-file-code text-uablue"></i>
+            <span>Get manifest.json</span>
+          </button>
+          <button onclick="closeModal('pwaModal')" class="flex-1 py-2.5 px-3 rounded-xl bg-uablue text-white font-bold text-xs">
+            Got It
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- APPLICATION LOGIC, PRE-LOADED UARIZONA DECK & STATE       -->
+  <!-- ========================================================= -->
+  <script>
+    /*************************************************************
+     * 1. EXACT 4-PHASE ROADMAP DATA (AS SPECIFIED BY USER)
+     *************************************************************/
+    const ROADMAP_PHASES = [
+      {
+        id: 'phase1',
+        badge: 'Phase 1',
+        title: 'Foundation & Tool Setup',
+        timeline: 'Nov 2026 – Jan 2027',
+        hours: '3–4 hrs/week',
+        focusTitle: 'Medical Terminology & Spanish Roots',
+        focusDesc: 'Master Greek/Latin roots and basic conversational Spanish grammar.',
+        milestoneDesc: 'Build or configure your Daily Quiz Phone App; establish a 15-minute daily morning quiz streak.',
+        courses: ['SPAN 661', 'PAP 601 Intro'],
+        accent: 'border-l-4 border-l-uablue',
+        tasks: [
+          { id: 'p1_t1', text: 'Configure Daily Quiz Phone App & save to home screen' },
+          { id: 'p1_t2', text: 'Complete first 14-day morning 15-minute quiz streak' },
+          { id: 'p1_t3', text: 'Master 75 Greek/Latin medical prefixes & suffixes (e.g., Brady-, Nephro-, -itis, -ectomy)' },
+          { id: 'p1_t4', text: 'Learn Spanish anatomical nouns & conversational greetings for SPAN 661' }
+        ]
+      },
+      {
+        id: 'phase2',
+        badge: 'Phase 2',
+        title: 'High-Yield Physiology',
+        timeline: 'Feb 2027 – Apr 2027',
+        hours: '4–5 hrs/week',
+        focusTitle: 'Cardiopulmonary & Renal Physiology',
+        focusDesc: 'Deep-dive into ECG basics, cardiac cycle, acid-base balance, and nephron function.',
+        milestoneDesc: 'Add 10 cards/day to your app; practice summarizing complex pathways in 3 bullet points.',
+        courses: ['PAP 601', 'PAP 611 Foundations'],
+        accent: 'border-l-4 border-l-uared',
+        tasks: [
+          { id: 'p2_t1', text: 'Master normal Wiggers cardiac cycle & 12-lead ECG intervals (PR, QRS, QT)' },
+          { id: 'p2_t2', text: 'Summarize RAAS & nephron segment reabsorption in 3 bullet points (Deck & Lab tab)' },
+          { id: 'p2_t3', text: 'Master ABG acid-base compensation rules (Winter’s formula & anion gap)' },
+          { id: 'p2_t4', text: 'Add 10 custom physiology quiz cards/day during study blocks' }
+        ]
+      },
+      {
+        id: 'phase3',
+        badge: 'Phase 3',
+        title: 'Pharm & Clinical Intro',
+        timeline: 'May 2027 – Jun 2027',
+        hours: '5–6 hrs/week',
+        focusTitle: 'Autonomic Pharmacology & History Taking',
+        focusDesc: 'Learn drug class suffixes (-pril, -olol, -sartan) and standard H&P/SOAP note structure.',
+        milestoneDesc: 'Test your app\'s mobile workflow on the go; practice speaking Spanish H&P questions aloud.',
+        courses: ['PAP 611', 'PAP 621/622', 'SPAN 662'],
+        accent: 'border-l-4 border-l-sky-600',
+        tasks: [
+          { id: 'p3_t1', text: 'Memorize top 50 drug class suffixes (-pril, -olol, -sartan, -statin, -prazole)' },
+          { id: 'p3_t2', text: 'Master OLDCARTS & complete SOAP note structure for PAP 621' },
+          { id: 'p3_t3', text: 'Practice speaking Spanish H&P pain & symptom questions aloud using audio button' },
+          { id: 'p3_t4', text: 'Test mobile quiz workflow on the go (commutes, waiting in line)' }
+        ]
+      },
+      {
+        id: 'phase4',
+        badge: 'Phase 4',
+        title: 'Admin & Mental Taper',
+        timeline: 'Jul 2027 – Aug 2027',
+        hours: '1–2 hrs/week (Light)',
+        focusTitle: 'Zero Heavy Studying',
+        focusDesc: 'Complete UAccess EDGE trainings (HIPAA/Bloodborne Pathogens) and rest before August orientation.',
+        milestoneDesc: 'Maintain only your 5-minute daily phone quiz streak; finalize laptop and iPad/notetaking workflows.',
+        courses: ['UAccess EDGE', 'Orientation'],
+        accent: 'border-l-4 border-l-emerald-600',
+        tasks: [
+          { id: 'p4_t1', text: 'Complete UAccess EDGE Bloodborne Pathogens & HIPAA modules (30 days prior)' },
+          { id: 'p4_t2', text: 'Organize laptop/iPad folder tree for Fall I (PAP 601, 611, 621, SPAN 661)' },
+          { id: 'p4_t3', text: 'Scale down to 5-minute light daily quiz streak & enjoy rest before August start' }
+        ]
+      }
+    ];
+
+    /*************************************************************
+     * 2. SEEDED QUESTION BANK (MAPPED TO THE 4 PHASES)
+     *************************************************************/
+    const INITIAL_QUESTIONS = [
+      // PHASE 1: Medical Terminology & Spanish Roots
+      {
+        id: 'q1',
+        phase: 'phase1',
+        course: 'SPAN 661',
+        isSpanish: true,
+        spanishAudio: '¿Desde cuándo tiene este dolor en el pecho?',
+        prompt: 'In SPAN 661 (Medical Spanish), what are you asking the patient with: "¿Desde cuándo tiene este dolor en el pecho?"',
+        options: [
+          'How long have you had this chest pain?',
+          'Does the chest pain radiate to your arm?',
+          'Have you taken any medication for the chest pain?',
+          'On a scale of 1 to 10, how severe is your chest pain?'
+        ],
+        answer: 0,
+        pearl: '"¿Desde cuándo...?" translates to "Since when / How long..." which establishes Onset/Duration in an OLDCARTS history.'
+      },
+      {
+        id: 'q2',
+        phase: 'phase1',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'Break down the medical term "Choledocholithiasis": what does this condition specifically describe?',
+        options: [
+          'Presence of gallstones within the common bile duct',
+          'Acute inflammation of the gallbladder wall',
+          'Surgical removal of the hepatic duct',
+          'Fibrotic stricture of the pancreatic sphincter'
+        ],
+        answer: 0,
+        pearl: 'Choledocho- = common bile duct; -lith- = stone; -iasis = condition. Contrast with cholelithiasis (stones in the gallbladder).'
+      },
+      {
+        id: 'q3',
+        phase: 'phase1',
+        course: 'SPAN 661',
+        isSpanish: true,
+        spanishAudio: '¿Es alérgico a algún medicamento como la penicilina?',
+        prompt: 'Which anatomical or clinical question matches: "¿Tiene falta de aire o dificultad para respirar?"',
+        options: [
+          'Do you have shortness of breath or difficulty breathing?',
+          'Do you have a fever or night sweats?',
+          'Have you noticed swelling in your ankles?',
+          'Do you feel dizzy when standing up?'
+        ],
+        answer: 0,
+        pearl: '"Falta de aire" literally means "lack of air" and is the most natural patient-friendly phrase for dyspnea in Spanish.'
+      },
+      {
+        id: 'q4',
+        phase: 'phase1',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'What is the meaning of the Greek root "-penia" in clinical hematology (e.g., thrombocytopenia, neutropenia)?',
+        options: [
+          'Deficiency or abnormal decrease in number',
+          'Malignant proliferation of cells',
+          'Abnormal cell shape or contour',
+          'Destruction by splenic macrophages'
+        ],
+        answer: 0,
+        pearl: '"-penia" indicates poverty/decrease in cell count, whereas "-cytosis" or "-philia" indicates an elevation.'
+      },
+      {
+        id: 'q5',
+        phase: 'phase1',
+        course: 'SPAN 661',
+        isSpanish: true,
+        spanishAudio: 'El hígado y los riñones',
+        prompt: 'In Medical Spanish, what organs are "el hígado" and "los riñones"?',
+        options: [
+          'The liver and the kidneys',
+          'The spleen and the lungs',
+          'The gallbladder and the bladder',
+          'The pancreas and the intestines'
+        ],
+        answer: 0,
+        pearl: 'El hígado = liver (links to hepatic); los riñones = kidneys (links to renal). Essential for explaining lab panels (CMP) in Spanish.'
+      },
+      {
+        id: 'q6',
+        phase: 'phase1',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'Which medical prefix pair correctly contrasts "abnormally slow" versus "abnormally fast"?',
+        options: [
+          'Brady- vs. Tachy-',
+          'Oligo- vs. Poly-',
+          'Hypo- vs. Epi-',
+          'Mal- vs. Eu-'
+        ],
+        answer: 0,
+        pearl: 'Brady- (slow, e.g., bradycardia <60 bpm) and Tachy- (fast, e.g., tachycardia >100 bpm). Oligo-/Poly- refer to volume/quantity.'
+      },
+
+      // PHASE 2: High-Yield Physiology (Cardiopulmonary & Renal)
+      {
+        id: 'q7',
+        phase: 'phase2',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'On a normal 12-lead ECG, what physiological event is represented by the PR interval (normal: 0.12–0.20 sec)?',
+        options: [
+          'Atrial depolarization plus conduction delay through the AV node',
+          'Ventricular depolarization from bundle of His to Purkinje fibers',
+          'Ventricular repolarization during phase 3 of the action potential',
+          'Isovolumetric ventricular contraction after mitral valve closure'
+        ],
+        answer: 0,
+        pearl: 'The PR interval spans from the start of atrial depolarization (P wave) through the physiological AV nodal delay. >0.20s (1 large box) = 1st-degree AV block.'
+      },
+      {
+        id: 'q8',
+        phase: 'phase2',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'During the cardiac cycle, what causes the first heart sound (S1, "lub")?',
+        options: [
+          'Closure of the mitral and tricuspid (AV) valves at the onset of ventricular systole',
+          'Closure of the aortic and pulmonic (semilunar) valves at the end of systole',
+          'Rapid passive filling of the ventricle during early diastole',
+          'Opening of the aortic valve as left ventricular pressure exceeds aortic pressure'
+        ],
+        answer: 0,
+        pearl: 'S1 marks closure of the AV valves (mitral/tricuspid) and the beginning of isovolumetric ventricular contraction.'
+      },
+      {
+        id: 'q9',
+        phase: 'phase2',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'Which segment of the renal nephron is responsible for reabsorbing approximately 65–70% of filtered Na+, water, glucose, and amino acids?',
+        options: [
+          'Proximal convoluted tubule (PCT)',
+          'Thick ascending limb of the Loop of Henle',
+          'Distal convoluted tubule (DCT)',
+          'Cortical collecting duct'
+        ],
+        answer: 0,
+        pearl: 'The PCT is the workhorse of isotonic bulk reabsorption (100% of glucose/amino acids and ~67% of Na+, H2O, K+, HCO3-).'
+      },
+      {
+        id: 'q10',
+        phase: 'phase2',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'A patient presents with Kussmaul respirations. ABG shows: pH 7.24, PaCO2 26 mmHg, HCO3- 11 mEq/L. What is the primary acid-base disorder?',
+        options: [
+          'Metabolic acidosis with respiratory compensation',
+          'Respiratory acidosis with metabolic compensation',
+          'Uncompensated metabolic alkalosis',
+          'Mixed respiratory and metabolic acidosis'
+        ],
+        answer: 0,
+        pearl: 'Low pH (<7.35) = acidosis. Low HCO3- (<22) = primary metabolic acidosis. Low PaCO2 (<35) shows hyperventilation (blowing off CO2) to compensate.'
+      },
+      {
+        id: 'q11',
+        phase: 'phase2',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'In the Renin-Angiotensin-Aldosterone System (RAAS), what is the direct hemodynamic effect of Angiotensin II on the renal efferent arteriole?',
+        options: [
+          'Preferential constriction of the efferent arteriole, increasing GFR',
+          'Preferential dilation of the efferent arteriole, decreasing GFR',
+          'Constriction of the afferent arteriole, shutting down filtration',
+          'Inhibition of aldosterone release from the adrenal zona glomerulosa'
+        ],
+        answer: 0,
+        pearl: 'Angiotensin II preferentially constricts the efferent arteriole ("backs up pressure" in the glomerulus) to preserve GFR during renal hypoperfusion.'
+      },
+      {
+        id: 'q12',
+        phase: 'phase2',
+        course: 'PAP 601',
+        isSpanish: false,
+        prompt: 'Which physiological factor shifts the oxygen-hemoglobin dissociation curve to the RIGHT (facilitating O2 unloading to tissues)?',
+        options: [
+          'Increased H+ (decreased pH), increased PaCO2, increased 2,3-BPG, and increased temperature',
+          'Decreased temperature, decreased PaCO2, and alkalosis',
+          'Fetal hemoglobin (HbF) and carbon monoxide poisoning',
+          'Decreased 2,3-BPG in stored bank blood'
+        ],
+        answer: 0,
+        pearl: 'Mnemonic "CADET, face RIGHT!": CO2, Acid, 2,3-DPG (BPG), Exercise, Temperature all shift the curve right to unload O2 to working tissues.'
+      },
+
+      // PHASE 3: Pharm Suffixes & Clinical History Taking (H&P)
+      {
+        id: 'q13',
+        phase: 'phase3',
+        course: 'PAP 611',
+        isSpanish: false,
+        prompt: 'Medications ending in the suffix "-pril" (e.g., lisinopril, enalapril) belong to which pharmacological class and carry which classic side effect?',
+        options: [
+          'ACE inhibitors; dry hacking cough and angioedema due to increased bradykinin',
+          'Angiotensin II receptor blockers (ARBs); hypercalcemia',
+          'Cardioselective Beta-1 blockers; reflex tachycardia',
+          'Loop diuretics; ototoxicity and hyperkalemia'
+        ],
+        answer: 0,
+        pearl: 'ACE inhibitors (-pril) block conversion of Ang I to Ang II and inhibit bradykinin breakdown; excess bradykinin causes dry cough and angioedema.'
+      },
+      {
+        id: 'q14',
+        phase: 'phase3',
+        course: 'PAP 611',
+        isSpanish: false,
+        prompt: 'Why should non-selective beta-blockers (e.g., propranolol) be avoided in patients with severe asthma or COPD?',
+        options: [
+          'Blockade of Beta-2 receptors in bronchial smooth muscle causes bronchoconstriction',
+          'Stimulation of Alpha-1 receptors triggers pulmonary edema',
+          'Blockade of Beta-1 receptors increases airway mucus secretion',
+          'Inhibition of muscarinic M3 receptors paralyzes respiratory cilia'
+        ],
+        answer: 0,
+        pearl: 'Beta-1 = Heart (1 heart); Beta-2 = Lungs (2 lungs). Blocking Beta-2 prevents bronchodilation and can precipitate life-threatening bronchospasm.'
+      },
+      {
+        id: 'q15',
+        phase: 'phase3',
+        course: 'PAP 611',
+        isSpanish: false,
+        prompt: 'What is the mechanism of action for medications ending in "-sartan" (e.g., losartan, valsartan)?',
+        options: [
+          'Competitive blockade of Angiotensin II Type 1 (AT1) receptors',
+          'Direct inhibition of renin release from juxtaglomerular cells',
+          'Blockade of L-type voltage-gated calcium channels in vascular smooth muscle',
+          'Inhibition of HMG-CoA reductase in hepatocytes'
+        ],
+        answer: 0,
+        pearl: 'ARBs (-sartan) directly block AT1 receptors without affecting bradykinin breakdown—making them the go-to alternative for patients with an ACEi cough.'
+      },
+      {
+        id: 'q16',
+        phase: 'phase3',
+        course: 'PAP 621',
+        isSpanish: false,
+        prompt: 'When writing a formal SOAP note in PAP 621, where do physical exam findings, vital signs, and point-of-care lab results belong?',
+        options: [
+          'Objective (O)',
+          'Subjective (S)',
+          'Assessment (A)',
+          'Plan (P)'
+        ],
+        answer: 0,
+        pearl: 'Subjective = patient’s story (CC, HPI, ROS); Objective = measurable clinician findings (Vitals, PE, Labs/Imaging). Never put PE findings in ROS!'
+      },
+      {
+        id: 'q17',
+        phase: 'phase3',
+        course: 'SPAN 662',
+        isSpanish: true,
+        spanishAudio: '¿El dolor se corre hacia el brazo izquierdo, la espalda o la mandíbula?',
+        prompt: 'During a Spanish H&P interview, what OLDCARTS element are you assessing with: "¿El dolor se corre hacia el brazo izquierdo, la espalda o la mandíbula?"',
+        options: [
+          'Radiation (Does the pain radiate to the left arm, back, or jaw?)',
+          'Relieving factors (Does resting relieve the pain in your chest?)',
+          'Character (Is the pain sharp, dull, or burning?)',
+          'Timing (Does the pain occur only after eating fatty meals?)'
+        ],
+        answer: 0,
+        pearl: '"¿Se corre el dolor...?" or "¿Se irradia el dolor...?" asks about Radiation—critical when evaluating acute coronary syndrome.'
+      },
+      {
+        id: 'q18',
+        phase: 'phase3',
+        course: 'PAP 611',
+        isSpanish: false,
+        prompt: 'Which autonomic receptor is stimulated by Albuterol to produce rapid bronchodilation during an acute asthma exacerbation?',
+        options: [
+          'Beta-2 adrenergic receptor (Gs coupled -> increases cAMP)',
+          'Alpha-1 adrenergic receptor (Gq coupled -> increases IP3/DAG)',
+          'Muscarinic M3 receptor (Gq coupled -> bronchoconstriction)',
+          'Beta-1 adrenergic receptor (Gs coupled -> increases SA nodal rate)'
+        ],
+        answer: 0,
+        pearl: 'Albuterol is a Short-Acting Beta-2 Agonist (SABA) that relaxes bronchial smooth muscle via Gs-mediated elevation of intracellular cAMP.'
+      },
+
+      // PHASE 4: Admin, HIPAA, Bloodborne Pathogens & Grading Policy
+      {
+        id: 'q19',
+        phase: 'phase4',
+        course: 'EDGE / Admin',
+        isSpanish: false,
+        prompt: 'Under the University of Arizona PA Program progression policy, a student earns a final course grade of 69.8% in PAP 611. How is this scored?',
+        options: [
+          'Failing (<70.0%), because UArizona PA strictly enforces a 70% threshold with NO rounding',
+          'Passing (rounded up to 70% C grade)',
+          'Conditional pass requiring only a 1-page reflection paper',
+          'Automatically converted to Pass/Fail audit status'
+        ],
+        answer: 0,
+        pearl: 'UArizona PA enforces a strict 70.0% minimum pass standard with zero mathematical rounding (69.8% does not round to 70%).'
+      },
+      {
+        id: 'q20',
+        phase: 'phase4',
+        course: 'EDGE / Admin',
+        isSpanish: false,
+        prompt: 'In your UAccess EDGE Bloodborne Pathogens training, what is the immediate first step following an accidental needlestick injury in clinic?',
+        options: [
+          'Wash the exposed site immediately with soap and running water (or flush mucous membranes with water)',
+          'Squeeze and "milk" the wound aggressively with bleach solution',
+          'Wait until the end of the shift before notifying your clinical preceptor',
+          'Recap the used needle using a two-handed technique before disposal'
+        ],
+        answer: 0,
+        pearl: 'Immediately wash needlesticks/cuts with soap and water (flush eyes/mucous membranes with water), then report immediately to your supervisor for PEP evaluation.'
+      },
+      {
+        id: 'q21',
+        phase: 'phase4',
+        course: 'EDGE / Admin',
+        isSpanish: false,
+        prompt: 'Under the HIPAA Privacy Rule ("Minimum Necessary" standard), which action by a PA student is a direct HIPAA violation?',
+        options: [
+          'Looking up the EHR chart of a curious celebrity or family member not under your care',
+          'Discussing a patient’s differential diagnosis directly with your supervising preceptor',
+          'Using a secure hospital interpreter phone for a Spanish-speaking patient',
+          'Logging off the EHR workstation before stepping away from the exam room'
+        ],
+        answer: 0,
+        pearl: 'Accessing Protected Health Information (PHI) without a direct treatment/educational role for that specific patient is an immediate HIPAA breach.'
+      },
+      {
+        id: 'q22',
+        phase: 'phase4',
+        course: 'EDGE / Admin',
+        isSpanish: false,
+        prompt: 'When applying for your mandatory Arizona Fingerprint Clearance Card (AZFCC) for the UArizona PA program, which card type and statute code must you select?',
+        options: [
+          'NON-IVP card under Health Science Student & Clinical Assistant (ARS 15-1881)',
+          'IVP Public School Teacher card (ARS 15-534)',
+          'Commercial Real Estate License card',
+          'Federal Aviation Administration clearance card'
+        ],
+        answer: 0,
+        pearl: 'Health Professions students at UArizona require the NON-IVP AZFCC under ARS Code 15-1881 via the AZ Department of Public Safety portal.'
+      }
+    ];
+
+    /*************************************************************
+     * 3. ADMIN CHECKLIST ITEMS & DEFAULT 3-BULLET PATHWAYS
+     *************************************************************/
+    const ADMIN_CHECKLIST = [
+      { id: 'adm1', cat: 'UArizona Compliance', title: 'Obtain Arizona Fingerprint Clearance Card (AZFCC)', sub: 'Apply via AZ DPS portal • Select NON-IVP under ARS Code 15-1881' },
+      { id: 'adm2', cat: 'UArizona Compliance', title: 'Upload Expanded Immunizations to UA Campus Health', sub: 'Verify Hep B surface antibody titer, MMR, Varicella, Tdap, and 2-step TB skin/IGRA test' },
+      { id: 'adm3', cat: 'UArizona Compliance', title: 'Complete UAccess EDGE Learning Modules (Jul 2027)', sub: 'HIPAA Privacy & Security + OSHA Bloodborne Pathogens (opens 30 days prior)' },
+      { id: 'adm4', cat: 'UArizona Compliance', title: 'Complete Urine Drug Screen & Criminal Background Check', sub: 'Wait for official UArizona PA Admissions instructions for approved vendor' },
+      { id: 'adm5', cat: 'Tech & Study Systems', title: 'Install this Daily Quiz PWA onto Phone Home Screen', sub: 'Establish 15-minute morning active recall routine before breakfast' },
+      { id: 'adm6', cat: 'Tech & Study Systems', title: 'Set up Fall I Digital Folder Architecture on Laptop/iPad', sub: 'Create folders for PAP 601, PAP 611, PAP 621/622, SPAN 661/662, PAP 631, PAP 641, PAP 651' }
+    ];
+
+    const DEFAULT_PATHWAYS = [
+      {
+        id: 'pw1',
+        title: 'RAAS Cascade (PAP 601 Renal/Cardio)',
+        b1: 'Trigger: ↓ Renal perfusion pressure (JG cells) or ↓ NaCl delivery to macula densa releases Renin.',
+        b2: 'Cascade: Renin cleaves Angiotensinogen → Ang I; ACE (lung endothelium) converts Ang I → Ang II.',
+        b3: 'Effects: Ang II constricts efferent arteriole (preserves GFR), stimulates Aldosterone (↑ Na+/H2O reabsorption, ↑ K+/H+ secretion), and ADH.'
+      },
+      {
+        id: 'pw2',
+        title: 'Frank-Starling Law of the Heart (PAP 601)',
+        b1: 'Trigger: ↑ Venous return increases Left Ventricular End-Diastolic Volume (LVEDV / Preload).',
+        b2: 'Mechanism: Sarcomeres stretch toward optimal actin-myosin overlap (~2.2 μm) and ↑ troponin C Ca2+ sensitivity.',
+        b3: 'Effects: ↑ Stroke Volume (SV) and Cardiac Output proportionally up to the physiological plateau (fails in decompensated HF).'
+      }
+    ];
+
+    /*************************************************************
+     * 4. LOCALSTORAGE STATE ENGINE
+     *************************************************************/
+    const STORAGE_KEY = 'uarizona_pa2027_pwa_v1';
+
+    let appState = {
+      streak: 1,
+      lastStudyDate: new Date().toISOString().slice(0, 10),
+      todayAnswered: 0,
+      totalAnswered: 0,
+      totalCorrect: 0,
+      completedTasks: {},      // roadmap milestone checkboxes
+      completedAdmin: {},      // admin checklist checkboxes
+      cardStats: {},           // { [cardId]: { status: 'mastered'|'weak'|'learning', nextDue: timestamp } }
+      customCards: [],         // user-added cards
+      pathways: DEFAULT_PATHWAYS
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState = { ...appState, ...parsed };
+        }
+        // Check day rollover for streak
+        const today = new Date().toISOString().slice(0, 10);
+        if (appState.lastStudyDate !== today) {
+          const lastDate = new Date(appState.lastStudyDate);
+          const currDate = new Date(today);
+          const diffDays = Math.round((currDate - lastDate) / (1000 * 60 * 60 * 24));
+          if (diffDays > 1 && appState.todayAnswered === 0) {
+            appState.streak = 0;
+          }
+          appState.todayAnswered = 0;
+          appState.lastStudyDate = today;
+          saveState();
+        }
+      } catch (err) {
+        console.error('Error loading state:', err);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (err) {
+        console.error('Error saving state:', err);
+      }
+      updateHeaderMetrics();
+    }
+
+    function getAllCards() {
+      return [...INITIAL_QUESTIONS, ...(appState.customCards || [])];
+    }
+
+    /*************************************************************
+     * 5. UI RENDERERS: HEADER, PHASES, QUIZ, LAB, CHECKLIST
+     *************************************************************/
+    function updateHeaderMetrics() {
+      const allCards = getAllCards();
+      const masteredCount = Object.values(appState.cardStats).filter(s => s.status === 'mastered').length;
+
+      document.getElementById('headerStreak').textContent = appState.streak;
+      document.getElementById('headerTodayStatus').textContent = `${appState.todayAnswered}/10 today`;
+      document.getElementById('headerDeckCount').textContent = allCards.length;
+      document.getElementById('headerMasteredCount').textContent = `${masteredCount} Mastered`;
+
+      const accEl = document.getElementById('headerAccuracy');
+      const accWrap = document.getElementById('headerAccuracyColor');
+      if (appState.totalAnswered === 0) {
+        accEl.textContent = '--%';
+        accWrap.className = 'flex items-center space-x-1 font-bold text-xs text-sky-300';
+      } else {
+        const pct = ((appState.totalCorrect / appState.totalAnswered) * 100).toFixed(1);
+        accEl.textContent = `${pct}%`;
+        if (parseFloat(pct) >= 70.0) {
+          accWrap.className = 'flex items-center space-x-1 font-bold text-xs text-emerald-400';
+        } else {
+          accWrap.className = 'flex items-center space-x-1 font-bold text-xs text-rose-400';
+        }
+      }
+    }
+
+    function renderPhasesView() {
+      const container = document.getElementById('phasesContainer');
+      let totalTasks = 0;
+      let doneTasks = 0;
+
+      const html = ROADMAP_PHASES.map(phase => {
+        const phaseTotal = phase.tasks.length;
+        const phaseDone = phase.tasks.filter(t => appState.completedTasks[t.id]).length;
+        totalTasks += phaseTotal;
+        doneTasks += phaseDone;
+
+        return `
+          <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 ${phase.accent} space-y-3">
+            <!-- Phase Top Row -->
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center space-x-1.5">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-uablue text-white">${phase.badge}</span>
+                  <span class="text-xs font-bold text-uared">${phase.timeline}</span>
+                </div>
+                <h3 class="text-sm font-extrabold text-slate-900 mt-1">${phase.title}</h3>
+              </div>
+              <span class="shrink-0 text-[11px] font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200">
+                <i class="fa-regular fa-clock mr-1 text-uablue"></i>${phase.hours}
+              </span>
+            </div>
+
+            <!-- Academic Focus & Tech/Habit Milestones (Exact User Table Content) -->
+            <div class="grid grid-cols-1 gap-2 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+              <div>
+                <span class="font-bold text-uablue block">📚 Primary Academic Focus:</span>
+                <p class="text-slate-700 mt-0.5"><span class="font-semibold">${phase.focusTitle}:</span> ${phase.focusDesc}</p>
+              </div>
+              <div class="pt-1.5 border-t border-slate-200">
+                <span class="font-bold text-uared block">📱 Tech & Habit Milestones:</span>
+                <p class="text-slate-700 mt-0.5">${phase.milestoneDesc}</p>
+              </div>
+            </div>
+
+            <!-- Interactive Actionable Checkboxes for this Phase -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-500">
+                <span>ACTIONABLE PHASE CHECKLIST</span>
+                <span>${phaseDone}/${phaseTotal} Completed</span>
+              </div>
+              ${phase.tasks.map(t => {
+                const checked = !!appState.completedTasks[t.id];
+                return `
+                  <label class="flex items-start space-x-2.5 p-2 rounded-xl hover:bg-slate-50 cursor-pointer border border-transparent hover:border-slate-200 transition">
+                    <input type="checkbox" ${checked ? 'checked' : ''} onchange="togglePhaseTask('${t.id}')" class="mt-0.5 w-4 h-4 accent-uablue rounded" />
+                    <span class="text-xs ${checked ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${t.text}</span>
+                  </label>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Phase Footer: Target Courses + Launch Phase Quiz -->
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <div class="flex flex-wrap gap-1">
+                ${phase.courses.map(c => `<span class="text-[10px] font-semibold bg-sky-50 text-uablue px-2 py-0.5 rounded border border-sky-200">${c}</span>`).join('')}
+              </div>
+              <button onclick="startPhaseQuiz('${phase.id}')" class="text-xs font-bold text-white bg-uablue hover:bg-uablue-light active:scale-95 transition px-3 py-1.5 rounded-xl flex items-center space-x-1.5 shadow-xs">
+                <span>Quiz ${phase.badge}</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+
+      const overallPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+      document.getElementById('overallRoadmapPct').textContent = `${overallPct}%`;
+      document.getElementById('overallRoadmapBar').style.width = `${overallPct}%`;
+    }
+
+    function togglePhaseTask(taskId) {
+      appState.completedTasks[taskId] = !appState.completedTasks[taskId];
+      saveState();
+      renderPhasesView();
+      showToast(appState.completedTasks[taskId] ? 'Phase milestone checked!' : 'Milestone unchecked');
+    }
+
+    /*************************************************************
+     * 6. QUIZ ENGINE LOGIC (WITH WEB SPEECH SPANISH AUDIO)
+     *************************************************************/
+    let currentQuizFilter = 'daily10';
+    let currentSessionDeck = [];
+    let currentCardIndex = 0;
+    let sessionCorrect = 0;
+    let sessionAnswered = 0;
+    let hasAnsweredCurrent = false;
+
+    function startPhaseQuiz(filterKey) {
+      switchTab('quiz');
+      setQuizFilter(filterKey);
+    }
+
+    function setQuizFilter(filterKey) {
+      currentQuizFilter = filterKey;
+      // Update filter pill styling
+      document.querySelectorAll('.quiz-pill').forEach(btn => {
+        if (btn.dataset.filter === filterKey) {
+          btn.className = 'quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-uablue text-white shadow-xs';
+        } else {
+          btn.className = 'quiz-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200';
+        }
+      });
+
+      const all = getAllCards();
+      let filtered = [];
+
+      if (filterKey === 'daily10') {
+        // Prioritize weak or unmastered cards, shuffled, max 10
+        filtered = [...all].sort((a, b) => {
+          const statA = appState.cardStats[a.id]?.status === 'weak' ? -1 : 1;
+          const statB = appState.cardStats[b.id]?.status === 'weak' ? -1 : 1;
+          return statA - statB || (Math.random() - 0.5);
+        }).slice(0, 10);
+      } else if (filterKey === 'weak') {
+        filtered = all.filter(c => appState.cardStats[c.id]?.status === 'weak');
+        if (filtered.length === 0) {
+          showToast('No Weak Spot cards yet! Loading Daily 10 mix instead.');
+          filtered = [...all].sort(() => Math.random() - 0.5).slice(0, 10);
+        }
+      } else {
+        filtered = all.filter(c => c.phase === filterKey);
+      }
+
+      currentSessionDeck = filtered;
+      currentCardIndex = 0;
+      sessionCorrect = 0;
+      sessionAnswered = 0;
+      updateSessionScoreUI();
+      renderCurrentQuizCard();
+    }
+
+    function renderCurrentQuizCard() {
+      hasAnsweredCurrent = false;
+      const card = currentSessionDeck[currentCardIndex];
+      if (!card) return;
+
+      document.getElementById('quizSessionCounter').textContent = `Card ${currentCardIndex + 1} of ${currentSessionDeck.length}`;
+      document.getElementById('qPhaseBadge').textContent = card.phase.toUpperCase().replace('PHASE', 'PHASE ');
+      document.getElementById('qCourseBadge').textContent = card.course;
+      document.getElementById('qPromptText').textContent = card.prompt;
+
+      // Show Spanish audio button if card has Spanish audio
+      const audioBtn = document.getElementById('qAudioBtn');
+      if (card.isSpanish) {
+        audioBtn.classList.remove('hidden');
+      } else {
+        audioBtn.classList.add('hidden');
+      }
+
+      // Render choices
+      const optionsContainer = document.getElementById('qOptionsList');
+      const letters = ['A', 'B', 'C', 'D'];
+      optionsContainer.innerHTML = card.options.map((optText, idx) => `
+        <button onclick="selectQuizOption(${idx})" id="qOptBtn_${idx}" class="w-full text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 active:scale-[0.99] transition flex items-start space-x-2.5">
+          <span id="qOptBadge_${idx}" class="w-6 h-6 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${letters[idx]}</span>
+          <span class="text-xs font-medium text-slate-800 leading-relaxed">${optText}</span>
+        </button>
+      `).join('');
+
+      document.getElementById('qFeedbackBox').classList.add('hidden');
+    }
+
+    function selectQuizOption(selectedIdx) {
+      if (hasAnsweredCurrent) return;
+      hasAnsweredCurrent = true;
+
+      const card = currentSessionDeck[currentCardIndex];
+      const isCorrect = selectedIdx === card.answer;
+
+      sessionAnswered++;
+      appState.totalAnswered++;
+      appState.todayAnswered++;
+
+      if (appState.todayAnswered === 1) {
+        appState.streak = Math.max(1, appState.streak);
+      } else if (appState.todayAnswered === 10) {
+        appState.streak++;
+        showToast('🔥 Daily 10 Complete! Streak incremented!');
+      }
+
+      if (isCorrect) {
+        sessionCorrect++;
+        appState.totalCorrect++;
+      } else {
+        // Automatically tag as weak spot if missed
+        appState.cardStats[card.id] = { status: 'weak', updated: Date.now() };
+      }
+
+      // Highlight buttons
+      card.options.forEach((_, idx) => {
+        const btn = document.getElementById(`qOptBtn_${idx}`);
+        const badge = document.getElementById(`qOptBadge_${idx}`);
+        if (idx === card.answer) {
+          btn.className = 'w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 flex items-start space-x-2.5';
+          badge.className = 'w-6 h-6 rounded-lg bg-emerald-600 text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5';
+          badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+        } else if (idx === selectedIdx && !isCorrect) {
+          btn.className = 'w-full text-left p-3 rounded-xl border-2 border-rose-500 bg-rose-50 flex items-start space-x-2.5';
+          badge.className = 'w-6 h-6 rounded-lg bg-rose-600 text-white font-bold text-xs flex items-center justify-center shrink-0 mt-0.5';
+          badge.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        } else {
+          btn.className = 'w-full text-left p-3 rounded-xl border border-slate-200 bg-slate-50 opacity-60 flex items-start space-x-2.5';
+        }
+      });
+
+      // Reveal Clinical Pearl & Spaced Repetition controls
+      document.getElementById('qPearlText').textContent = card.pearl;
+      document.getElementById('qFeedbackBox').classList.remove('hidden');
+
+      saveState();
+      updateSessionScoreUI();
+    }
+
+    function updateSessionScoreUI() {
+      const scoreText = document.getElementById('sessionScoreText');
+      const scoreBar = document.getElementById('sessionScoreBar');
+      const passBadge = document.getElementById('sessionPassBadge');
+
+      if (sessionAnswered === 0) {
+        scoreText.textContent = '0/0 (--)';
+        scoreBar.style.width = '0%';
+        passBadge.textContent = 'Target: ≥70.0% (No Rounding)';
+        passBadge.className = 'text-[10px] font-semibold text-slate-400';
+        return;
+      }
+
+      const rawPct = (sessionCorrect / sessionAnswered) * 100;
+      const formattedPct = rawPct.toFixed(1);
+      scoreText.textContent = `${sessionCorrect}/${sessionAnswered} (${formattedPct}%)`;
+      scoreBar.style.width = `${Math.min(100, rawPct)}%`;
+
+      // Highlight strict 70.0% no-rounding policy
+      if (rawPct >= 70.0) {
+        scoreBar.className = 'h-full bg-emerald-500 transition-all duration-300';
+        passBadge.textContent = '✅ Above 70.0% UArizona Standard';
+        passBadge.className = 'text-[10px] font-bold text-emerald-600';
+      } else {
+        scoreBar.className = 'h-full bg-uared transition-all duration-300';
+        passBadge.textContent = '⚠️ Below 70.0% (Remember: 69.8% does not round!)';
+        passBadge.className = 'text-[10px] font-bold text-uared';
+      }
+    }
+
+    function rateCardAndNext(difficulty) {
+      const card = currentSessionDeck[currentCardIndex];
+      if (card) {
+        if (difficulty === 'again') {
+          appState.cardStats[card.id] = { status: 'weak', updated: Date.now() };
+        } else if (difficulty === 'good') {
+          appState.cardStats[card.id] = { status: 'learning', updated: Date.now() };
+        } else if (difficulty === 'easy') {
+          appState.cardStats[card.id] = { status: 'mastered', updated: Date.now() };
+        }
+        saveState();
+      }
+
+      if (currentCardIndex < currentSessionDeck.length - 1) {
+        currentCardIndex++;
+        renderCurrentQuizCard();
+      } else {
+        // Loop or reshuffle
+        currentCardIndex = 0;
+        showToast('🎉 Deck cycle completed! Restarting deck.');
+        renderCurrentQuizCard();
+      }
+    }
+
+    function speakCurrentQuestion() {
+      const card = currentSessionDeck[currentCardIndex];
+      if (!card || !('speechSynthesis' in window)) {
+        showToast('Speech synthesis not supported in this browser.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const textToSpeak = card.spanishAudio || card.prompt;
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = 'es-MX';
+      utterance.rate = 0.92;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    /*************************************************************
+     * 7. CUSTOM CARD CREATOR & 3-BULLET PATHWAY SUMMARIZER
+     *************************************************************/
+    function switchLabSubtab(tab) {
+      const addBtn = document.getElementById('subtab-addcard');
+      const pwBtn = document.getElementById('subtab-pathway');
+      const addPanel = document.getElementById('lab-addcard-panel');
+      const pwPanel = document.getElementById('lab-pathway-panel');
+
+      if (tab === 'addcard') {
+        addBtn.className = 'py-2 rounded-lg text-xs font-bold bg-white text-uablue shadow-sm transition';
+        pwBtn.className = 'py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
+        addPanel.classList.remove('hidden');
+        pwPanel.classList.add('hidden');
+      } else {
+        pwBtn.className = 'py-2 rounded-lg text-xs font-bold bg-white text-uablue shadow-sm transition';
+        addBtn.className = 'py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
+        pwPanel.classList.remove('hidden');
+        addPanel.classList.add('hidden');
+        renderPathwaysList();
+      }
+    }
+
+    function handleCreateCard(e) {
+      e.preventDefault();
+      const phase = document.getElementById('newCardPhase').value;
+      const course = document.getElementById('newCardCourse').value;
+      const prompt = document.getElementById('newCardPrompt').value.trim();
+      const options = [
+        document.getElementById('opt0').value.trim(),
+        document.getElementById('opt1').value.trim(),
+        document.getElementById('opt2').value.trim(),
+        document.getElementById('opt3').value.trim()
+      ];
+      const correctRadio = document.querySelector('input[name="correctOpt"]:checked');
+      const answer = correctRadio ? parseInt(correctRadio.value, 10) : 0;
+      const pearl = document.getElementById('newCardPearl').value.trim();
+
+      const newCard = {
+        id: 'custom_' + Date.now(),
+        phase,
+        course,
+        isSpanish: course.includes('SPAN'),
+        spanishAudio: course.includes('SPAN') ? prompt : '',
+        prompt,
+        options,
+        answer,
+        pearl
+      };
+
+      appState.customCards.unshift(newCard);
+      saveState();
+      document.getElementById('customCardForm').reset();
+      showToast('Added card to your study deck!');
+    }
+
+    function handleSavePathway(e) {
+      e.preventDefault();
+      const title = document.getElementById('pwTitle').value.trim();
+      const b1 = document.getElementById('pwBullet1').value.trim();
+      const b2 = document.getElementById('pwBullet2').value.trim();
+      const b3 = document.getElementById('pwBullet3').value.trim();
+
+      appState.pathways.unshift({
+        id: 'pw_' + Date.now(),
+        title,
+        b1,
+        b2,
+        b3
+      });
+      saveState();
+      e.target.reset();
+      renderPathwaysList();
+      showToast('Saved 3-Bullet Pathway Summary!');
+    }
+
+    function deletePathway(id) {
+      appState.pathways = appState.pathways.filter(p => p.id !== id);
+      saveState();
+      renderPathwaysList();
+    }
+
+    function renderPathwaysList() {
+      const container = document.getElementById('savedPathwaysList');
+      container.innerHTML = appState.pathways.map(p => `
+        <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-extrabold text-uablue">${p.title}</h4>
+            <button onclick="deletePathway('${p.id}')" class="text-slate-400 hover:text-rose-600 text-xs">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+          <ul class="space-y-1.5 text-xs text-slate-700">
+            <li class="flex items-start space-x-2">
+              <span class="font-bold text-uablue">1.</span>
+              <span>${p.b1}</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="font-bold text-uablue">2.</span>
+              <span>${p.b2}</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="font-bold text-uared">3.</span>
+              <span>${p.b3}</span>
+            </li>
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    /*************************************************************
+     * 8. ADMIN & ONBOARDING CHECKLIST VIEW
+     *************************************************************/
+    function renderAdminChecklist() {
+      const container = document.getElementById('adminChecklistContainer');
+      const doneCount = ADMIN_CHECKLIST.filter(item => appState.completedAdmin[item.id]).length;
+      document.getElementById('checklistCountBadge').textContent = `${doneCount}/${ADMIN_CHECKLIST.length} Done`;
+
+      container.innerHTML = ADMIN_CHECKLIST.map(item => {
+        const checked = !!appState.completedAdmin[item.id];
+        return `
+          <label class="bg-white rounded-2xl p-3.5 shadow-sm border ${checked ? 'border-emerald-200 bg-emerald-50/30' : 'border-slate-200'} flex items-start space-x-3 cursor-pointer transition">
+            <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleAdminItem('${item.id}')" class="mt-1 w-4 h-4 accent-emerald-600 rounded" />
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-uablue">${item.cat}</span>
+                ${checked ? '<span class="text-[10px] font-bold text-emerald-600"><i class="fa-solid fa-check mr-0.5"></i>Complete</span>' : ''}
+              </div>
+              <p class="text-xs font-bold ${checked ? 'line-through text-slate-400' : 'text-slate-800'} mt-0.5">${item.title}</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">${item.sub}</p>
+            </div>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function toggleAdminItem(id) {
+      appState.completedAdmin[id] = !appState.completedAdmin[id];
+      saveState();
+      renderAdminChecklist();
+    }
+
+    /*************************************************************
+     * 9. NAVIGATION, MODALS, BACKUP & PWA MANIFEST GENERATOR
+     *************************************************************/
+    function switchTab(tabKey) {
+      ['phases', 'quiz', 'lab', 'checklist'].forEach(k => {
+        const view = document.getElementById(`view-${k}`);
+        const nav = document.getElementById(`nav-${k}`);
+        if (k === tabKey) {
+          view.classList.remove('hidden');
+          nav.className = 'nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl text-uared font-bold transition';
+        } else {
+          view.classList.add('hidden');
+          nav.className = 'nav-btn flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-400 font-semibold hover:text-slate-700 transition';
+        }
+      });
+
+      if (tabKey === 'phases') renderPhasesView();
+      if (tabKey === 'quiz' && currentSessionDeck.length === 0) setQuizFilter('daily10');
+      if (tabKey === 'checklist') renderAdminChecklist();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function showToast(msg) {
+      const banner = document.getElementById('toastBanner');
+      document.getElementById('toastMessage').textContent = msg;
+      banner.classList.remove('hidden');
+      setTimeout(() => banner.classList.add('hidden'), 2600);
+    }
+
+    function exportStudyData() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', dataStr);
+      a.setAttribute('download', `uarizona_pa2027_backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('Backup JSON downloaded!');
+    }
+
+    function importStudyData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          appState = { ...appState, ...imported };
+          saveState();
+          renderPhasesView();
+          showToast('Study progress & custom cards restored!');
+        } catch (err) {
+          showToast('Invalid JSON backup file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function downloadManifestFile() {
+      const manifest = {
+        name: "UArizona PA 2027 Study & Daily Quiz",
+        short_name: "UA PA Prep",
+        start_url: "./index.html",
+        display: "standalone",
+        background_color: "#0C234B",
+        theme_color: "#0C234B",
+        icons: [
+          {
+            src: "https://placehold.co/192x192/0C234B/FFFFFF.png?text=UA+PA",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "https://placehold.co/512x512/AB0520/FFFFFF.png?text=UA+PA",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      };
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifest, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', dataStr);
+      a.setAttribute('download', 'manifest.json');
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('manifest.json downloaded!');
+    }
+
+    // Initialize Dynamic Web Manifest & Boot App
+    window.onload = function() {
+      loadState();
+      updateHeaderMetrics();
+      renderPhasesView();
+      setQuizFilter('daily10');
+      renderAdminChecklist();
+    };
+  </script>
+</body>
+</html>
