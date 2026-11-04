@@ -75,7 +75,259 @@ window.EXPANDED_QUESTION_BANK = [
   { id: 'sp_7', topic: 'spanish', category: 'Medical Spanish (SPAN 661)', prompt: 'During the physical exam, how do you instruct a patient: "Sit down on the table, please"?', options: ['Siéntese en la camilla, por favor', 'Acuéstese boca arriba', 'Levántese despacio', 'Quítese la camisa'], correct: 0, audioText: 'Siéntese en la camilla, por favor', pearl: '“La camilla” refers specifically to the exam table or stretcher in a clinical setting.', sourceIds: [] },
   { id: 'sp_8', topic: 'spanish', category: 'Medical Spanish (SPAN 661)', prompt: 'How do you ask a female patient about her menstrual cycle history: "When was your last menstrual period?"', options: ['¿Cuándo fue su última regla (o periodo)?', '¿Está embarazada ahora?', '¿Cuántos hijos tiene?', '¿Tiene dolor durante el mes?'], correct: 0, audioText: '¿Cuándo fue su última regla?', pearl: '“La regla” or “el periodo” are the common terms used when asking for Last Menstrual Period (LMP) during an OB/GYN intake.', sourceIds: [] },
   { id: 'sp_9', topic: 'spanish', category: 'Medical Spanish (SPAN 661)', prompt: 'When explaining discharge instructions, how do you tell a patient: "Take one pill every eight hours with food"?', options: ['Tome una pastilla cada ocho horas con comida', 'Tome dos pastillas antes de dormir', 'Tome esta medicina solamente si tiene fiebre', 'No tome nada por tres días'], correct: 0, audioText: 'Tome una pastilla cada ocho horas con comida', pearl: 'Crucial prescription counseling phrasing: “cada [X] horas” (every X hours) and “con comida” (with food to prevent GI upset).', sourceIds: [] },
-  { id: 'sp_10', topic: 'spanish', category: 'Medical Spanish (SPAN 661)', prompt: 'How do you ask a patient if they have noticed any dizziness or lightheadedness?', options: ['¿Ha sentido mareos o vértigo?', '¿Tiene problemas para dormir?', '¿Siente entumecimiento en las manos?', '¿Ha perdido peso recientemente?'], correct: 0, audioText: '¿Ha sentido mareos o vértigo?', pearl: '“Mareos” covers general dizziness, lightheadedness, and presyncope during the neurological review of systems.', sourceIds: [] },
+  { id: 'sp_10', topic: 'spanish', category: 'Medical Spanish (SPAN 661)', prompt: 'How do you ask a patient if they have noticed any dizziness or lightheadedness?', options: ['¿Ha sentido mareos o vértigo?', '¿Tiene problemas para dormir?', '¿Siente entumecimiento en las manos?', '¿Ha perdido peso recientemente?'], correct: 0, audioText: '¿Ha sentido mareos o vértigo?', pearl: '“Mareos” covers general dizziness, lightheadedness, and presyncope during the neurological review of systems.', sourceIds: [] },// ------------------------------------------
+  // EXPANDED MEDICAL SPANISH TERMINOLOGY (SPAN 661)
+  // ------------------------------------------
+  {
+    id: 'sp_11',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'What anatomical organ are you evaluating when discussing "la vesícula biliar" with a patient who has RUQ pain?',
+    options: ['Gallbladder', 'Urinary bladder', 'Spleen', 'Liver'],
+    correct: 0,
+    audioText: 'La vesícula biliar',
+    pearl: '“La vesícula biliar” = gallbladder. Do not confuse with “la vejiga” (urinary bladder) or “el hígado” (liver).'
+  },
+  {
+    id: 'sp_12',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'A patient reports: "Siento ardor al orinar." What symptom are they describing?',
+    options: ['Dysuria (burning with urination)', 'Hematuria (blood in the urine)', 'Urinary incontinence', 'Flank pain'],
+    correct: 0,
+    audioText: 'Siento ardor al orinar',
+    pearl: '“Ardor” = burning sensation; “orinar” = to urinate. Classic symptom of a UTI (infección de las vías urinarias).'
+  },
+  {
+    id: 'sp_13',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'In Spanish medical terminology, what is the difference between "el hígado" and "el riñón"?',
+    options: [
+      'El hígado is the liver; el riñón is the kidney',
+      'El hígado is the spleen; el riñón is the pancreas',
+      'El hígado is the lung; el riñón is the heart',
+      'El hígado is the stomach; el riñón is the gallbladder'
+    ],
+    correct: 0,
+    audioText: 'El hígado y el riñón',
+    pearl: 'El hígado = liver (hepatic); el riñón = kidney (renal); los pulmones = lungs; el bazo = spleen.'
+  },
+  {
+    id: 'sp_14',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'A patient with diabetes says: "Siento entumecimiento y hormigueo en los pies." What neurological symptom is this?',
+    options: [
+      'Numbness and tingling (paresthesia) in the feet',
+      'Sharp shooting pain in the calves',
+      'Weakness when walking upstairs',
+      'Swelling in the ankles'
+    ],
+    correct: 0,
+    audioText: 'Siento entumecimiento y hormigueo en los pies',
+    pearl: '“Entumecimiento” (or adormecimiento) = numbness; “hormigueo” = tingling ("pins and needles").'
+  },
+  {
+    id: 'sp_15',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'When characterizing pain quality (OLDCARTS), what does "¿Es un dolor punzante o opresivo?" ask?',
+    options: [
+      'Is it a sharp/stabbing pain or a squeezing/pressure pain?',
+      'Is the pain constant or intermittent?',
+      'Did the pain start suddenly or gradually?',
+      'Does the pain wake you up at night?'
+    ],
+    correct: 0,
+    audioText: '¿Es un dolor punzante o opresivo?',
+    pearl: '“Punzante” = sharp/stabbing (pleuritic/pericardial); “opresivo” = crushing/squeezing pressure (classic myocardial ischemia).'
+  },
+  {
+    id: 'sp_16',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'A mother brings her child to the clinic and says: "Tiene sarpullido y picazón en la piel." What does the child have?',
+    options: ['A skin rash and itching (pruritus)', 'Fever and chills', 'Earache and sore throat', 'Cough and wheezing'],
+    correct: 0,
+    audioText: 'Tiene sarpullido y picazón en la piel',
+    pearl: '“Sarpullido” (or erupción) = rash; “picazón” (or comezón) = itching/pruritus.'
+  },
+  {
+    id: 'sp_17',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'In GI history taking, what do the terms "estreñimiento" and "acidez" mean?',
+    options: ['Constipation and heartburn (GERD)', 'Diarrhea and vomiting', 'Jaundice and bloating', 'Black stools and abdominal cramps'],
+    correct: 0,
+    audioText: 'Estreñimiento y acidez',
+    pearl: '“Estreñimiento” = constipation; “acidez” (or agruras) = heartburn / acid reflux.'
+  },
+  {
+    id: 'sp_18',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'A patient presents with fever and says: "Tengo escalofríos y sudores nocturnos." What are they reporting?',
+    options: ['Chills and night sweats', 'Nausea and loss of appetite', 'Joint pain and muscle aches', 'Hoarseness and dry cough'],
+    correct: 0,
+    audioText: 'Tengo escalofríos y sudores nocturnos',
+    pearl: '“Escalofríos” = chills/rigors; “sudores nocturnos” = night sweats (critical constitutional B-symptoms / TB screening).'
+  },
+  {
+    id: 'sp_19',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'What does a patient mean if they tell you: "Me dieron de alta del hospital ayer"?',
+    options: [
+      'I was discharged from the hospital yesterday',
+      'I was admitted to the hospital yesterday',
+      'I had surgery at the hospital yesterday',
+      'I work at the hospital'
+    ],
+    correct: 0,
+    audioText: 'Me dieron de alta del hospital ayer',
+    pearl: '“Dar de alta” = to discharge a patient from the hospital. “Ingresar / internar” = to admit to the hospital.'
+  },
+  {
+    id: 'sp_20',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'How do you instruct a patient to fast before morning blood work: "Do not eat or drink anything after midnight (fasting)"?',
+    options: [
+      'No coma ni beba nada después de la medianoche; venga en ayunas',
+      'Coma un desayuno ligero antes de su análisis de sangre',
+      'Tome mucha agua antes de su radiografía',
+      'Regrese a la clínica en dos semanas'
+    ],
+    correct: 0,
+    audioText: 'No coma ni beba nada después de la medianoche; venga en ayunas',
+    pearl: '“En ayunas” is the essential clinical phrase meaning "fasting" (NPO) for lipid panels or fasting glucose.'
+  },
+  {
+    id: 'sp_21',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'In an orthopedic exam, how do you distinguish between "un esguince" and "una fractura"?',
+    options: [
+      'Un esguince is a sprain; una fractura is a bone fracture/break',
+      'Un esguince is a muscle cramp; una fractura is a dislocation',
+      'Un esguince is a bruise; una fractura is a tendon tear',
+      'Both mean a broken bone'
+    ],
+    correct: 0,
+    audioText: 'Un esguince del tobillo',
+    pearl: '“Un esguince” = ligament sprain (e.g., esguince de tobillo); “una fractura” = broken bone; “moretón” = bruise.'
+  },
+  {
+    id: 'sp_22',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'During a trauma or syncope history, how do you ask: "Did you lose consciousness (faint)?"',
+    options: [
+      '¿Perdió el conocimiento (o se desmayó)?',
+      '¿Se golpeó la rodilla?',
+      '¿Tuvo dolor en el pecho?',
+      '¿Vio luces brillantes?'
+    ],
+    correct: 0,
+    audioText: '¿Perdió el conocimiento o se desmayó?',
+    pearl: '“Perder el conocimiento” = to lose consciousness; “desmayarse” = to faint / experience syncope.'
+  },
+  {
+    id: 'sp_23',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'When discussing a patient’s asthma or COPD, what are "sibilancias" and "flema"?',
+    options: [
+      'Wheezing and phlegm/sputum',
+      'Shortness of breath and chest tightness',
+      'Stridor and coughing up blood',
+      'Snoring and nasal congestion'
+    ],
+    correct: 0,
+    audioText: 'Sibilancias y flema',
+    pearl: '“Sibilancias” (or un silbido en el pecho) = wheezing; “flema” (or esputo) = phlegm/sputum.'
+  },
+  {
+    id: 'sp_24',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'Before performing a laceration repair, how do you say: "We are going to numb the area with local anesthesia"?',
+    options: [
+      'Vamos a adormecer el área con anestesia local',
+      'Vamos a tomar una radiografía del pecho',
+      'Vamos a ponerle un yeso en el brazo',
+      'Vamos a recetarle un antibiótico'
+    ],
+    correct: 0,
+    audioText: 'Vamos a adormecer el área con anestesia local',
+    pearl: '“Adormecer” (or anestesiar) = to numb; “puntos / suturas” = stitches.'
+  },
+  {
+    id: 'sp_25',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'What condition is a patient referring to if they mention "un derrame cerebral"?',
+    options: ['Cerebrovascular accident (Stroke)', 'Myocardial infarction (Heart attack)', 'Epileptic seizure', 'Migraine headache'],
+    correct: 0,
+    audioText: 'Un derrame cerebral',
+    pearl: '“Derrame cerebral” (or embolia / ataque cerebral) = stroke (CVA). “Ataque al corazón / infarto” = heart attack.'
+  },
+  {
+    id: 'sp_26',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'In anatomical terminology, what do "las amígdalas" and "los ganglios linfáticos" refer to?',
+    options: ['Tonsils and lymph nodes', 'Salivary glands and thyroid gland', 'Sinuses and eardrums', 'Vocal cords and windpipe'],
+    correct: 0,
+    audioText: 'Las amígdalas y los ganglios linfáticos',
+    pearl: '“Las amígdalas” (or anginas) = tonsils; “los ganglios linfáticos” = lymph nodes; “la glándula tiroides” = thyroid gland.'
+  },
+  {
+    id: 'sp_27',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'A patient with congestive heart failure points to their lower legs and says: "Tengo los tobillos muy hinchados." What physical exam finding is this?',
+    options: ['Swollen ankles (peripheral edema)', 'Varicose veins in the legs', 'Cold toes (cyanosis)', 'Calf tenderness'],
+    correct: 0,
+    audioText: 'Tengo los tobillos muy hinchados',
+    pearl: '“Hinchado/a” = swollen; “hinchazón” = swelling/edema; “los tobillos” = the ankles.'
+  },
+  {
+    id: 'sp_28',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'When taking a surgical history, what surgeries are "una apendicectomía" and "una cesárea"?',
+    options: ['Appendectomy and Cesarean section (C-section)', 'Cholecystectomy and Hysterectomy', 'Tonsillectomy and Hernia repair', 'Knee replacement and Cataract surgery'],
+    correct: 0,
+    audioText: 'Una apendicectomía y una cesárea',
+    pearl: '“Apendicectomía” = appendectomy (“me sacaron el apéndice”); “cesárea” = C-section; “histerectomía” = hysterectomy (“la matriz”).'
+  },
+  {
+    id: 'sp_29',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'A patient with a severe upper GI bleed reports "heces negras como el alquitrán." What clinical sign is this?',
+    options: ['Melena (black, tarry stools)', 'Hematochezia (bright red blood per rectum)', 'Steatorrhea (fatty, foul-smelling stools)', 'Watery diarrhea'],
+    correct: 0,
+    audioText: 'Heces negras como el alquitrán',
+    pearl: '“Heces” (or evacuaciones) = stools; “negras como el alquitrán” = black like tar (classic description of melena).'
+  },
+  {
+    id: 'sp_30',
+    topic: 'spanish',
+    category: 'Medical Spanish (SPAN 661)',
+    prompt: 'How do you ask a patient if anyone in their family has a history of heart disease or cancer?',
+    options: [
+      '¿Alguien en su familia ha tenido enfermedades del corazón o cáncer?',
+      '¿Vive usted solo o con su familia?',
+      '¿A qué se dedica en su trabajo?',
+      '¿Hace ejercicio regularmente?'
+    ],
+    correct: 0,
+    audioText: '¿Alguien en su familia ha tenido enfermedades del corazón o cáncer?',
+    pearl: 'Standard phrasing for obtaining Family History (Antecedentes Familiares) during a comprehensive H&P.'
+  }
 
   // ------------------------------------------
   // 2.1 CARDIAC & ECG (PANCE/UWorld Level)

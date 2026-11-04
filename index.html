@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <!-- A11y and Mobile Viewport Settings -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#58CC02" />
-  <meta name="robots" content="noindex" />
-  
+  <!-- Browser Tabs, Bookmarks & Google Search Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="PA-App-Icon.png?v=2" />
+  <link rel="shortcut icon" href="PA-App-Icon.png?v=2" />
+
   <!-- iOS Safari Add to Home Screen -->
+  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=2" />
+
+  <!-- Android Chrome PWA Support -->
+  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=2" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#58CC02" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Kailyn's PA Prep" />
-  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=3" />
-
-  <!-- Android Chrome PWA Support -->
-  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=3" />
-  
   <title>Kailyn's UArizona PA '27 Prep</title>
-  
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts -->
+
+  <!-- Google Fonts: Nunito -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- EXTERNAL QUESTION BANK: Loads questions.js automatically -->
+  <!-- External Question Bank (questions.js) -->
   <script src="questions.js"></script>
 
   <script>
@@ -38,551 +39,1400 @@
         extend: {
           fontFamily: { sans: ['Nunito', 'sans-serif'] },
           colors: {
-            duogreen: { DEFAULT: '#58CC02', dark: '#46A302', bg: '#D7FFB8' },
-            duoblue: { DEFAULT: '#1CB0F6', dark: '#1899D6', bg: '#EBF7FF' },
-            duoheart: { DEFAULT: '#FF4B4B', dark: '#EA2B2B', bg: '#FFDFE0' },
+            duogreen: { DEFAULT: '#58CC02', dark: '#46A302', light: '#89E219', bg: '#D7FFB8' },
+            duoblue: { DEFAULT: '#1CB0F6', dark: '#1899D6', light: '#70D7FF' },
+            duocharcoal: '#3C3C3C',
+            duoheart: '#FF4B4B',
+            duoheartDark: '#EA2B2B',
             duogem: '#1CB0F6',
-            duofire: '#FF9600'
+            duofire: '#FF9600',
+            uablue: '#0C234B',
+            uared: '#AB0520'
           }
         }
       }
     }
   </script>
+
   <style>
-    /* CSS Classes to replace inline Tailwind clutter */
-    .btn-3d { @apply border-b-4 active:translate-y-1 active:border-b-0 transition-all; }
-    .btn-card-3d { @apply border-2 border-b-4 border-slate-200 bg-white hover:bg-slate-50 active:translate-y-1 active:border-b-2; }
-    .btn-card-selected { @apply border-2 border-b-4 border-duoblue bg-duoblue-bg text-duoblue active:translate-y-1 active:border-b-2; }
-    .btn-card-correct { @apply border-2 border-b-4 border-duogreen bg-duogreen-bg text-duogreen-dark; }
-    .btn-card-incorrect { @apply border-2 border-b-4 border-duoheart bg-duoheart-bg text-duoheart-dark opacity-50; }
-    
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-5deg); }
-      75% { transform: rotate(5deg); }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #F7F7F7;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
-    .animate-wiggle { animation: wiggle 0.4s ease-in-out; }
-    
+    /* 3D Duolingo Button Styles */
+    .btn-3d {
+      transition: all 0.08s ease;
+      position: relative;
+    }
+    .btn-3d:active {
+      transform: translateY(4px);
+    }
+    .btn-green-3d {
+      background-color: #58CC02;
+      border-bottom: 4px solid #46A302;
+    }
+    .btn-green-3d:active {
+      border-bottom-width: 0px;
+      margin-top: 4px;
+    }
+    .btn-blue-3d {
+      background-color: #1CB0F6;
+      border-bottom: 4px solid #1899D6;
+    }
+    .btn-blue-3d:active {
+      border-bottom-width: 0px;
+      margin-top: 4px;
+    }
+    .btn-pink-3d {
+      background-color: #EC4899;
+      border-bottom: 4px solid #BE185D;
+    }
+    .btn-pink-3d:active {
+      border-bottom-width: 0px;
+      margin-top: 4px;
+    }
+    .btn-card-3d {
+      border: 2px solid #E5E5E5;
+      border-bottom: 4px solid #E5E5E5;
+      background-color: #FFFFFF;
+    }
+    .btn-card-3d:hover {
+      background-color: #F7F7F7;
+    }
+    .btn-card-3d:active {
+      transform: translateY(2px);
+      border-bottom-width: 2px;
+    }
+    .btn-card-selected {
+      border: 2px solid #84D8FF !important;
+      border-bottom: 4px solid #1CB0F6 !important;
+      background-color: #DDF4FF !important;
+      color: #1899D6 !important;
+    }
+    .btn-card-correct {
+      border: 2px solid #58CC02 !important;
+      border-bottom: 4px solid #46A302 !important;
+      background-color: #D7FFB8 !important;
+      color: #46A302 !important;
+    }
+    .btn-card-incorrect {
+      border: 2px solid #FF4B4B !important;
+      border-bottom: 4px solid #EA2B2B !important;
+      background-color: #FFDFE0 !important;
+      color: #EA2B2B !important;
+    }
+    .safe-bottom {
+      padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    .animate-wiggle {
+      animation: wiggle 0.6s ease-in-out infinite;
+    }
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-4px); }
-      75% { transform: translateX(4px); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
     }
-    .animate-shake { animation: shake 0.3s ease-in-out; }
+    .animate-shake {
+      animation: shake 0.35s ease-in-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.75); opacity: 0; }
+      70% { transform: scale(1.06); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes floatHeart {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-6px) scale(1.06); }
+    }
+    .heart-float {
+      animation: floatHeart 2.4s ease-in-out infinite;
+    }
   </style>
 </head>
-<body class="bg-[#F8FAFC] text-slate-800 font-sans min-h-dvh flex flex-col selection:bg-duogreen selection:text-white relative">
+<body class="min-h-screen flex justify-center items-start text-slate-800 antialiased">
 
-  <!-- TOP STATS BAR -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b-2 border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm">
-    <div class="flex items-center space-x-4 w-full max-w-2xl mx-auto">
-      <div class="flex items-center space-x-1.5 text-duofire font-black text-sm">
-        <i class="fa-solid fa-fire"></i> <span id="statStreak">0</span>
+  <!-- Mobile Frame Container -->
+  <div class="w-full max-w-md min-h-screen bg-white shadow-2xl flex flex-col relative overflow-x-hidden border-x border-slate-200">
+
+    <!-- DUOLINGO TOP STATS BAR -->
+    <header class="bg-white sticky top-0 z-30 px-3.5 py-2.5 border-b-2 border-slate-200 flex items-center justify-between shadow-xs">
+      <!-- Streak Flame -->
+      <div class="flex items-center space-x-1 cursor-pointer" onclick="showMascotSpeech('Keep up your daily streak, Kailyn! I am so proud of you, Kaylove! 🥹')">
+        <span class="text-xl">🔥</span>
+        <span id="statStreak" class="font-black text-sm text-[#FF9600]">1</span>
       </div>
-      <div class="flex items-center space-x-1.5 text-duogem font-black text-sm">
-        <i class="fa-solid fa-gem"></i> <span id="statXP">0</span>
+
+      <!-- Gems / XP -->
+      <div class="flex items-center space-x-1 cursor-pointer" onclick="openLoveNotesDrawer()">
+        <span class="text-xl">💎</span>
+        <span id="statXP" class="font-black text-sm text-[#1CB0F6]">120</span>
       </div>
-      <div class="flex items-center space-x-1.5 text-duoheart font-black text-sm ml-auto" onclick="refillHearts()">
-        <i class="fa-solid fa-heart"></i> <span id="statHearts">5</span>
+
+      <!-- Hearts / Lives -->
+      <div class="flex items-center space-x-1 cursor-pointer" onclick="refillHearts()">
+        <span class="text-xl">❤️</span>
+        <span id="statHearts" class="font-black text-sm text-[#FF4B4B]">5</span>
+      </div>
+
+      <!-- Kailyn's Love Notes & Milestones Button -->
+      <button onclick="openLoveNotesDrawer()" class="bg-pink-50 hover:bg-pink-100 border-2 border-b-4 border-pink-300 rounded-xl px-2.5 py-1 text-xs font-black text-pink-600 active:translate-y-0.5 active:border-b-2 transition flex items-center space-x-1" title="Kailyn's Milestone Badges & Love Notes">
+        <span>💌</span>
+        <span id="badgeCountPill">1</span>
+      </button>
+
+      <!-- PWA Install Badge -->
+      <button onclick="toggleInstallPrompt()" class="bg-slate-100 hover:bg-slate-200 border-2 border-b-4 border-slate-300 rounded-xl px-2 py-1 text-xs font-black text-slate-700 active:translate-y-0.5 active:border-b-2 transition" title="Install to Home Screen">
+        <i class="fa-solid fa-cloud-arrow-down text-[#1CB0F6]"></i>
+      </button>
+    </header>
+
+    <!-- MASCOT MESSAGE NOTIFICATION BANNER -->
+    <div id="mascotBubble" onclick="triggerCuteNote()" class="cursor-pointer bg-gradient-to-r from-[#EBF7FF] to-[#FFF0F6] border-2 border-[#84D8FF] mx-4 mt-3 rounded-2xl p-3 flex items-center space-x-3 transition-all duration-300">
+      <div class="w-12 h-12 rounded-2xl bg-white border-2 border-[#1CB0F6] flex items-center justify-center text-2xl shrink-0 shadow-xs">🩺🦉</div>
+      <div class="flex-1">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-black uppercase text-[#1899D6] tracking-wider">Dr. Duo • For Kailyn 💖</span>
+          <span class="text-[10px] bg-[#AB0520] text-white px-1.5 py-0.5 font-black rounded-md">UA PA '27</span>
+        </div>
+        <p id="mascotText" class="text-xs font-bold text-slate-700 mt-0.5 leading-snug">
+          "Welcome back, Kailyn! Tap me anytime for a love note, or start a lesson below!"
+        </p>
       </div>
     </div>
-  </header>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-1 w-full max-w-2xl mx-auto p-4 pb-24">
+    <!-- MAIN APP TABS -->
+    <main class="flex-1 px-4 pt-3 safe-bottom overflow-y-auto">
 
-    <!-- TAB 1: DYNAMIC ROADMAP (Winding Path) -->
-    <section id="tab-roadmap" class="flex flex-col items-center pt-6">
-      <div class="bg-white border-2 border-slate-200 rounded-3xl p-4 mb-8 w-full shadow-sm flex items-center space-x-4">
-        <div class="w-16 h-16 rounded-2xl bg-duogreen-bg text-4xl flex items-center justify-center">🦉</div>
-        <div>
-          <h2 class="text-sm font-black text-slate-800">Hi Kayfart! 💖</h2>
-          <p id="mascotText" class="text-xs font-bold text-slate-500 mt-1">Ready to crush PA school? Pick a lesson below!</p>
+      <!-- ==================================================== -->
+      <!-- TAB 1: THE WINDING PATH ROADMAP ("LEARN")            -->
+      <!-- ==================================================== -->
+      <section id="tab-roadmap" class="space-y-6 pb-8">
+
+        <!-- Unit 1 -->
+        <div class="bg-gradient-to-b from-[#58CC02] to-[#46A302] rounded-3xl p-4 text-white shadow-md relative overflow-hidden border-b-4 border-[#357B01]">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 1 • Nov 2026 – Jan 2027</span>
+              <h2 class="text-lg font-black mt-1">Foundation, Clinical & Anatomy</h2>
+              <p class="text-xs text-white/90 font-bold">Physical Exam (Bates), CMDT Medicine, Spanish & Muscle Anatomy</p>
+            </div>
+            <div class="text-3xl">🫀</div>
+          </div>
         </div>
-      </div>
-      
-      <!-- DYNAMIC NODES INJECTED HERE -->
-      <div id="dynamicRoadmap" class="w-full flex flex-col items-center py-4"></div>
-    </section>
 
-    <!-- TAB 2: ACTIVE QUIZ SESSION -->
-    <section id="tab-quiz" class="hidden flex flex-col min-h-[75vh] justify-between">
-      <div>
-        <div class="flex items-center justify-between space-x-3 mb-3">
-          <button aria-label="Exit Quiz" onclick="switchTab('roadmap')" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
+        <div class="flex flex-col items-center space-y-5 my-2">
+          <!-- 1.1 Gross Anatomy -->
+          <div class="flex flex-col items-center">
+            <button onclick="startSpecificUnit('phase1', 'anat')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🦴</span>
+              <span class="text-[11px] font-black tracking-wide">1.1</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Gross Anatomy</span>
+          </div>
+
+          <!-- 1.2 Bates & CMDT -->
+          <div class="flex flex-col items-center translate-x-10">
+            <button onclick="startSpecificUnit('phase1', 'bates_cmdt')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🩺</span>
+              <span class="text-[11px] font-black tracking-wide">1.2</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Bates & CMDT</span>
+          </div>
+
+          <!-- 1.3 Medical Spanish -->
+          <div class="flex flex-col items-center -translate-x-10">
+            <button onclick="startSpecificUnit('phase1', 'spanish')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🗣️</span>
+              <span class="text-[11px] font-black tracking-wide">1.3</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">SPAN 661 Clinical</span>
+          </div>
+        </div>
+
+        <!-- Unit 2 -->
+        <div class="bg-gradient-to-b from-[#1CB0F6] to-[#1899D6] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#0F75A5] mt-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 2 • Feb 2027 – Apr 2027</span>
+              <h2 class="text-lg font-black mt-1">High-Yield Physiology</h2>
+              <p class="text-xs text-white/90 font-bold">PAP 601 • Cardiopulmonary, ECG, ABG & Renal Nephrons</p>
+            </div>
+            <div class="text-3xl">⚡</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-5 my-2">
+          <!-- 2.1 Cardiac & ECG -->
+          <div class="flex flex-col items-center">
+            <button onclick="startSpecificUnit('phase2', 'cardio_phys')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">📈</span>
+              <span class="text-[11px] font-black tracking-wide">2.1</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Cardiac & ECG</span>
+          </div>
+
+          <!-- 2.2 Renal & Acid-Base -->
+          <div class="flex flex-col items-center translate-x-10">
+            <button onclick="startSpecificUnit('phase2', 'renal_abg')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🧪</span>
+              <span class="text-[11px] font-black tracking-wide">2.2</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Renal & Acid-Base</span>
+          </div>
+        </div>
+
+        <!-- Unit 3 -->
+        <div class="bg-gradient-to-b from-[#FF9600] to-[#E68700] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#B86C00] mt-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 3 • May 2027 – Jun 2027</span>
+              <h2 class="text-lg font-black mt-1">Pharm & Clinical SOAP</h2>
+              <p class="text-xs text-white/90 font-bold">PAP 611 / 621 • Drug suffixes, autonomic receptors, & H&P</p>
+            </div>
+            <div class="text-3xl">💊</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-5 my-2">
+          <!-- 3.1 Drug Suffixes -->
+          <div class="flex flex-col items-center -translate-x-10">
+            <button onclick="startSpecificUnit('phase3', 'pharm')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🧬</span>
+              <span class="text-[11px] font-black tracking-wide">3.1</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Drug Suffixes</span>
+          </div>
+
+          <!-- 3.2 H&P / SOAP Note -->
+          <div class="flex flex-col items-center translate-x-8">
+            <button onclick="startSpecificUnit('phase3', 'soap')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">📋</span>
+              <span class="text-[11px] font-black tracking-wide">3.2</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">H&P / SOAP Note</span>
+          </div>
+        </div>
+
+        <!-- Unit 4 -->
+        <div class="bg-gradient-to-b from-[#A463F8] to-[#8836E8] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#6918CB] mt-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 4 • Jul 2027 – Aug 2027</span>
+              <h2 class="text-lg font-black mt-1">UArizona Admin & Taper</h2>
+              <p class="text-xs text-white/90 font-bold">Strict 70% rule, UAccess EDGE, AZ Fingerprint, & Orientation</p>
+            </div>
+            <div class="text-3xl">🎓</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center my-4">
+          <button onclick="startSpecificUnit('phase4', 'admin')" class="w-20 h-20 rounded-full bg-[#A463F8] border-b-8 border-[#6918CB] hover:bg-[#B983FA] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+            <span class="text-2xl">🏁</span>
+            <span class="text-[11px] font-black tracking-wide">4.1</span>
+          </button>
+          <span class="text-xs font-black text-slate-600 mt-1.5">Matriculation Check</span>
+        </div>
+
+        <!-- AUTOMATIC DYNAMIC EXPANSION CONTAINER (For 5.1, 6.1, or any new topics added to questions.js!) -->
+        <div id="extraDynamicUnitsContainer" class="space-y-6"></div>
+
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- TAB 2: ACTIVE DUOLINGO QUIZ SESSION                  -->
+      <!-- ==================================================== -->
+      <section id="tab-quiz" class="hidden flex flex-col min-h-[75vh] justify-between pb-4">
+        <div>
+          <div class="flex items-center justify-between space-x-3 mb-3">
+            <button onclick="exitQuizToRoadmap()" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex-1 bg-slate-200 h-4 rounded-full overflow-hidden p-0.5">
+              <div id="quizProgressBar" class="h-full bg-[#58CC02] rounded-full transition-all duration-300" style="width: 10%"></div>
+            </div>
+            <div class="flex items-center space-x-1">
+              <span class="text-base">❤️</span>
+              <span id="quizHeartsRemaining" class="font-black text-sm text-[#FF4B4B]">5</span>
+            </div>
+          </div>
+
+          <div id="comboBanner" class="hidden text-center mb-2">
+            <span id="comboBannerText" class="bg-[#FF9600] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider animate-bounce inline-block shadow-sm"></span>
+          </div>
+
+          <!-- ANATOMY DIAGRAM CONTAINER -->
+          <div id="quizImageContainer" class="hidden mb-3 bg-slate-50 border-2 border-slate-200 rounded-2xl overflow-hidden p-2 text-center">
+            <img id="quizImageTag" src="" alt="Anatomical Reference Diagram" class="max-h-48 mx-auto rounded-xl object-contain shadow-xs" onerror="this.parentElement.classList.add('hidden')" />
+          </div>
+
+          <div class="mt-2 bg-white rounded-3xl p-4 border-2 border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span id="qCategoryPill" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#EBF7FF] text-[#1899D6] border border-[#84D8FF]"></span>
+              <button id="qVoiceBtn" onclick="speakCurrentQuestionPrompt()" class="w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition" title="Listen in Spanish">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <h3 id="quizQuestionText" class="text-base font-extrabold text-slate-800 leading-snug"></h3>
+          </div>
+
+          <div id="quizChoicesContainer" class="mt-4 space-y-2.5"></div>
+        </div>
+
+        <div id="quizActionFooter" class="mt-6 pt-3 border-t-2 border-slate-100">
+          <button id="btnCheckAnswer" onclick="handleCheckOrNext()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d btn-green-3d">
+            Check Answer
+          </button>
+        </div>
+
+        <div id="resultDrawer" class="hidden mt-4 p-4 rounded-3xl border-2 transition-all duration-300">
+          <div class="flex items-start space-x-3">
+            <div id="resultIcon" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0"></div>
+            <div class="flex-1">
+              <h4 id="resultTitle" class="text-base font-black"></h4>
+              <p id="resultExplanation" class="text-xs font-bold mt-1 leading-relaxed"></p>
+            </div>
+          </div>
+          <button onclick="advanceNextQuestion()" id="btnDrawerContinue" class="mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d">
+            Continue
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- TAB 3: SPANISH CLINIC AUDIO FLASHCARDS               -->
+      <!-- ==================================================== -->
+      <section id="tab-spanish" class="hidden space-y-4 pb-8">
+        <div class="bg-gradient-to-r from-[#AB0520] to-[#D11936] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#820317]">
+          <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">SPAN 661 / 662 Practice</span>
+          <h2 class="text-lg font-black mt-1">Medical Spanish Audio Lab</h2>
+          <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish (es-MX) for clinical interviewing.</p>
+        </div>
+
+        <div class="flex space-x-2 overflow-x-auto pb-1" id="spanishFilterRow">
+          <button onclick="filterSpanishPhrases('all', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white">All</button>
+          <button onclick="filterSpanishPhrases('hpi', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">H&P / Pain</button>
+          <button onclick="filterSpanishPhrases('exam', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Physical Exam</button>
+          <button onclick="filterSpanishPhrases('meds', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Meds & Allergies</button>
+        </div>
+
+        <div id="spanishCardsList" class="space-y-2.5"></div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- TAB 4: MISTAKES REVIEW                               -->
+      <!-- ==================================================== -->
+      <section id="tab-mistakes" class="hidden space-y-4 pb-8">
+        <div class="bg-gradient-to-b from-[#FF4B4B] to-[#EA2B2B] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#C81A1A]">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Targeted Remediation</span>
+              <h2 class="text-lg font-black mt-1">Review Missed Questions</h2>
+              <p class="text-xs text-white/90 font-bold">Master concepts you missed to guarantee >70% in Fall I.</p>
+            </div>
+            <div class="text-3xl">🥊</div>
+          </div>
+        </div>
+        <div id="mistakesContainer" class="space-y-3"></div>
+      </section>
+
+    </main>
+
+    <!-- BOTTOM NAVBAR -->
+    <nav class="fixed bottom-0 w-full max-w-md bg-white border-t-2 border-slate-200 px-3 py-2 grid grid-cols-4 gap-1 z-30 shadow-lg">
+      <button onclick="switchTab('roadmap')" id="nav-roadmap" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition">
+        <i class="fa-solid fa-map text-xl mb-0.5"></i>
+        <span class="text-[10px]">Learn</span>
+      </button>
+      <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+        <i class="fa-solid fa-dumbbell text-xl mb-0.5"></i>
+        <span class="text-[10px]">Practice</span>
+      </button>
+      <button onclick="switchTab('spanish')" id="nav-spanish" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+        <i class="fa-solid fa-comments text-xl mb-0.5"></i>
+        <span class="text-[10px]">Spanish</span>
+      </button>
+      <button onclick="switchTab('mistakes')" id="nav-mistakes" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+        <i class="fa-solid fa-heart-crack text-xl mb-0.5"></i>
+        <span class="text-[10px]">Mistakes</span>
+      </button>
+    </nav>
+
+    <!-- KAILYN'S LOVE NOTES DRAWER -->
+    <div id="loveNotesDrawer" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-end sm:items-center justify-center p-3">
+      <div class="bg-white rounded-3xl w-full max-w-md p-5 max-h-[85vh] flex flex-col shadow-2xl border-2 border-pink-200 animate-pop">
+        <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-2xl">💌</span>
+            <div>
+              <h3 class="text-base font-black text-slate-800 leading-none">Kailyn's Love Notes</h3>
+              <p class="text-[11px] font-bold text-pink-500 mt-0.5">Milestones & Reminders for Kaylove</p>
+            </div>
+          </div>
+          <button onclick="closeLoveNotesDrawer()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-black">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <div class="flex-1 bg-slate-200 h-4 rounded-full overflow-hidden">
-            <div id="quizProgressBar" class="h-full bg-duogreen transition-all duration-300" style="width: 0%"></div>
-          </div>
         </div>
-
-        <!-- Question Card -->
-        <div class="mt-2 bg-white rounded-3xl p-4 border-2 border-slate-200 shadow-sm">
-          <div class="flex items-center justify-between mb-2">
-            <span id="qCategoryPill" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-duoblue-bg text-duoblue-dark border border-duoblue">CATEGORY</span>
-            <button id="qVoiceBtn" aria-label="Play Audio" onclick="speakCurrentPrompt()" class="hidden w-8 h-8 rounded-full bg-duoblue-bg border border-duoblue text-duoblue flex items-center justify-center text-sm active:scale-95 transition">
-              <i class="fa-solid fa-volume-high"></i>
-            </button>
-          </div>
-          <div id="qImageContainer" class="hidden w-full mb-3 rounded-xl overflow-hidden border-2 border-slate-100 bg-slate-50 flex justify-center">
-            <img id="qImage" src="" alt="Clinical Diagram" class="max-h-48 object-contain" onerror="this.parentElement.classList.add('hidden')" />
-          </div>
-          <h3 id="quizQuestionText" class="text-base font-extrabold text-slate-800 leading-snug">Question text goes here?</h3>
+        <div id="loveBadgesGrid" class="my-4 space-y-2.5 overflow-y-auto pr-1"></div>
+        <div class="pt-3 border-t-2 border-slate-100 flex gap-2">
+          <button onclick="triggerRandomMilestoneSurprise()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-pink-600 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 transition">
+            ✨ Pep Talk
+          </button>
+          <button onclick="closeLoveNotesDrawer()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-white btn-3d btn-green-3d">
+            Back to Prep
+          </button>
         </div>
-
-        <div id="quizChoicesContainer" class="mt-4 space-y-2.5"></div>
       </div>
-
-      <!-- Action Footer -->
-      <div id="quizActionFooter" class="mt-6 pt-3">
-        <button id="btnCheckAnswer" aria-label="Check Answer" onclick="handleCheckOrNext()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-slate-400 cursor-not-allowed">
-          Check Answer
-        </button>
-      </div>
-
-      <!-- Result Drawer -->
-      <div id="resultDrawer" class="hidden mt-4 p-4 rounded-3xl border-2 transition-all">
-        <div class="flex items-start space-x-3">
-          <div id="resultIcon" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0"></div>
-          <div>
-            <h4 id="resultTitle" class="text-base font-black"></h4>
-            <p id="resultExplanation" class="text-xs font-bold mt-1 leading-relaxed"></p>
-          </div>
-        </div>
-        <button id="btnDrawerContinue" aria-label="Continue" onclick="handleCheckOrNext()" class="mt-3 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d">
-          Continue
-        </button>
-      </div>
-    </section>
-
-    <!-- TAB 3: SPANISH CLINIC LAB -->
-    <section id="tab-spanish" class="hidden pb-8">
-      <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide mb-4">
-        <button onclick="filterSpanish('all')" class="span-filter px-3 py-1.5 rounded-xl text-xs font-black bg-duoblue text-white">All</button>
-        <button onclick="filterSpanish('hpi')" class="span-filter px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 text-slate-700">HPI</button>
-        <button onclick="filterSpanish('exam')" class="span-filter px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 text-slate-700">Exam</button>
-        <button onclick="filterSpanish('meds')" class="span-filter px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 text-slate-700">Meds</button>
-      </div>
-      <div id="spanishCardsList" class="space-y-3"></div>
-    </section>
-
-    <!-- TAB 4: MISTAKES TENT -->
-    <section id="tab-mistakes" class="hidden pb-8">
-      <div id="mistakesContainer" class="space-y-3"></div>
-    </section>
-  </main>
-
-  <!-- BOTTOM NAVIGATION APP BAR -->
-  <nav id="bottomNav" class="fixed bottom-0 w-full bg-white border-t-2 border-slate-200 pb-safe pt-1 px-6 z-50">
-    <div class="flex justify-between max-w-md mx-auto">
-      <button aria-label="Roadmap" onclick="switchTab('roadmap')" id="nav-roadmap" class="flex flex-col items-center p-2 text-duogreen font-black transition">
-        <i class="fa-solid fa-map-location-dot text-xl mb-1"></i>
-      </button>
-      <button aria-label="Spanish Lab" onclick="switchTab('spanish')" id="nav-spanish" class="flex flex-col items-center p-2 text-slate-400 font-bold hover:text-slate-600 transition">
-        <i class="fa-solid fa-language text-xl mb-1"></i>
-      </button>
-      <button aria-label="Mistakes" onclick="switchTab('mistakes')" id="nav-mistakes" class="flex flex-col items-center p-2 text-slate-400 font-bold hover:text-slate-600 transition relative">
-        <i class="fa-solid fa-shield-halved text-xl mb-1"></i>
-      </button>
     </div>
-  </nav>
 
-  <!-- CELEBRATION MODAL FOR KAILYN -->
-  <div id="celebrationModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" role="dialog" aria-modal="true">
-    <div class="bg-white rounded-3xl p-6 w-full max-w-sm text-center border-4 border-duogreen shadow-xl relative animate-wiggle">
-      <div class="text-6xl mb-2">🥹💖</div>
-      <h2 class="text-xl font-black text-slate-800 mb-2">I'm so proud of you my love!</h2>
-      <p id="modalMsg" class="text-sm font-bold text-slate-500 mb-6">You are doing amazing, Kayfart. Keep going!</p>
-      <button aria-label="Close Modal" onclick="closeModal()" class="w-full py-3 rounded-2xl bg-duogreen text-white font-black text-sm uppercase btn-3d border-duogreen-dark">
-        I love you too!
-      </button>
+    <!-- MILESTONE MODAL -->
+    <div id="milestoneModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl w-full max-w-sm p-6 text-center space-y-4 shadow-2xl border-4 border-pink-300 animate-pop">
+        <div class="flex justify-center items-center space-x-2 text-lg">
+          <span>✨</span><span>💖</span><span>✨</span>
+        </div>
+        <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-pink-100 via-rose-50 to-amber-100 border-4 border-pink-300 flex items-center justify-center text-5xl mx-auto shadow-md heart-float" id="milestoneModalEmoji">
+          🥹💖
+        </div>
+        <div class="space-y-1.5">
+          <span id="milestoneModalBadgeTag" class="inline-block text-[10px] font-black uppercase tracking-widest bg-pink-100 text-pink-600 px-3 py-1 rounded-full">
+            Milestone Unlocked!
+          </span>
+          <h3 id="milestoneModalTitle" class="text-xl font-black text-slate-800 leading-tight">
+            I’m proud of you my love! 🥹
+          </h3>
+          <p id="milestoneModalSubtitle" class="text-xs sm:text-sm font-bold text-slate-600 leading-relaxed px-2">
+            Amazing job, Kaylove! You are going to be the smartest, most caring PA at UArizona!
+          </p>
+        </div>
+        <div class="pt-2">
+          <button onclick="closeMilestoneModal()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider btn-3d btn-pink-3d shadow-md">
+            Love You! Keep Going 💖
+          </button>
+        </div>
+      </div>
     </div>
+
   </div>
 
   <script>
-    // --- LOCAL STORAGE STATE ---
-    const STORAGE_KEY = 'kailyn_pa_v3';
-    let gameState = { streak: 0, lastDate: null, xp: 0, hearts: 5, mistakesIds: [] };
+    // =========================================================
+    // BUILT-IN FALLBACK & EXPANDED SPANISH QUESTION BANK
+    // (Automatically merges with window.EXPANDED_QUESTION_BANK from questions.js!)
+    // =========================================================
+    const BUILTIN_QUESTIONS = [
+      // --- GROSS ANATOMY ---
+      {
+        id: 'anat_1', unit: 'phase1', topic: 'anat', category: 'Gross Anatomy',
+        prompt: 'Identify the primary distal insertion point of the biceps brachii muscle shown in the diagram.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Biceps_brachii.png',
+        options: ['Radial tuberosity and bicipital aponeurosis', 'Olecranon process of the ulna', 'Coracoid process of the scapula', 'Ulnar tuberosity'],
+        correct: 0, audioText: '',
+        pearl: 'The biceps brachii inserts distally onto the radial tuberosity and the bicipital aponeurosis, making it both a primary elbow flexor and a powerful supinator.'
+      },
+      {
+        id: 'anat_2', unit: 'phase1', topic: 'anat', category: 'Gross Anatomy',
+        prompt: 'Which bony landmark serves as the superior insertion point for the sternocleidomastoid muscle?',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Sternocleidomastoideus.png',
+        options: ['Mastoid process of the temporal bone', 'Occipital protuberance', 'Manubrium of the sternum', 'Medial third of the clavicle'],
+        correct: 0, audioText: '',
+        pearl: 'The sternocleidomastoid originates on the sternum and clavicle and inserts superiorly onto the mastoid process of the temporal bone.'
+      },
+      {
+        id: 'anat_3', unit: 'phase1', topic: 'anat', category: 'Gross Anatomy',
+        prompt: 'Where does the deltoid muscle converge to insert on the lateral shaft of the humerus?',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Deltoideus.png',
+        options: ['Deltoid tuberosity', 'Greater tubercle', 'Lesser tubercle', 'Intertubercular sulcus'],
+        correct: 0, audioText: '',
+        pearl: 'All three heads of the deltoid converge to insert on the deltoid tuberosity of the lateral humerus.'
+      },
 
-    function initApp() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) gameState = { ...gameState, ...JSON.parse(raw) };
-      } catch (e) {}
+      // --- BATES & CMDT CLINICAL MEDICINE ---
+      {
+        id: 'u1_1', unit: 'phase1', topic: 'bates_cmdt', category: 'Physical Examination (Bates)',
+        prompt: 'According to established physical exam protocols, which sequence is the correct standard approach for examining the abdomen?',
+        options: ['Inspection, Palpation, Percussion, Auscultation', 'Inspection, Auscultation, Percussion, Palpation', 'Auscultation, Inspection, Palpation, Percussion', 'Palpation, Percussion, Auscultation, Inspection'],
+        correct: 1, audioText: '',
+        pearl: 'Auscultation must precede percussion and palpation in the abdominal exam so that bowel sounds are not artificially altered.'
+      },
+      {
+        id: 'u1_2', unit: 'phase1', topic: 'bates_cmdt', category: 'Cardiology (CMDT)',
+        prompt: 'Which of the following is considered a first-line pharmacological treatment for an uncomplicated patient newly diagnosed with primary hypertension?',
+        options: ['Beta-blockers', 'Alpha-blockers', 'Thiazide diuretics or ACE inhibitors', 'Loop diuretics'],
+        correct: 2, audioText: '',
+        pearl: 'CMDT guidelines recommend ACE inhibitors, ARBs, calcium channel blockers, or thiazide diuretics as initial monotherapy for uncomplicated hypertension.'
+      },
 
-      // Daily Streak Logic
-      const today = new Date().toDateString();
-      if (gameState.lastDate !== today) {
-        if (gameState.lastDate === new Date(Date.now() - 86400000).toDateString()) {
-          gameState.streak++;
-        } else if (gameState.lastDate !== null) {
-          gameState.streak = 1; // Reset streak if missed a day
-        } else {
-          gameState.streak = 1; // First day
-        }
-        gameState.lastDate = today;
-        saveState();
+      // --- EXPANDED MEDICAL SPANISH TERMINOLOGY & CLINICAL INTERVIEWING (SPAN 661) ---
+      {
+        id: 'sp_1', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'How do you ask a patient in the ED: "Where does it hurt?"',
+        options: ['¿Dónde le duele?', '¿Cómo se llama?', '¿Desde cuándo toma esto?', '¿Tiene seguro médico?'],
+        correct: 0, audioText: '¿Dónde le duele?',
+        pearl: '“¿Dónde le duele?” uses the indirect object pronoun "le" with "doler" to ask where pain is located.'
+      },
+      {
+        id: 'sp_2', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'A patient says: "Tengo falta de aire." What chief complaint is this describing?',
+        options: ['Chest palpitations', 'Shortness of breath / Dyspnea', 'Severe heartburn', 'Dizziness upon standing'],
+        correct: 1, audioText: 'Tengo falta de aire',
+        pearl: '“Falta de aire” translates literally to "lack of air" and is the classic phrase for dyspnea / shortness of breath.'
+      },
+      {
+        id: 'sp_3', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'Translate the classic OLDCARTS question: "¿El dolor se corre hacia el brazo o la espalda?"',
+        options: ['Does the pain radiate to your arm or back?', 'Is the pain sharp or throbbing?', 'Does the pain get worse with exercise?', 'Have you had this pain before?'],
+        correct: 0, audioText: '¿El dolor se corre hacia el brazo o la espalda?',
+        pearl: '“Correrse” or “irradiarse” are used clinically to describe pain radiation in angina and cholecystitis.'
+      },
+      {
+        id: 'sp_4', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'When asking about allergies, what does: "¿Es alérgico a algún medicamento?" mean?',
+        options: ['Are you allergic to any medication?', 'Do you take medication every day?', 'Who prescribed this medication?', 'Did this pill upset your stomach?'],
+        correct: 0, audioText: '¿Es alérgico a algún medicamento?',
+        pearl: 'Essential medication reconciliation safety question prior to prescribing antibiotics or analgesics.'
+      },
+      {
+        id: 'sp_5', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'During a cardiopulmonary physical exam, how do you tell the patient: "Breathe deeply, please"?',
+        options: ['Respire hondo, por favor', 'Abra la boca', 'Tosa fuerte', 'No se mueva'],
+        correct: 0, audioText: 'Respire hondo, por favor',
+        pearl: '“Respire hondo” (or “respire profundo”) is standard for auscultating lung fields.'
+      },
+      {
+        id: 'sp_6', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'How do you ask a patient: "Do you have any medical conditions like diabetes or high blood pressure?"',
+        options: ['¿Tiene alguna enfermedad como diabetes o presión alta?', '¿Cuándo fue su última cita médica?', '¿Toma sus pastillas con las comidas?', '¿Le duele la cabeza cuando se levanta?'],
+        correct: 0, audioText: '¿Tiene alguna enfermedad como diabetes o presión alta?',
+        pearl: '“Presión alta” (or hipertensión) and “diabetes” (often called "azúcar en la sangre") are key Past Medical History terms.'
+      },
+      {
+        id: 'sp_7', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'During the physical exam, how do you instruct a patient: "Sit down on the exam table, please"?',
+        options: ['Siéntese en la camilla, por favor', 'Acuéstese boca arriba', 'Levántese despacio', 'Quítese los zapatos'],
+        correct: 0, audioText: 'Siéntese en la camilla, por favor',
+        pearl: '“La camilla” refers specifically to the clinical examination table or stretcher.'
+      },
+      {
+        id: 'sp_8', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'How do you ask a female patient: "When was your last menstrual period?"',
+        options: ['¿Cuándo fue su última regla (o periodo)?', '¿Está embarazada ahora?', '¿Cuántos hijos tiene?', '¿Tiene cólicos fuertes?'],
+        correct: 0, audioText: '¿Cuándo fue su última regla?',
+        pearl: '“La regla” or “el periodo” are standard terms used when obtaining Last Menstrual Period (LMP).'
+      },
+      {
+        id: 'sp_9', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'When giving discharge instructions, how do you say: "Take one pill every eight hours with food"?',
+        options: ['Tome una pastilla cada ocho horas con comida', 'Tome dos pastillas antes de dormir', 'Tome esta medicina solamente si tiene fiebre', 'No tome nada por tres días'],
+        correct: 0, audioText: 'Tome una pastilla cada ocho horas con comida',
+        pearl: '“Una pastilla” (one pill/tablet), “cada ocho horas” (q8h), “con comida” (with food).'
+      },
+      {
+        id: 'sp_10', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'How do you ask a patient if they have experienced dizziness or vertigo?',
+        options: ['¿Ha sentido mareos o vértigo?', '¿Tiene problemas para dormir?', '¿Siente hormigueo en las manos?', '¿Ha perdido peso recientemente?'],
+        correct: 0, audioText: '¿Ha sentido mareos o vértigo?',
+        pearl: '“Mareos” covers dizziness, lightheadedness, and presyncope.'
+      },
+      {
+        id: 'sp_11', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'What anatomical organ are you evaluating when discussing "la vesícula biliar" with a patient who has RUQ pain?',
+        options: ['Gallbladder', 'Urinary bladder', 'Spleen', 'Liver'],
+        correct: 0, audioText: 'La vesícula biliar',
+        pearl: '“La vesícula biliar” = gallbladder. Do not confuse with “la vejiga” (urinary bladder) or “el hígado” (liver).'
+      },
+      {
+        id: 'sp_12', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'A patient reports: "Siento ardor al orinar." What symptom are they describing?',
+        options: ['Dysuria (burning with urination)', 'Hematuria (blood in the urine)', 'Urinary incontinence', 'Flank pain'],
+        correct: 0, audioText: 'Siento ardor al orinar',
+        pearl: '“Ardor” = burning sensation; “orinar” = to urinate. Classic symptom of a UTI (infección de las vías urinarias).'
+      },
+      {
+        id: 'sp_13', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'In Spanish medical terminology, what is the difference between "el hígado" and "el riñón"?',
+        options: ['El hígado is the liver; el riñón is the kidney', 'El hígado is the spleen; el riñón is the pancreas', 'El hígado is the lung; el riñón is the heart', 'El hígado is the stomach; el riñón is the gallbladder'],
+        correct: 0, audioText: 'El hígado y el riñón',
+        pearl: 'El hígado = liver (hepatic); el riñón = kidney (renal); los pulmones = lungs; el bazo = spleen.'
+      },
+      {
+        id: 'sp_14', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'A patient with diabetes says: "Siento entumecimiento y hormigueo en los pies." What neurological symptom is this?',
+        options: ['Numbness and tingling (paresthesia) in the feet', 'Sharp shooting pain in the calves', 'Weakness when walking upstairs', 'Swelling in the ankles'],
+        correct: 0, audioText: 'Siento entumecimiento y hormigueo en los pies',
+        pearl: '“Entumecimiento” (or adormecimiento) = numbness; “hormigueo” = tingling ("pins and needles", literally like little ants).'
+      },
+      {
+        id: 'sp_15', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'When characterizing pain quality (OLDCARTS), what does "¿Es un dolor punzante o opresivo?" ask?',
+        options: ['Is it a sharp/stabbing pain or a squeezing/pressure pain?', 'Is the pain constant or intermittent?', 'Did the pain start suddenly or gradually?', 'Does the pain wake you up at night?'],
+        correct: 0, audioText: '¿Es un dolor punzante o opresivo?',
+        pearl: '“Punzante” = sharp/stabbing (pleuritic/pericardial); “opresivo” = crushing/squeezing pressure (classic myocardial ischemia).'
+      },
+      {
+        id: 'sp_16', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'A mother brings her child to the clinic and says: "Tiene sarpullido y picazón en la piel." What does the child have?',
+        options: ['A skin rash and itching (pruritus)', 'Fever and chills', 'Earache and sore throat', 'Cough and wheezing'],
+        correct: 0, audioText: 'Tiene sarpullido y picazón en la piel',
+        pearl: '“Sarpullido” (or erupción) = rash; “picazón” (or comezón) = itching/pruritus.'
+      },
+      {
+        id: 'sp_17', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'In GI history taking, what do the terms "estreñimiento" and "acidez" mean?',
+        options: ['Constipation and heartburn (GERD)', 'Diarrhea and vomiting', 'Jaundice and bloating', 'Black stools and abdominal cramps'],
+        correct: 0, audioText: 'Estreñimiento y acidez',
+        pearl: '“Estreñimiento” = constipation; “acidez” (or agruras) = heartburn / acid reflux.'
+      },
+      {
+        id: 'sp_18', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'A patient presents with fever and says: "Tengo escalofríos y sudores nocturnos." What are they reporting?',
+        options: ['Chills and night sweats', 'Nausea and loss of appetite', 'Joint pain and muscle aches', 'Hoarseness and dry cough'],
+        correct: 0, audioText: 'Tengo escalofríos y sudores nocturnos',
+        pearl: '“Escalofríos” = chills/rigors; “sudores nocturnos” = night sweats (critical constitutional B-symptoms / TB screening).'
+      },
+      {
+        id: 'sp_19', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'What does a patient mean if they tell you: "Me dieron de alta del hospital ayer"?',
+        options: ['I was discharged from the hospital yesterday', 'I was admitted to the hospital yesterday', 'I had surgery at the hospital yesterday', 'I work at the hospital'],
+        correct: 0, audioText: 'Me dieron de alta del hospital ayer',
+        pearl: '“Dar de alta” = to discharge a patient from the hospital. “Ingresar / internar” = to admit to the hospital.'
+      },
+      {
+        id: 'sp_20', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'How do you instruct a patient to fast before morning blood work: "Do not eat or drink anything after midnight (fasting)"?',
+        options: ['No coma ni beba nada después de la medianoche; venga en ayunas', 'Coma un desayuno ligero antes de su análisis de sangre', 'Tome mucha agua antes de su radiografía', 'Regrese a la clínica en dos semanas'],
+        correct: 0, audioText: 'No coma ni beba nada después de la medianoche; venga en ayunas',
+        pearl: '“En ayunas” is the essential clinical phrase meaning "fasting" (NPO) for lipid panels or fasting glucose.'
+      },
+      {
+        id: 'sp_21', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'In an orthopedic exam, how do you distinguish between "un esguince" and "una fractura"?',
+        options: ['Un esguince is a sprain; una fractura is a bone fracture/break', 'Un esguince is a muscle cramp; una fractura is a dislocation', 'Un esguince is a bruise; una fractura is a tendon tear', 'Both mean a broken bone'],
+        correct: 0, audioText: 'Un esguince del tobillo',
+        pearl: '“Un esguince” = ligament sprain (e.g., esguince de tobillo); “una fractura” (or hueso roto) = broken bone; “moretón” = bruise.'
+      },
+      {
+        id: 'sp_22', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'During a trauma or syncope history, how do you ask: "Did you lose consciousness (faint)?"',
+        options: ['¿Perdió el conocimiento (o se desmayó)?', '¿Se golpeó la rodilla?', '¿Tuvo dolor en el pecho?', '¿Vio luces brillantes?'],
+        correct: 0, audioText: '¿Perdió el conocimiento o se desmayó?',
+        pearl: '“Perder el conocimiento” = to lose consciousness; “desmayarse” = to faint / experience syncope.'
+      },
+      {
+        id: 'sp_23', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'When discussing a patient’s asthma or COPD, what are "sibilancias" and "flema"?',
+        options: ['Wheezing and phlegm/sputum', 'Shortness of breath and chest tightness', 'Stridor and coughing up blood', 'Snoring and nasal congestion'],
+        correct: 0, audioText: 'Sibilancias y flema',
+        pearl: '“Sibilancias” (or un silbido en el pecho) = wheezing; “flema” (or esputo) = phlegm/sputum.'
+      },
+      {
+        id: 'sp_24', unit: 'phase1', topic: 'spanish', category: 'Medical Spanish (SPAN 661)',
+        prompt: 'Before performing a procedure, how do you say: "We are going to numb the area with local anesthesia"?',
+        options: ['Vamos a adormecer el área con anestesia local', 'Vamos a tomar una radiografía del pecho', 'Vamos a ponerle un yeso en el brazo', 'Vamos a recetarle un antibiótico'],
+        correct: 0, audioText: 'Vamos a adormecer el área con anestesia local',
+        pearl: '“Adormecer” (or anestesiar) = to numb; “puntos / suturas” = stitches.'
+      },
+
+      // --- UNIT 2: PHYSIOLOGY (PAP 601) ---
+      {
+        id: 'phys_1', unit: 'phase2', topic: 'cardio_phys', category: 'Physiology (PAP 601)',
+        prompt: 'On a standard 12-lead ECG, what electrical event in the heart corresponds to the P wave?',
+        options: ['Ventricular depolarization', 'Atrial depolarization', 'Ventricular repolarization', 'AV nodal delay'],
+        correct: 1, audioText: '',
+        pearl: 'The P wave represents atrial depolarization spreading from the SA node through the atria.'
+      },
+      {
+        id: 'phys_2', unit: 'phase2', topic: 'renal_abg', category: 'Renal Physiology (PAP 601)',
+        prompt: 'In which segment of the renal nephron is the majority (approximately 65-70%) of filtered sodium and water reabsorbed?',
+        options: ['Distal convoluted tubule', 'Loop of Henle', 'Proximal convoluted tubule', 'Cortical collecting duct'],
+        correct: 2, audioText: '',
+        pearl: 'The proximal convoluted tubule is the workhorse of the nephron, reabsorbing 65-70% of filtered Na+, water, and 100% of glucose.'
+      },
+      {
+        id: 'u2_3', unit: 'phase2', topic: 'renal_abg', category: 'Acid-Base Physiology',
+        prompt: 'An ABG reads: pH 7.28, PaCO2 58 mmHg, HCO3- 26 mEq/L. What is the primary disorder?',
+        options: ['Respiratory acidosis', 'Metabolic acidosis', 'Respiratory alkalosis', 'Metabolic alkalosis'],
+        correct: 0, audioText: '',
+        pearl: 'Low pH (<7.35) with elevated PaCO2 (>45 mmHg) indicates a primary respiratory acidosis.'
+      },
+
+      // --- UNIT 3: PHARM & SOAP (PAP 611 / 621) ---
+      {
+        id: 'u3_1', unit: 'phase3', topic: 'pharm', category: 'Pharmacology Suffixes',
+        prompt: 'Medications ending in "-sartan" (e.g., Losartan, Valsartan) work by:',
+        options: ['Blocking Angiotensin II Type 1 (AT1) receptors', 'Inhibiting ACE directly', 'Blocking calcium channels', 'Antagonizing Beta-1 receptors'],
+        correct: 0, audioText: '',
+        pearl: 'ARBs (-sartan) block AT1 receptors and avoid bradykinin accumulation (preventing ACE-inhibitor dry cough).'
+      },
+      {
+        id: 'u3_4', unit: 'phase3', topic: 'soap', category: 'Clinical Skills (PAP 621)',
+        prompt: 'In a SOAP note, where does the patient’s Chief Complaint and Review of Systems (ROS) belong?',
+        options: ['Subjective (S)', 'Objective (O)', 'Assessment (A)', 'Plan (P)'],
+        correct: 0, audioText: '',
+        pearl: 'Subjective contains history reported by the patient (CC, HPI, PMH, Meds, Allergies, ROS).'
+      },
+
+      // --- UNIT 4: UARIZONA ADMIN ---
+      {
+        id: 'u4_1', unit: 'phase4', topic: 'admin', category: 'UArizona Academic Policy',
+        prompt: 'What is the strict passing threshold for all didactic courses in the University of Arizona PA Program?',
+        options: ['70.0% minimum, strictly enforced with NO rounding (69.8% is a failing grade)', '65.0% with curved rounding', 'Pass/Fail only with no percentage grades', '75.0% rounded up from 74.5%'],
+        correct: 0, audioText: '',
+        pearl: 'UArizona PA enforces an unrounded 70.0% minimum passing grade on modular and course exams.'
       }
-      
-      updateUI();
-      renderDynamicRoadmap();
-      switchTab('roadmap');
+    ];
+
+    // Expanded Spanish Clinic Phrases for Tab 3
+    const BUILTIN_SPANISH_PHRASES = [
+      { es: '¿Dónde le duele exactamente?', en: 'Where does it hurt exactly?', tag: 'hpi' },
+      { es: '¿El dolor se corre hacia el brazo o la espalda?', en: 'Does the pain radiate to your arm or back?', tag: 'hpi' },
+      { es: '¿Es un dolor punzante, sordo, opresivo o como ardor?', en: 'Is the pain sharp, dull, squeezing, or burning?', tag: 'hpi' },
+      { es: 'En una escala del uno al diez, ¿cuánto le duele?', en: 'On a scale from 1 to 10, how much does it hurt?', tag: 'hpi' },
+      { es: '¿Tiene falta de aire o dificultad para respirar?', en: 'Do you have shortness of breath or difficulty breathing?', tag: 'hpi' },
+      { es: '¿Ha tenido fiebre, escalofríos o sudores nocturnos?', en: 'Have you had fever, chills, or night sweats?', tag: 'hpi' },
+      { es: '¿Siente entumecimiento u hormigueo en las manos o los pies?', en: 'Do you feel numbness or tingling in your hands or feet?', tag: 'hpi' },
+      { es: '¿Cuándo fue su última regla (o periodo menstrual)?', en: 'When was your last menstrual period?', tag: 'hpi' },
+      { es: 'Siéntese en la camilla, por favor.', en: 'Sit down on the exam table, please.', tag: 'exam' },
+      { es: 'Respire hondo por la boca, por favor.', en: 'Take a deep breath through your mouth, please.', tag: 'exam' },
+      { es: 'Abra la boca y diga "ah".', en: 'Open your mouth and say "ah".', tag: 'exam' },
+      { es: 'Voy a presionar su abdomen; dígame si siente dolor.', en: 'I am going to press your abdomen; tell me if you feel pain.', tag: 'exam' },
+      { es: 'Acuéstese boca arriba y relaje los músculos.', en: 'Lie face up and relax your muscles.', tag: 'exam' },
+      { es: '¿Es alérgico a la penicilina o a algún medicamento?', en: 'Are you allergic to penicillin or any medication?', tag: 'meds' },
+      { es: 'Tome una pastilla cada ocho horas con comida.', en: 'Take one pill every 8 hours with food.', tag: 'meds' },
+      { es: 'No coma ni beba nada después de la medianoche; venga en ayunas.', en: 'Do not eat or drink anything after midnight; come fasting.', tag: 'meds' },
+      { es: '¿Toma alguna medicina para la presión alta o la diabetes?', en: 'Do you take any medication for high blood pressure or diabetes?', tag: 'meds' }
+    ];
+
+    // Merge questions.js with built-in bank (deduplicating by id so nothing is ever lost)
+    function getMasterQuestionBank() {
+      const externalBank = Array.isArray(window.EXPANDED_QUESTION_BANK) ? window.EXPANDED_QUESTION_BANK : [];
+      const map = new Map();
+      BUILTIN_QUESTIONS.forEach(q => map.set(q.id, q));
+      externalBank.forEach(q => map.set(q.id, q));
+      return Array.from(map.values());
     }
 
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
-      updateUI();
+    function getMasterSpanishPhrases() {
+      const externalPhrases = Array.isArray(window.SPANISH_CLINIC_PHRASES) ? window.SPANISH_CLINIC_PHRASES : [];
+      const map = new Map();
+      BUILTIN_SPANISH_PHRASES.forEach(p => map.set(p.es, p));
+      externalPhrases.forEach(p => map.set(p.es, p));
+      return Array.from(map.values());
     }
 
-    function updateUI() {
+    // Kailyn's Badges & Love Notes Deck (Clean & Professional/Sweet)
+    const KAILYN_LOVE_NOTES = [
+      { id: 'b_welcome', title: 'Future UArizona PA-C!', subtitle: 'I am so incredibly proud of you, Kailyn! 🥹', icon: '🩺💖', unlocked: true },
+      { id: 'b_streak3', title: 'Hot Streak Master!', subtitle: 'You are crushing it, Kaylove! Keep pushing!', icon: '🔥', unlocked: true },
+      { id: 'b_anatomy', title: 'Anatomy Master', subtitle: 'Netter has nothing on you! Amazing work my love.', icon: '🦴', unlocked: true },
+      { id: 'b_spanish', title: 'Bilingual Clinician', subtitle: 'You are going to serve patients so well in Tucson!', icon: '🗣️', unlocked: true }
+    ];
+
+    const KAILYN_CORRECT_HEADERS = [
+      "Nicely done, Kailyn! 💖",
+      "I’m proud of you my love! 🥹",
+      "Amazing job, Kaylove! 🌟",
+      "You're a natural, Dr. Kay! 🩺",
+      "Nailed it! Future PA-C right here! ✨"
+    ];
+
+    // =========================================================
+    // GAME & QUIZ STATE
+    // =========================================================
+    let gameState = {
+      xp: 120,
+      hearts: 5,
+      streak: 1,
+      mistakesIds: []
+    };
+
+    let activeDeck = [];
+    let currentQuizIndex = 0;
+    let selectedOptionIndex = null;
+    let comboStreak = 0;
+    let hasAnsweredCurrentQuestion = false;
+
+    function loadGameState() {
+      try {
+        const saved = localStorage.getItem('uaz_pa_kailyn_state');
+        if (saved) gameState = { ...gameState, ...JSON.parse(saved) };
+      } catch (e) {}
+      updateTopBarUI();
+      renderLoveNotesBadges();
+      renderDynamicExtraUnits();
+    }
+
+    function saveGameState() {
+      try {
+        localStorage.setItem('uaz_pa_kailyn_state', JSON.stringify(gameState));
+      } catch (e) {}
+    }
+
+    function updateTopBarUI() {
       document.getElementById('statStreak').textContent = gameState.streak;
       document.getElementById('statXP').textContent = gameState.xp;
       document.getElementById('statHearts').textContent = gameState.hearts;
+      document.getElementById('quizHeartsRemaining').textContent = gameState.hearts;
+      document.getElementById('badgeCountPill').textContent = KAILYN_LOVE_NOTES.filter(b => b.unlocked).length;
     }
 
     function refillHearts() {
-      if (gameState.hearts < 5) {
-        gameState.hearts = 5;
-        saveState();
-        showModal("Hearts Refilled! 💖", "I topped off your hearts, Kayfart. You've got this!");
-      }
+      gameState.hearts = 5;
+      saveGameState();
+      updateTopBarUI();
+      showMascotSpeech('Hearts refilled! You have 5 lives ready to go, Kaylove! ❤️');
     }
 
-    // --- DYNAMIC ROADMAP GENERATOR ---
-    function renderDynamicRoadmap() {
-      const container = document.getElementById('dynamicRoadmap');
-      if (!window.EXPANDED_QUESTION_BANK) {
-        container.innerHTML = `<p class="text-duoheart font-bold">Error: questions.js not loaded. Check file path.</p>`;
+    // =========================================================
+    // ZERO-UPDATE AUTOMATIC UNIT/NODE DETECTOR
+    // Automatically detects any new unit/topic (e.g., 5.1, 6.1) added to questions.js
+    // =========================================================
+    function renderDynamicExtraUnits() {
+      const container = document.getElementById('extraDynamicUnitsContainer');
+      if (!container) return;
+
+      const allQs = getMasterQuestionBank();
+      const builtInTopics = new Set(['anat', 'bates_cmdt', 'spanish', 'cardio_phys', 'renal_abg', 'pharm', 'soap', 'admin']);
+      const builtInUnits = new Set(['phase1', 'phase2', 'phase3', 'phase4']);
+
+      // Find any questions that have a brand new topic or unit (like '6.1', 'unit6', 'peds', etc.)
+      const extraGroups = new Map();
+
+      allQs.forEach(q => {
+        const topicKey = q.topic ? String(q.topic).trim() : '';
+        const unitKey = q.unit ? String(q.unit).trim() : '';
+
+        const isNewTopic = topicKey && !builtInTopics.has(topicKey);
+        const isNewUnit = unitKey && !builtInUnits.has(unitKey);
+
+        if (isNewTopic || isNewUnit) {
+          const groupKey = topicKey || unitKey;
+          if (!extraGroups.has(groupKey)) {
+            extraGroups.set(groupKey, {
+              key: groupKey,
+              label: q.category || `Module ${groupKey.toUpperCase()}`,
+              questions: []
+            });
+          }
+          extraGroups.get(groupKey).questions.push(q);
+        }
+      });
+
+      if (extraGroups.size === 0) {
+        container.innerHTML = '';
         return;
       }
 
-      // 1. Group questions by their unique 'topic' tag
-      const topics = [...new Set(window.EXPANDED_QUESTION_BANK.map(q => q.topic))];
-      
-      let html = '';
-      topics.forEach((topic, index) => {
-        const topicQs = window.EXPANDED_QUESTION_BANK.filter(q => q.topic === topic);
-        const count = topicQs.length;
-        const categoryName = topicQs[0].category || topic;
-        
-        // 2. Calculate Winding Path Offset (Snake-like curve)
-        const offsets = [0, -35, -55, -35, 0, 35, 55, 35];
-        const shift = offsets[index % offsets.length];
+      let html = `
+        <div class="bg-gradient-to-b from-[#EC4899] to-[#BE185D] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#9D174D] mt-6">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Custom Expansion Modules</span>
+              <h2 class="text-lg font-black mt-1">New Clinical Modules</h2>
+              <p class="text-xs text-white/90 font-bold">Automatically loaded from questions.js</p>
+            </div>
+            <div class="text-3xl">✨</div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center space-y-5 my-2">
+      `;
 
+      let idx = 0;
+      const shiftClasses = ['', 'translate-x-10', '-translate-x-10'];
+      extraGroups.forEach(group => {
+        const shift = shiftClasses[idx % shiftClasses.length];
+        const shortBadge = group.key.length <= 6 ? group.key.toUpperCase() : `${5 + idx}.1`;
         html += `
-          <div class="flex flex-col items-center mb-12" style="transform: translateX(${shift}px)">
-            <button aria-label="Start ${categoryName}" onclick="startSpecificUnit('${topic}')" class="w-16 h-16 rounded-full bg-duogreen text-white font-black text-2xl border-b-4 border-duogreen-dark shadow-sm active:translate-y-1 active:border-b-0 transition flex items-center justify-center relative hover:brightness-110">
-              <i class="fa-solid fa-star"></i>
-              <div class="absolute -bottom-7 flex flex-col items-center z-10">
-                <span class="text-[11px] text-slate-700 font-extrabold whitespace-nowrap bg-white px-2.5 py-1 rounded-lg shadow-sm border-2 border-slate-200">
-                  ${categoryName} (${count})
-                </span>
-              </div>
+          <div class="flex flex-col items-center ${shift}">
+            <button onclick="startCustomGroup('${group.key.replace(/'/g, "\\'")}')" class="w-20 h-20 rounded-full bg-[#EC4899] border-b-8 border-[#BE185D] hover:bg-[#F472B6] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🌟</span>
+              <span class="text-[11px] font-black tracking-wide">${shortBadge}</span>
             </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">${group.label} (${group.questions.length})</span>
           </div>
         `;
+        idx++;
       });
+
+      html += `</div>`;
       container.innerHTML = html;
     }
 
-    // --- QUIZ LOGIC (Fisher-Yates Shuffle & Session Isolation) ---
-    let activeDeck = [];
-    let currentQIndex = 0;
-    let selectedOptionIndex = null;
-    let hasAnswered = false;
-    let combo = 0;
+    function startCustomGroup(groupKey) {
+      const allQs = getMasterQuestionBank();
+      activeDeck = allQs.filter(q => q.topic === groupKey || q.unit === groupKey || q.category === groupKey);
+      launchQuizWithDeck(`Starting ${groupKey.toUpperCase()}, Kailyn! You've got this! 💖`);
+    }
 
-    // True Fisher-Yates Shuffle Function
-    function shuffleArray(array) {
-      let arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
+    // =========================================================
+    // QUIZ ENGINE WITH DYNAMIC SHUFFLING & SECURE IMAGES
+    // =========================================================
+    function startSpecificUnit(unitId, filterType) {
+      const allQs = getMasterQuestionBank();
+
+      if (filterType === 'anat') {
+        activeDeck = allQs.filter(q => q.topic === 'anat' || (q.category && q.category.toLowerCase().includes('anatomy')));
+      } else if (filterType === 'bates_cmdt') {
+        activeDeck = allQs.filter(q =>
+          q.topic === 'bates_cmdt' ||
+          (q.category && (
+            q.category.includes('Bates') ||
+            q.category.includes('CMDT') ||
+            q.category.includes('Ballweg') ||
+            q.category.includes('Vital') ||
+            q.category.includes('Terminology')
+          ))
+        );
+      } else if (filterType === 'spanish') {
+        activeDeck = allQs.filter(q => q.topic === 'spanish' || (q.category && q.category.toLowerCase().includes('spanish')));
+      } else if (filterType === 'cardio_phys') {
+        activeDeck = allQs.filter(q => q.topic === 'cardio_phys' || (q.unit === 'phase2' && q.category && (q.category.includes('Cardio') || q.category.includes('Physiology') || q.category.includes('Pulmonary') || q.category.includes('Autonomic'))));
+      } else if (filterType === 'renal_abg') {
+        activeDeck = allQs.filter(q => q.topic === 'renal_abg' || (q.unit === 'phase2' && q.category && (q.category.includes('Renal') || q.category.includes('Acid-Base'))));
+      } else if (filterType === 'pharm') {
+        activeDeck = allQs.filter(q => q.topic === 'pharm' || (q.unit === 'phase3' && q.category && q.category.includes('Pharm')));
+      } else if (filterType === 'soap') {
+        activeDeck = allQs.filter(q => q.topic === 'soap' || (q.unit === 'phase3' && q.category && (q.category.includes('Clinical') || q.category.includes('Lab'))));
+      } else {
+        activeDeck = allQs.filter(q => q.unit === unitId || q.topic === filterType);
+      }
+
+      if (activeDeck.length === 0) {
+        activeDeck = allQs.filter(q => q.unit === unitId);
+      }
+      if (activeDeck.length === 0) {
+        activeDeck = [...allQs];
+      }
+
+      launchQuizWithDeck(`You've got this, Kailyn! Let's crush this session! 💖`);
+    }
+
+    function launchQuizWithDeck(speechMsg) {
+      // Fisher-Yates shuffle question order
+      const shuffled = [...activeDeck];
+      for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
-      return arr;
-    }
+      activeDeck = shuffled.slice(0, 10);
 
-    function startSpecificUnit(topicTag) {
-      if (gameState.hearts <= 0) {
-        showModal("Out of Hearts! 💔", "Take a breather, Kayfart. Tap your hearts at the top to refill!");
-        return;
-      }
-      // Pull questions for the selected topic
-      const pool = window.EXPANDED_QUESTION_BANK.filter(q => q.topic === topicTag);
-      
-      // Shuffle the deck and slice a max of 8 for a quick session
-      activeDeck = shuffleArray(pool).slice(0, 8);
-      
-      // Deep clone and shuffle the options for EACH question so 'A' isn't always correct
-      activeDeck = activeDeck.map(q => {
-        let paired = q.options.map((text, idx) => ({ text, isCorrect: idx === q.correct }));
-        let shuffledPairs = shuffleArray(paired);
-        return {
-          ...q,
-          sessionOptions: shuffledPairs.map(p => p.text),
-          sessionCorrectIndex: shuffledPairs.findIndex(p => p.isCorrect)
-        };
-      });
-
-      currentQIndex = 0;
-      combo = 0;
+      currentQuizIndex = 0;
+      comboStreak = 0;
       switchTab('quiz');
-      loadQuestion();
+      loadQuizQuestion();
+      showMascotSpeech(speechMsg);
     }
 
-    function loadQuestion() {
-      hasAnswered = false;
+    function exitQuizToRoadmap() {
+      switchTab('roadmap');
+    }
+
+    function loadQuizQuestion() {
+      hasAnsweredCurrentQuestion = false;
       selectedOptionIndex = null;
       document.getElementById('resultDrawer').classList.add('hidden');
       document.getElementById('quizActionFooter').classList.remove('hidden');
 
-      const q = activeDeck[currentQIndex];
-      if (!q) return finishSession();
+      const q = activeDeck[currentQuizIndex];
+      if (!q) {
+        finishQuizSession();
+        return;
+      }
 
-      const pct = Math.round((currentQIndex / activeDeck.length) * 100);
-      document.getElementById('quizProgressBar').style.width = `${Math.max(5, pct)}%`;
-      document.getElementById('qCategoryPill').textContent = q.category.toUpperCase();
+      // Update Progress Bar
+      const pct = Math.round(((currentQuizIndex) / activeDeck.length) * 100);
+      document.getElementById('quizProgressBar').style.width = `${Math.max(8, pct)}%`;
+
+      document.getElementById('qCategoryPill').textContent = (q.category || 'CLINICAL PREP').toUpperCase();
       document.getElementById('quizQuestionText').textContent = q.prompt;
 
+      // Handle Medical Illustration Diagram
+      const imgContainer = document.getElementById('quizImageContainer');
+      const imgTag = document.getElementById('quizImageTag');
+      if (q.imageUrl && q.imageUrl.trim() !== '') {
+        imgTag.src = q.imageUrl;
+        imgContainer.classList.remove('hidden');
+      } else {
+        imgContainer.classList.add('hidden');
+        imgTag.src = '';
+      }
+
+      // Spanish Voice Audio Button
       const voiceBtn = document.getElementById('qVoiceBtn');
-      if (q.audioText) {
+      if (q.audioText && q.audioText.trim() !== '') {
         voiceBtn.classList.remove('hidden');
-        voiceBtn.dataset.text = q.audioText;
       } else {
         voiceBtn.classList.add('hidden');
       }
 
-      // Handle Image
-      const imgCont = document.getElementById('qImageContainer');
-      const imgEl = document.getElementById('qImage');
-      if (q.imageUrl) {
-        imgEl.src = q.imageUrl;
-        imgCont.classList.remove('hidden');
-      } else {
-        imgCont.classList.add('hidden');
+      // --- FISHER-YATES DYNAMIC OPTION SHUFFLE ---
+      let pairedOptions = q.options.map((opt, idx) => ({
+        text: opt,
+        isCorrect: idx === q.correct
+      }));
+
+      for (let i = pairedOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pairedOptions[i], pairedOptions[j]] = [pairedOptions[j], pairedOptions[i]];
       }
 
-      // Render Shuffled Choices
-      const letters = ['A', 'B', 'C', 'D'];
+      q.dynamicCorrectIndex = pairedOptions.findIndex(o => o.isCorrect);
+      q.currentShuffledOptions = pairedOptions;
+
+      // Render choice buttons
       const container = document.getElementById('quizChoicesContainer');
-      container.innerHTML = q.sessionOptions.map((text, idx) => `
-        <button id="choice_${idx}" onclick="selectChoice(${idx})" class="w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3">
-          <span class="w-7 h-7 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-xs flex items-center justify-center shrink-0">${letters[idx]}</span>
-          <span class="text-xs font-bold text-slate-800 leading-snug flex-1">${text}</span>
+      const letters = ['A', 'B', 'C', 'D'];
+      container.innerHTML = pairedOptions.map((optObj, idx) => `
+        <button id="choiceBtn_${idx}" onclick="selectQuizChoice(${idx})" class="w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition">
+          <span class="w-7 h-7 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-xs flex items-center justify-center shrink-0">
+            ${letters[idx]}
+          </span>
+          <span class="text-xs font-bold text-slate-800 leading-snug flex-1">${optObj.text}</span>
         </button>
       `).join('');
 
-      const btnCheck = document.getElementById('btnCheckAnswer');
-      btnCheck.textContent = 'Check Answer';
-      btnCheck.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-slate-400 cursor-not-allowed';
+      // Reset Check Button
+      const checkBtn = document.getElementById('btnCheckAnswer');
+      checkBtn.textContent = 'Check Answer';
+      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed';
     }
 
-    function selectChoice(idx) {
-      if (hasAnswered) return;
+    function selectQuizChoice(idx) {
+      if (hasAnsweredCurrentQuestion) return;
       selectedOptionIndex = idx;
-      
-      document.querySelectorAll('#quizChoicesContainer button').forEach((b, i) => {
-        b.className = i === idx 
-          ? 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 btn-card-selected'
-          : 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 btn-card-3d';
+
+      document.querySelectorAll('#quizChoicesContainer button').forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-selected';
+        } else {
+          btn.className = 'w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition';
+        }
       });
 
-      const btnCheck = document.getElementById('btnCheckAnswer');
-      btnCheck.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-duogreen border-duogreen-dark';
+      const checkBtn = document.getElementById('btnCheckAnswer');
+      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d btn-green-3d';
+    }
+
+    function speakCurrentQuestionPrompt() {
+      const q = activeDeck[currentQuizIndex];
+      if (q && q.audioText) speakSpanish(q.audioText);
     }
 
     function handleCheckOrNext() {
       if (selectedOptionIndex === null) return;
-      if (hasAnswered) {
-        if (currentQIndex < activeDeck.length - 1) {
-          currentQIndex++;
-          loadQuestion();
-        } else {
-          finishSession();
-        }
+      if (hasAnsweredCurrentQuestion) {
+        advanceNextQuestion();
         return;
       }
 
-      hasAnswered = true;
-      const q = activeDeck[currentQIndex];
-      const isCorrect = (selectedOptionIndex === q.sessionCorrectIndex);
+      hasAnsweredCurrentQuestion = true;
+      const q = activeDeck[currentQuizIndex];
+      const isCorrect = (selectedOptionIndex === q.dynamicCorrectIndex);
+
+      const drawer = document.getElementById('resultDrawer');
+      const drawerIcon = document.getElementById('resultIcon');
+      const drawerTitle = document.getElementById('resultTitle');
+      const drawerExp = document.getElementById('resultExplanation');
+      const drawerBtn = document.getElementById('btnDrawerContinue');
 
       document.getElementById('quizActionFooter').classList.add('hidden');
-      const drawer = document.getElementById('resultDrawer');
-      const icon = document.getElementById('resultIcon');
-      const title = document.getElementById('resultTitle');
-      const exp = document.getElementById('resultExplanation');
-      const btn = document.getElementById('btnDrawerContinue');
-
       drawer.classList.remove('hidden');
 
       if (isCorrect) {
-        combo++;
+        playChime('correct');
+        comboStreak++;
         gameState.xp += 15;
-        document.getElementById(`choice_${selectedOptionIndex}`).className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 btn-card-correct';
-        
-        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-duogreen bg-duogreen-bg transition-all';
-        icon.className = 'w-10 h-10 rounded-full bg-duogreen text-white flex items-center justify-center font-black text-xl shrink-0';
-        icon.innerHTML = '✓';
-        title.className = 'text-base font-black text-[#357B01]';
-        title.textContent = combo > 1 ? `Brilliant! 🔥 Combo x${combo}` : 'Nicely done!';
-        exp.className = 'text-xs font-bold mt-1 text-[#357B01]';
-        exp.innerHTML = `<span class="font-black">Pearl:</span> ${q.pearl}`;
-        btn.className = 'mt-3 w-full py-3 rounded-2xl text-white font-black text-sm uppercase transition btn-3d bg-duogreen border-duogreen-dark';
-        
-        // Remove from mistakes
+
+        if (comboStreak >= 2) {
+          const comboEl = document.getElementById('comboBanner');
+          const comboTxt = document.getElementById('comboBannerText');
+          comboTxt.textContent = comboStreak >= 3
+            ? `🔥 ${comboStreak} in a Row! Amazing job, Kaylove! +15 XP`
+            : `🔥 ${comboStreak} in a Row, Kailyn! +15 XP`;
+          comboEl.classList.remove('hidden');
+        }
+
+        const correctBtn = document.getElementById(`choiceBtn_${selectedOptionIndex}`);
+        if (correctBtn) correctBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
+
+        const randomPraise = KAILYN_CORRECT_HEADERS[Math.floor(Math.random() * KAILYN_CORRECT_HEADERS.length)];
+
+        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#58CC02] bg-[#D7FFB8] transition-all';
+        drawerIcon.className = 'w-10 h-10 rounded-full bg-[#58CC02] text-white flex items-center justify-center font-black text-xl shrink-0';
+        drawerIcon.innerHTML = '✓';
+        drawerTitle.className = 'text-base font-black text-[#357B01]';
+        drawerTitle.textContent = randomPraise;
+        drawerExp.className = 'text-xs font-bold mt-1 text-[#357B01] leading-relaxed';
+        drawerExp.innerHTML = `<span class="font-black">UA Clinical Pearl:</span> ${q.pearl}`;
+        drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d btn-green-3d';
+
         gameState.mistakesIds = gameState.mistakesIds.filter(id => id !== q.id);
+
+        if (comboStreak === 4) {
+          triggerMilestoneModal('🔥 4-Combo Master!', 'Amazing job, Kaylove! You are on absolute fire today! 🥹', '🔥💖');
+        }
       } else {
-        combo = 0;
+        playChime('wrong');
+        comboStreak = 0;
+        document.getElementById('comboBanner').classList.add('hidden');
         gameState.hearts = Math.max(0, gameState.hearts - 1);
-        if (!gameState.mistakesIds.includes(q.id)) gameState.mistakesIds.push(q.id);
 
-        document.getElementById(`choice_${selectedOptionIndex}`).className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 btn-card-incorrect';
-        document.getElementById(`choice_${q.sessionCorrectIndex}`).className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 btn-card-correct';
+        if (!gameState.mistakesIds.includes(q.id)) {
+          gameState.mistakesIds.push(q.id);
+        }
 
-        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-duoheart bg-duoheart-bg transition-all animate-shake';
-        icon.className = 'w-10 h-10 rounded-full bg-duoheart text-white flex items-center justify-center font-black text-xl shrink-0';
-        icon.innerHTML = '✕';
-        title.className = 'text-base font-black text-duoheart-dark';
-        title.textContent = "Shake it off my love! Here's the pearl:";
-        exp.className = 'text-xs font-bold mt-1 text-[#931717]';
-        exp.innerHTML = `<span class="font-black">${q.sessionOptions[q.sessionCorrectIndex]}</span><br><br><span class="font-black">Why:</span> ${q.pearl}`;
-        btn.className = 'mt-3 w-full py-3 rounded-2xl text-white font-black text-sm uppercase transition btn-3d bg-duoheart border-duoheart-dark';
+        const chosenBtn = document.getElementById(`choiceBtn_${selectedOptionIndex}`);
+        if (chosenBtn) chosenBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-incorrect';
+
+        const correctBtn = document.getElementById(`choiceBtn_${q.dynamicCorrectIndex}`);
+        if (correctBtn) correctBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
+
+        const correctOptText = q.currentShuffledOptions[q.dynamicCorrectIndex].text;
+
+        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#FF4B4B] bg-[#FFDFE0] transition-all animate-shake';
+        drawerIcon.className = 'w-10 h-10 rounded-full bg-[#FF4B4B] text-white flex items-center justify-center font-black text-xl shrink-0';
+        drawerIcon.innerHTML = '✕';
+        drawerTitle.className = 'text-base font-black text-[#EA2B2B]';
+        drawerTitle.textContent = 'Shake it off, Kaylove! Here is the pearl:';
+        drawerExp.className = 'text-xs font-bold mt-1 text-[#931717] leading-relaxed';
+        drawerExp.innerHTML = `<span class="font-black">Correct Answer:</span> ${correctOptText}<br><br><span class="font-black">Why:</span> ${q.pearl}`;
+        drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d bg-[#FF4B4B] border-b-4 border-[#EA2B2B]';
       }
-      saveState();
+
+      saveGameState();
+      updateTopBarUI();
     }
 
-    function finishSession() {
+    function advanceNextQuestion() {
+      if (currentQuizIndex < activeDeck.length - 1) {
+        currentQuizIndex++;
+        loadQuizQuestion();
+      } else {
+        finishQuizSession();
+      }
+    }
+
+    function finishQuizSession() {
       gameState.xp += 30;
-      saveState();
+      saveGameState();
+      updateTopBarUI();
+      triggerMilestoneModal('Lesson Complete! 🎉', 'I’m so proud of you, Kaylove! 🥹 You are one step closer to UArizona PA!', '🩺💖');
       switchTab('roadmap');
-      if (Math.random() > 0.4) {
-        showModal("Lesson Complete! 🎉", "Good job Kayfart! I'm so proud of how hard you are studying. +30 XP! 🥹");
+    }
+
+    // =========================================================
+    // AUDIO & SPEECH SYNTHESIS ENGINE
+    // =========================================================
+    let audioCtx = null;
+    function playChime(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.08);
+          osc.frequency.setValueAtTime(783.99, now + 0.16);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          osc.start(now);
+          osc.stop(now + 0.38);
+        } else {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(196, now + 0.12);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }
+      } catch (e) {}
+    }
+
+    function speakSpanish(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'es-MX';
+        u.rate = 0.9;
+        window.speechSynthesis.speak(u);
       }
     }
 
-    // --- TAB SWITCHING & UI ---
-    function switchTab(tabId) {
+    // =========================================================
+    // LOVE NOTES & MILESTONES UI
+    // =========================================================
+    function openLoveNotesDrawer() {
+      renderLoveNotesBadges();
+      document.getElementById('loveNotesDrawer').classList.remove('hidden');
+    }
+
+    function closeLoveNotesDrawer() {
+      document.getElementById('loveNotesDrawer').classList.add('hidden');
+    }
+
+    function renderLoveNotesBadges() {
+      const container = document.getElementById('loveBadgesGrid');
+      container.innerHTML = KAILYN_LOVE_NOTES.map(b => `
+        <div class="bg-pink-50/70 border-2 border-pink-200 rounded-2xl p-3 flex items-center space-x-3">
+          <div class="text-3xl shrink-0">${b.icon}</div>
+          <div class="flex-1">
+            <h4 class="text-xs font-black text-slate-800">${b.title}</h4>
+            <p class="text-[11px] font-bold text-pink-600 mt-0.5 leading-tight">${b.subtitle}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function triggerMilestoneModal(title, subtitle, emoji) {
+      document.getElementById('milestoneModalTitle').textContent = title;
+      document.getElementById('milestoneModalSubtitle').textContent = subtitle;
+      document.getElementById('milestoneModalEmoji').textContent = emoji;
+      document.getElementById('milestoneModal').classList.remove('hidden');
+    }
+
+    function closeMilestoneModal() {
+      document.getElementById('milestoneModal').classList.add('hidden');
+    }
+
+    function triggerRandomMilestoneSurprise() {
+      closeLoveNotesDrawer();
+      triggerMilestoneModal(
+        'Surprise Pep Talk! 💖',
+        'Amazing job, Kaylove! Remember: every question you practice now is making you an incredible clinician!',
+        '🥹🌸'
+      );
+    }
+
+    function showMascotSpeech(text) {
+      const bubble = document.getElementById('mascotBubble');
+      const txt = document.getElementById('mascotText');
+      txt.textContent = `"${text}"`;
+      bubble.classList.remove('hidden');
+    }
+
+    function triggerCuteNote() {
+      const notes = [
+        "I'm so proud of you, Kaylove! 🥹",
+        "Amazing job, Kailyn! Keep shining! 💖",
+        "Future PA-C Kailyn! You've got this! 🩺",
+        "Tucson isn't ready for how smart you are! 🌵"
+      ];
+      showMascotSpeech(notes[Math.floor(Math.random() * notes.length)]);
+    }
+
+    // =========================================================
+    // TABS, MISTAKES & SPANISH CLINIC
+    // =========================================================
+    function switchTab(tabKey) {
       ['roadmap', 'quiz', 'spanish', 'mistakes'].forEach(k => {
-        document.getElementById(`tab-${k}`).classList.toggle('hidden', k !== tabId);
+        const view = document.getElementById(`tab-${k}`);
         const nav = document.getElementById(`nav-${k}`);
-        if(nav) nav.className = k === tabId 
-          ? 'flex flex-col items-center p-2 text-duogreen font-black transition'
-          : 'flex flex-col items-center p-2 text-slate-400 font-bold hover:text-slate-600 transition';
+        if (k === tabKey) {
+          view.classList.remove('hidden');
+          nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition';
+        } else {
+          view.classList.add('hidden');
+          nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition';
+        }
       });
 
-      if (tabId === 'spanish') renderSpanish();
-      if (tabId === 'mistakes') renderMistakes();
-      window.scrollTo(0, 0);
+      if (tabKey === 'spanish') renderSpanishClinicCards();
+      if (tabKey === 'mistakes') renderMistakesView();
+      if (tabKey === 'quiz' && activeDeck.length === 0) startSpecificUnit('phase1', 'spanish');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // --- SPANISH LAB ---
-    function renderSpanish(filter = 'all') {
-      if(!window.SPANISH_CLINIC_PHRASES) return;
-      const list = document.getElementById('spanishCardsList');
-      const data = filter === 'all' ? window.SPANISH_CLINIC_PHRASES : window.SPANISH_CLINIC_PHRASES.filter(p => p.tag === filter);
-      
-      list.innerHTML = data.map((item, i) => `
-        <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 flex items-center justify-between shadow-sm hover:border-duoblue transition">
+    function renderSpanishClinicCards(filter = 'all') {
+      const container = document.getElementById('spanishCardsList');
+      const allPhrases = getMasterSpanishPhrases();
+      const filtered = filter === 'all'
+        ? allPhrases
+        : allPhrases.filter(p => p.tag === filter);
+
+      container.innerHTML = filtered.map(item => `
+        <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 flex items-center justify-between shadow-xs hover:border-[#1CB0F6] transition">
           <div class="flex-1 pr-2">
             <h4 class="text-xs font-black text-slate-800">${item.es}</h4>
             <p class="text-[11px] font-bold text-slate-500 mt-0.5">${item.en}</p>
           </div>
-          <button aria-label="Listen" onclick="speakText(this.dataset.text)" data-text="${item.es.replace(/"/g, '&quot;')}" class="w-10 h-10 rounded-2xl bg-duoblue-bg border-2 border-b-4 border-[#84D8FF] text-duoblue flex items-center justify-center text-sm active:translate-y-1 active:border-b-2 transition shrink-0">
+          <button onclick="speakSpanish(this.dataset.es)" data-es="${item.es.replace(/"/g, '&quot;')}" class="w-10 h-10 rounded-2xl bg-[#EBF7FF] border-2 border-b-4 border-[#84D8FF] text-[#1CB0F6] flex items-center justify-center text-sm active:translate-y-0.5 active:border-b-2 transition shrink-0">
             <i class="fa-solid fa-volume-high"></i>
           </button>
         </div>
       `).join('');
     }
 
-    function filterSpanish(tag) {
-      document.querySelectorAll('.span-filter').forEach(btn => {
-        btn.className = 'span-filter px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 text-slate-700';
+    function filterSpanishPhrases(tag, btnEl) {
+      document.querySelectorAll('.span-filter-pill').forEach(btn => {
+        btn.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700';
       });
-      event.target.className = 'span-filter px-3 py-1.5 rounded-xl text-xs font-black bg-duoblue text-white';
-      renderSpanish(tag);
+      if (btnEl) {
+        btnEl.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white';
+      }
+      renderSpanishClinicCards(tag);
     }
 
-    // --- MISTAKES TENT ---
-    function renderMistakes() {
+    function renderMistakesView() {
       const container = document.getElementById('mistakesContainer');
-      if(!window.EXPANDED_QUESTION_BANK) return;
-      const missed = window.EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
+      const allQs = getMasterQuestionBank();
+      const missed = allQs.filter(q => gameState.mistakesIds.includes(q.id));
 
       if (missed.length === 0) {
         container.innerHTML = `
-          <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 text-center">
-            <div class="text-4xl mb-2">🛡️</div>
-            <h3 class="text-sm font-black text-slate-800">Zero Mistakes, Kayfart! 💖</h3>
-            <p class="text-xs font-bold text-slate-500 mt-1">You have cleared every single missed question. I’m so proud of you my love! 🥹</p>
-          </div>`;
+          <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 text-center space-y-2">
+            <span class="text-4xl">🛡️</span>
+            <h3 class="text-sm font-black text-slate-800">Zero Mistakes, Kaylove! 💖</h3>
+            <p class="text-xs font-bold text-slate-500">You have cleared every single missed question. I’m so proud of you, Kailyn! 🥹</p>
+          </div>
+        `;
         return;
       }
 
       container.innerHTML = `
-        <button onclick="startMistakesSession()" class="w-full py-3 rounded-2xl text-white font-black text-xs uppercase tracking-wider btn-3d bg-duoheart border-duoheart-dark shadow-sm mb-3">
+        <button onclick="practiceOnlyMistakes()" class="w-full py-3 rounded-2xl text-white font-black text-xs uppercase tracking-wider btn-3d bg-[#FF4B4B] border-b-4 border-[#EA2B2B] shadow-sm mb-3">
           Practice ${missed.length} Missed Question${missed.length > 1 ? 's' : ''} Now
         </button>
       ` + missed.map(q => `
         <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 space-y-1">
-          <span class="text-[9px] font-black uppercase text-duoheart-dark bg-duoheart-bg px-2 py-0.5 rounded-md">${q.category}</span>
+          <span class="text-[9px] font-black uppercase tracking-wider text-[#EA2B2B] bg-[#FFDFE0] px-2 py-0.5 rounded-md">${q.category}</span>
           <h4 class="text-xs font-black text-slate-800 mt-1">${q.prompt}</h4>
-          <p class="text-[11px] font-bold text-duogreen-dark bg-duogreen-bg p-2 rounded-xl mt-1">
+          <p class="text-[11px] font-bold text-[#46A302] bg-[#D7FFB8]/50 p-2 rounded-xl mt-1">
             <span class="font-black">Correct:</span> ${q.options[q.correct]}
           </p>
         </div>
       `).join('');
     }
 
-    function startMistakesSession() {
-      if (gameState.hearts <= 0) {
-        showModal("Out of Hearts! 💔", "Take a breather, Kayfart. Tap your hearts at the top to refill!");
-        return;
-      }
-      const pool = window.EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
-      activeDeck = shuffleArray(pool).slice(0, 8).map(q => {
-        let paired = q.options.map((text, idx) => ({ text, isCorrect: idx === q.correct }));
-        let shuffledPairs = shuffleArray(paired);
-        return {
-          ...q,
-          sessionOptions: shuffledPairs.map(p => p.text),
-          sessionCorrectIndex: shuffledPairs.findIndex(p => p.isCorrect)
-        };
-      });
-      currentQIndex = 0;
-      combo = 0;
-      switchTab('quiz');
-      loadQuestion();
+    function practiceOnlyMistakes() {
+      const allQs = getMasterQuestionBank();
+      const missed = allQs.filter(q => gameState.mistakesIds.includes(q.id));
+      if (missed.length === 0) return;
+      activeDeck = [...missed];
+      launchQuizWithDeck('Let’s clear out these missed questions, Kaylove! 💖');
     }
 
-    // --- AUDIO HELPER ---
-    function speakCurrentPrompt() {
-      const btn = document.getElementById('qVoiceBtn');
-      if(btn.dataset.text) speakText(btn.dataset.text);
-    }
-    
-    function speakText(text) {
-      if (!window.speechSynthesis) return;
-      window.speechSynthesis.cancel();
-      const msg = new SpeechSynthesisUtterance(text);
-      msg.lang = 'es-MX';
-      msg.rate = 0.9;
-      window.speechSynthesis.speak(msg);
+    function toggleInstallPrompt() {
+      showMascotSpeech('To install on iPhone: tap Safari Share - "Add to Home Screen"!');
     }
 
-    // --- MODAL SYSTEM ---
-    function showModal(title, msg) {
-      document.getElementById('celebrationModal').classList.remove('hidden');
-      document.querySelector('#celebrationModal h2').textContent = title;
-      document.getElementById('modalMsg').textContent = msg;
-    }
-    function closeModal() {
-      document.getElementById('celebrationModal').classList.add('hidden');
-    }
-
-    // Initialize on load
-    window.onload = initApp;
+    window.onload = function() {
+      loadGameState();
+      renderSpanishClinicCards();
+    };
   </script>
 </body>
 </html>
