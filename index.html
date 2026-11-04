@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" sizes="192x192" href="PA-App-Icon.png?v=4" />
-  <link rel="shortcut icon" href="PA-App-Icon.png?v=4" />
-  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=4" />
-  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=4" />
+  <link rel="icon" type="image/png" sizes="192x192" href="PA-App-Icon.png?v=5" />
+  <link rel="shortcut icon" href="PA-App-Icon.png?v=5" />
+  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=5" />
+  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=5" />
+  
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#58CC02" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -19,77 +21,71 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Nunito', 'sans-serif'] },
-          colors: {
-            duogreen: { DEFAULT: '#58CC02', dark: '#46A302', light: '#89E219', bg: '#D7FFB8' },
-            duoblue: { DEFAULT: '#1CB0F6', dark: '#1899D6', light: '#70D7FF' },
-            duocharcoal: '#3C3C3C',
-            duoheart: '#FF4B4B',
-            duoheartDark: '#EA2B2B',
-            duogem: '#1CB0F6',
-            duofire: '#FF9600',
-            uablue: '#0C234B',
-            uared: '#AB0520'
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Load the external question bank -->
+  <script src="questions.js"></script>
 
   <style>
-    body { font-family: 'Nunito', sans-serif; background-color: #F7F7F7; -webkit-tap-highlight-color: transparent; user-select: none; }
+    body { font-family: 'Nunito', sans-serif; background-color: #F7F7F7; -webkit-tap-highlight-color: transparent; }
+    
+    /* Semantic Component Classes */
     .btn-3d { transition: all 0.08s ease; position: relative; }
     .btn-3d:active { transform: translateY(4px); }
+    
     .btn-green-3d { background-color: #58CC02; border-bottom: 4px solid #46A302; }
     .btn-green-3d:active { border-bottom-width: 0px; margin-top: 4px; }
     .btn-pink-3d { background-color: #EC4899; border-bottom: 4px solid #BE185D; }
     .btn-pink-3d:active { border-bottom-width: 0px; margin-top: 4px; }
-    .btn-card-3d { border: 2px solid #E5E5E5; border-bottom: 4px solid #E5E5E5; background-color: #FFFFFF; }
-    .btn-card-3d:hover { background-color: #F7F7F7; }
-    .btn-card-3d:active { transform: translateY(2px); border-bottom-width: 2px; }
-    .btn-card-selected { border: 2px solid #84D8FF !important; border-bottom: 4px solid #1CB0F6 !important; background-color: #DDF4FF !important; color: #1899D6 !important; }
-    .btn-card-correct { border: 2px solid #58CC02 !important; border-bottom: 4px solid #46A302 !important; background-color: #D7FFB8 !important; color: #46A302 !important; }
-    .btn-card-incorrect { border: 2px solid #FF4B4B !important; border-bottom: 4px solid #EA2B2B !important; background-color: #FFDFE0 !important; color: #EA2B2B !important; }
+    
+    /* Quiz Choice Buttons */
+    .quiz-choice-btn {
+      width: 100%; text-align: left; padding: 0.875rem; border-radius: 1rem;
+      display: flex; align-items: center; gap: 0.75rem; transition: all 0.15s;
+      border: 2px solid #E5E5E5; border-bottom: 4px solid #E5E5E5; background-color: #FFFFFF;
+      cursor: pointer;
+    }
+    .quiz-choice-btn:hover { background-color: #F7F7F7; }
+    .quiz-choice-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+    
+    .quiz-choice-btn.selected { border-color: #84D8FF; border-bottom-color: #1CB0F6; background-color: #DDF4FF; color: #1899D6; }
+    .quiz-choice-btn.correct { border-color: #58CC02; border-bottom-color: #46A302; background-color: #D7FFB8; color: #46A302; }
+    .quiz-choice-btn.incorrect { border-color: #FF4B4B; border-bottom-color: #EA2B2B; background-color: #FFDFE0; color: #EA2B2B; }
+
+    /* Utilities */
     .safe-bottom { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
     @keyframes floatHeart { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-6px) scale(1.06); } }
     .heart-float { animation: floatHeart 2.4s ease-in-out infinite; }
     @keyframes popIn { 0% { transform: scale(0.75); opacity: 0; } 70% { transform: scale(1.06); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
     .animate-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    .animate-wiggle { animation: wiggle 0.6s ease-in-out infinite; }
   </style>
 </head>
-<body class="min-h-screen flex justify-center items-start text-slate-800 antialiased">
-  <div class="w-full max-w-md min-h-screen bg-white shadow-2xl flex flex-col relative overflow-x-hidden border-x border-slate-200">
+<body class="min-h-[100dvh] flex justify-center items-start text-slate-800 antialiased">
+  <div class="w-full max-w-md min-h-[100dvh] bg-white shadow-2xl flex flex-col relative overflow-x-hidden border-x border-slate-200">
     
     <!-- TOP STATS BAR -->
-    <header class="bg-white sticky top-0 z-30 px-3.5 py-2.5 border-b-2 border-slate-200 flex items-center justify-between shadow-xs">
-      <div class="flex items-center space-x-1 cursor-pointer" onclick="showMascotSpeech('Keep up your streak, Kailyn! I am so proud of you my love! 🥹')">
-        <span class="text-xl">🔥</span>
+    <header class="bg-white sticky top-0 z-30 px-3.5 py-2.5 border-b-2 border-slate-200 flex items-center justify-between shadow-sm">
+      <button aria-label="Streak info" class="flex items-center space-x-1 cursor-pointer" onclick="showMascotSpeech('Keep your streak alive! A little each day goes a long way. 🥹')">
+        <span class="text-xl" aria-hidden="true">🔥</span>
         <span id="statStreak" class="font-black text-sm text-[#FF9600]">1</span>
-      </div>
-      <div class="flex items-center space-x-1 cursor-pointer" onclick="openLoveNotesDrawer()">
-        <span class="text-xl">💎</span>
-        <span id="statXP" class="font-black text-sm text-[#1CB0F6]">120</span>
-      </div>
-      <div class="flex items-center space-x-1 cursor-pointer" onclick="refillHearts()">
-        <span class="text-xl">❤️</span>
-        <span id="statHearts" class="font-black text-sm text-[#FF4B4B]">5</span>
-      </div>
-      <button onclick="openLoveNotesDrawer()" class="bg-pink-50 hover:bg-pink-100 border-2 border-b-4 border-pink-300 rounded-xl px-2.5 py-1 text-xs font-black text-pink-600 active:translate-y-0.5 active:border-b-2 transition flex items-center space-x-1" title="Kailyn's Love Notes">
-        <span>💌</span>
-        <span id="badgeCountPill">1</span>
       </button>
-      <button onclick="toggleInstallPrompt()" class="bg-slate-100 hover:bg-slate-200 border-2 border-b-4 border-slate-300 rounded-xl px-2 py-1 text-xs font-black text-slate-700 active:translate-y-0.5 active:border-b-2 transition">
-        <i class="fa-solid fa-cloud-arrow-down text-[#1CB0F6]"></i>
+      <button aria-label="XP and Badges" class="flex items-center space-x-1 cursor-pointer" onclick="openLoveNotesDrawer()">
+        <span class="text-xl" aria-hidden="true">💎</span>
+        <span id="statXP" class="font-black text-sm text-[#1CB0F6]">120</span>
+      </button>
+      <button aria-label="Refill hearts" class="flex items-center space-x-1 cursor-pointer" onclick="refillHearts()">
+        <span class="text-xl" aria-hidden="true">❤️</span>
+        <span id="statHearts" class="font-black text-sm text-[#FF4B4B]">5</span>
+      </button>
+      <button aria-label="Milestones" onclick="openLoveNotesDrawer()" class="bg-pink-50 hover:bg-pink-100 border-2 border-b-4 border-pink-300 rounded-xl px-2.5 py-1 text-xs font-black text-pink-600 active:translate-y-0.5 active:border-b-2 transition flex items-center space-x-1">
+        <span aria-hidden="true">💌</span>
+        <span id="badgeCountPill">1</span>
       </button>
     </header>
 
     <!-- MASCOT BUBBLE -->
-    <div id="mascotBubble" onclick="triggerCuteNote()" class="cursor-pointer bg-gradient-to-r from-[#EBF7FF] to-[#FFF0F6] border-2 border-[#84D8FF] mx-4 mt-3 rounded-2xl p-3 flex items-center space-x-3 transition-all duration-300">
-      <div class="w-12 h-12 rounded-2xl bg-white border-2 border-[#1CB0F6] flex items-center justify-center text-2xl shrink-0 shadow-xs">🩺🦉</div>
+    <button aria-label="Mascot Tip" id="mascotBubble" onclick="triggerCuteNote()" class="w-full text-left bg-gradient-to-r from-[#EBF7FF] to-[#FFF0F6] border-2 border-[#84D8FF] mx-auto max-w-[calc(100%-2rem)] mt-3 rounded-2xl p-3 flex items-center space-x-3 transition-all duration-300">
+      <div class="w-12 h-12 rounded-2xl bg-white border-2 border-[#1CB0F6] flex items-center justify-center text-2xl shrink-0 shadow-sm" aria-hidden="true">🩺🦉</div>
       <div class="flex-1">
         <div class="flex items-center justify-between">
           <span class="text-xs font-black uppercase text-[#1899D6] tracking-wider">Dr. Duo • For Kailyn 💖</span>
@@ -99,16 +95,16 @@
           "Welcome back, Kailyn! Tap me anytime for a love note, or start a lesson below!"
         </p>
       </div>
-    </div>
+    </button>
 
     <!-- MAIN APP TABS -->
-    <main class="flex-1 px-4 pt-3 safe-bottom overflow-y-auto">
+    <main class="flex-1 px-4 pt-3 safe-bottom overflow-y-auto" id="mainContent">
       
       <!-- TAB 1: ROADMAP -->
       <section id="tab-roadmap" class="space-y-6 pb-8">
         
         <!-- UNIT 1 -->
-        <div class="bg-gradient-to-b from-[#58CC02] to-[#46A302] rounded-3xl p-4 text-white shadow-md relative overflow-hidden border-b-4 border-[#357B01]">
+        <div class="bg-gradient-to-b from-[#58CC02] to-[#46A302] rounded-3xl p-4 text-white shadow-sm relative overflow-hidden border-b-4 border-[#357B01]">
           <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 1 • Nov 2026 – Jan 2027</span>
           <h2 class="text-lg font-black mt-1">Foundation, Clinical & Anatomy</h2>
           <p class="text-xs text-white/90 font-bold">Physical Exam (Bates), CMDT Medicine, Spanish & Muscle Anatomy</p>
@@ -116,24 +112,24 @@
 
         <div class="flex flex-col items-center space-y-5 my-2">
           <div class="flex flex-col items-center">
-            <button onclick="startSpecificUnit('phase1', 'anat')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">🦴</span>
+            <button aria-label="Start Anatomy Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="anatomy">
+              <span class="text-2xl" aria-hidden="true">🦴</span>
               <span class="text-[11px] font-black tracking-wide">1.1</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">Gross Anatomy</span>
           </div>
 
           <div class="flex flex-col items-center translate-x-10">
-            <button onclick="startSpecificUnit('phase1', 'bates_cmdt')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">🩺</span>
+            <button aria-label="Start Bates and CMDT Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="bates_cmdt">
+              <span class="text-2xl" aria-hidden="true">🩺</span>
               <span class="text-[11px] font-black tracking-wide">1.2</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">Bates & CMDT</span>
           </div>
 
           <div class="flex flex-col items-center -translate-x-10">
-            <button onclick="startSpecificUnit('phase1', 'spanish')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">🗣️</span>
+            <button aria-label="Start Spanish Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="spanish">
+              <span class="text-2xl" aria-hidden="true">🗣️</span>
               <span class="text-[11px] font-black tracking-wide">1.3</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">SPAN 661 Clinical</span>
@@ -141,7 +137,7 @@
         </div>
 
         <!-- UNIT 2 -->
-        <div class="bg-gradient-to-b from-[#1CB0F6] to-[#1899D6] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#0F75A5] mt-6">
+        <div class="bg-gradient-to-b from-[#1CB0F6] to-[#1899D6] rounded-3xl p-4 text-white shadow-sm border-b-4 border-[#0F75A5] mt-6">
           <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 2 • Feb 2027 – Apr 2027</span>
           <h2 class="text-lg font-black mt-1">High-Yield Physiology</h2>
           <p class="text-xs text-white/90 font-bold">PAP 601 • Cardiopulmonary, ECG, ABG & Renal Nephrons</p>
@@ -149,16 +145,16 @@
 
         <div class="flex flex-col items-center space-y-5 my-2">
           <div class="flex flex-col items-center -translate-x-6">
-            <button onclick="startSpecificUnit('phase2', 'phys')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">📈</span>
+            <button aria-label="Start Cardiac Physiology Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="cardiac">
+              <span class="text-2xl" aria-hidden="true">📈</span>
               <span class="text-[11px] font-black tracking-wide">2.1</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">Cardiac & ECG</span>
           </div>
           
           <div class="flex flex-col items-center translate-x-8">
-            <button onclick="startSpecificUnit('phase2', 'renal')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">🧪</span>
+            <button aria-label="Start Renal Physiology Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="renal">
+              <span class="text-2xl" aria-hidden="true">🧪</span>
               <span class="text-[11px] font-black tracking-wide">2.2</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">Renal & Acid-Base</span>
@@ -166,7 +162,7 @@
         </div>
 
         <!-- UNIT 3 -->
-        <div class="bg-gradient-to-b from-[#FF9600] to-[#E68700] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#B86C00] mt-6">
+        <div class="bg-gradient-to-b from-[#FF9600] to-[#E68700] rounded-3xl p-4 text-white shadow-sm border-b-4 border-[#B86C00] mt-6">
           <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 3 • May 2027 – Jun 2027</span>
           <h2 class="text-lg font-black mt-1">Pharm & Clinical SOAP</h2>
           <p class="text-xs text-white/90 font-bold">PAP 611 / 621 • Drug suffixes, autonomic receptors, & H&P</p>
@@ -174,16 +170,16 @@
 
         <div class="flex flex-col items-center space-y-5 my-2">
           <div class="flex flex-col items-center -translate-x-10">
-            <button onclick="startSpecificUnit('phase3', 'pharm')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">💊</span>
+            <button aria-label="Start Pharmacology Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="pharm">
+              <span class="text-2xl" aria-hidden="true">💊</span>
               <span class="text-[11px] font-black tracking-wide">3.1</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">Drug Suffixes</span>
           </div>
           
           <div class="flex flex-col items-center translate-x-10">
-            <button onclick="startSpecificUnit('phase3', 'soap')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">📋</span>
+            <button aria-label="Start SOAP Note Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="soap">
+              <span class="text-2xl" aria-hidden="true">📋</span>
               <span class="text-[11px] font-black tracking-wide">3.2</span>
             </button>
             <span class="text-xs font-black text-slate-600 mt-1.5">SOAP / H&P Note</span>
@@ -191,15 +187,15 @@
         </div>
 
         <!-- UNIT 4 -->
-        <div class="bg-gradient-to-b from-[#A463F8] to-[#8836E8] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#6918CB] mt-6">
+        <div class="bg-gradient-to-b from-[#A463F8] to-[#8836E8] rounded-3xl p-4 text-white shadow-sm border-b-4 border-[#6918CB] mt-6">
           <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 4 • Jul 2027 – Aug 2027</span>
           <h2 class="text-lg font-black mt-1">UArizona Admin & Taper</h2>
-          <p class="text-xs text-white/90 font-bold">Strict 70% rule, UAccess EDGE, AZ Fingerprint, & Orientation</p>
+          <p class="text-xs text-white/90 font-bold">Strict 70% rule, AZ Fingerprint, & Orientation</p>
         </div>
 
         <div class="flex flex-col items-center my-4">
-          <button onclick="startSpecificUnit('phase4', 'admin')" class="w-20 h-20 rounded-full bg-[#A463F8] border-b-8 border-[#6918CB] hover:bg-[#B983FA] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-            <span class="text-2xl">🎓</span>
+          <button aria-label="Start Admin Lesson" class="roadmap-node w-20 h-20 rounded-full bg-[#A463F8] border-b-8 border-[#6918CB] hover:bg-[#B983FA] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d" data-topic="admin">
+            <span class="text-2xl" aria-hidden="true">🎓</span>
             <span class="text-[11px] font-black tracking-wide">4.1</span>
           </button>
           <span class="text-xs font-black text-slate-600 mt-1.5">Matriculation Check</span>
@@ -208,17 +204,17 @@
       </section>
 
       <!-- TAB 2: ACTIVE QUIZ -->
-      <section id="tab-quiz" class="hidden flex flex-col min-h-[75vh] justify-between pb-4">
+      <section id="tab-quiz" class="hidden flex flex-col min-h-[75dvh] justify-between pb-4">
         <div>
           <div class="flex items-center justify-between space-x-3 mb-3">
-            <button onclick="exitQuizToRoadmap()" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
+            <button aria-label="Exit quiz" onclick="exitQuizToRoadmap()" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
               <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="flex-1 bg-slate-200 h-4 rounded-full overflow-hidden p-0.5">
               <div id="quizProgressBar" class="h-full bg-[#58CC02] rounded-full transition-all duration-300" style="width: 10%"></div>
             </div>
             <div class="flex items-center space-x-1">
-              <span class="text-base">❤️</span>
+              <span class="text-base" aria-hidden="true">❤️</span>
               <span id="quizHeartsRemaining" class="font-black text-sm text-[#FF4B4B]">5</span>
             </div>
           </div>
@@ -232,13 +228,13 @@
             <div id="quizImageLoader" class="absolute inset-0 flex items-center justify-center text-slate-400">
               <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
             </div>
-            <img id="quizImageTag" src="" alt="Anatomical Reference Diagram" class="max-h-48 mx-auto rounded-xl object-contain shadow-xs relative z-10 hidden" onload="this.classList.remove('hidden'); document.getElementById('quizImageLoader').classList.add('hidden');" onerror="this.parentElement.classList.add('hidden')" />
+            <img id="quizImageTag" src="" alt="Anatomical Reference Diagram" class="max-h-48 mx-auto rounded-xl object-contain shadow-sm relative z-10 hidden" onload="this.classList.remove('hidden'); document.getElementById('quizImageLoader').classList.add('hidden');" onerror="this.parentElement.classList.add('hidden')" />
           </div>
 
           <div class="mt-2 bg-white rounded-3xl p-4 border-2 border-slate-200 shadow-sm">
             <div class="flex items-center justify-between mb-2">
               <span id="qCategoryPill" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#EBF7FF] text-[#1899D6] border border-[#84D8FF]"></span>
-              <button id="qVoiceBtn" onclick="speakCurrentQuestionPrompt()" class="w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition">
+              <button aria-label="Listen to phrase" id="qVoiceBtn" onclick="speakCurrentQuestionPrompt()" class="w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition">
                 <i class="fa-solid fa-volume-high"></i>
               </button>
             </div>
@@ -249,14 +245,14 @@
         </div>
 
         <div id="quizActionFooter" class="mt-6 pt-3 border-t-2 border-slate-100">
-          <button id="btnCheckAnswer" onclick="handleCheckOrNext()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d btn-green-3d">
+          <button id="btnCheckAnswer" onclick="handleCheckOrNext()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-sm transition btn-3d btn-green-3d">
             Check Answer
           </button>
         </div>
 
         <div id="resultDrawer" class="hidden mt-4 p-4 rounded-3xl border-2 transition-all duration-300">
           <div class="flex items-start space-x-3">
-            <div id="resultIcon" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0"></div>
+            <div id="resultIcon" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0" aria-hidden="true"></div>
             <div class="flex-1">
               <h4 id="resultTitle" class="text-base font-black"></h4>
               <p id="resultExplanation" class="text-xs font-bold mt-1 leading-relaxed"></p>
@@ -270,17 +266,14 @@
 
       <!-- TAB 3: SPANISH AUDIO CLINIC -->
       <section id="tab-spanish" class="hidden space-y-4 pb-8">
-        <div class="bg-gradient-to-r from-[#AB0520] to-[#D11936] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#820317]">
+        <div class="bg-gradient-to-r from-[#AB0520] to-[#D11936] text-white rounded-3xl p-4 shadow-sm border-b-4 border-[#820317]">
           <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">SPAN 661 Practice</span>
           <h2 class="text-lg font-black mt-1">Medical Spanish Audio Lab</h2>
-          <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish for clinical interviewing.</p>
+          <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish for clinical interviewing. <br><span class="text-[10px] opacity-75">(Note: Make sure your silent switch is off)</span></p>
         </div>
 
         <div class="flex space-x-2 overflow-x-auto pb-1" id="spanishFilterRow">
-          <button onclick="filterSpanishPhrases('all')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white">All (12)</button>
-          <button onclick="filterSpanishPhrases('hpi')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">H&P / Pain</button>
-          <button onclick="filterSpanishPhrases('exam')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Physical Exam</button>
-          <button onclick="filterSpanishPhrases('meds')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Meds & Allergies</button>
+          <!-- Populated by JS so the "All (X)" count is accurate -->
         </div>
 
         <div id="spanishCardsList" class="space-y-2.5"></div>
@@ -288,14 +281,14 @@
 
       <!-- TAB 4: MISTAKES REVIEW -->
       <section id="tab-mistakes" class="hidden space-y-4 pb-8">
-        <div class="bg-gradient-to-b from-[#FF4B4B] to-[#EA2B2B] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#C81A1A]">
+        <div class="bg-gradient-to-b from-[#FF4B4B] to-[#EA2B2B] text-white rounded-3xl p-4 shadow-sm border-b-4 border-[#C81A1A]">
           <div class="flex justify-between items-center">
             <div>
               <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Targeted Remediation</span>
               <h2 class="text-lg font-black mt-1">Review Missed Questions</h2>
               <p class="text-xs text-white/90 font-bold">Master concepts you missed to guarantee >70% in Fall I.</p>
             </div>
-            <div class="text-3xl">🥊</div>
+            <div class="text-3xl" aria-hidden="true">🥊</div>
           </div>
         </div>
         <div id="mistakesContainer" class="space-y-3"></div>
@@ -304,45 +297,45 @@
 
     <!-- BOTTOM NAVBAR -->
     <nav class="fixed bottom-0 w-full max-w-md bg-white border-t-2 border-slate-200 px-3 py-2 grid grid-cols-4 gap-1 z-30 shadow-lg">
-      <button onclick="switchTab('roadmap')" id="nav-roadmap" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition">
+      <button aria-label="Learn Map" onclick="switchTab('roadmap')" id="nav-roadmap" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition">
         <i class="fa-solid fa-map text-xl mb-0.5"></i>
         <span class="text-[10px]">Learn</span>
       </button>
-      <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+      <button aria-label="Practice specific mistakes" onclick="switchTab('quiz')" id="nav-quiz" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-dumbbell text-xl mb-0.5"></i>
         <span class="text-[10px]">Practice</span>
       </button>
-      <button onclick="switchTab('spanish')" id="nav-spanish" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+      <button aria-label="Spanish Audio Lab" onclick="switchTab('spanish')" id="nav-spanish" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-comments text-xl mb-0.5"></i>
         <span class="text-[10px]">Spanish</span>
       </button>
-      <button onclick="switchTab('mistakes')" id="nav-mistakes" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+      <button aria-label="Review mistakes" onclick="switchTab('mistakes')" id="nav-mistakes" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-heart-crack text-xl mb-0.5"></i>
         <span class="text-[10px]">Mistakes</span>
       </button>
     </nav>
 
     <!-- KAILYN'S LOVE NOTES DRAWER -->
-    <div id="loveNotesDrawer" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-end sm:items-center justify-center p-3">
+    <div id="loveNotesDrawer" role="dialog" aria-modal="true" aria-labelledby="loveNotesTitle" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-3">
       <div class="bg-white rounded-3xl w-full max-w-md p-5 max-h-[85vh] flex flex-col shadow-2xl border-2 border-pink-200">
         <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
           <div class="flex items-center space-x-2">
-            <span class="text-2xl">💌</span>
+            <span class="text-2xl" aria-hidden="true">💌</span>
             <div>
-              <h3 class="text-base font-black text-slate-800 leading-none">Kailyn's Love Notes</h3>
+              <h3 id="loveNotesTitle" class="text-base font-black text-slate-800 leading-none">Kailyn's Love Notes</h3>
               <p class="text-[11px] font-bold text-pink-500 mt-0.5">Milestones & Reminders for Kayfart</p>
             </div>
           </div>
-          <button onclick="closeLoveNotesDrawer()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-black">
+          <button aria-label="Close" onclick="closeLoveNotesDrawer()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-black">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
         <div id="loveBadgesGrid" class="my-4 space-y-2.5 overflow-y-auto pr-1"></div>
         <div class="pt-3 border-t-2 border-slate-100 flex gap-2">
-          <button onclick="triggerRandomMilestoneSurprise()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-pink-600 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 transition">
+          <button aria-label="Get a surprise pep talk" onclick="triggerRandomMilestoneSurprise()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-pink-600 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 transition">
             ✨ Pep Talk
           </button>
-          <button onclick="closeLoveNotesDrawer()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-white btn-3d btn-green-3d">
+          <button aria-label="Close drawer" onclick="closeLoveNotesDrawer()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-white btn-3d btn-green-3d">
             Back to Prep
           </button>
         </div>
@@ -350,12 +343,12 @@
     </div>
 
     <!-- MILESTONE MODAL -->
-    <div id="milestoneModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div id="milestoneModal" role="dialog" aria-modal="true" aria-labelledby="milestoneModalTitle" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-white rounded-3xl w-full max-w-sm p-6 text-center space-y-4 shadow-2xl border-4 border-pink-300">
-        <div class="flex justify-center items-center space-x-2 text-lg">
+        <div class="flex justify-center items-center space-x-2 text-lg" aria-hidden="true">
           <span>✨</span><span>💖</span><span>✨</span>
         </div>
-        <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-pink-100 via-rose-50 to-amber-100 border-4 border-pink-300 flex items-center justify-center text-5xl mx-auto shadow-md heart-float" id="milestoneModalEmoji">
+        <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-pink-100 via-rose-50 to-amber-100 border-4 border-pink-300 flex items-center justify-center text-5xl mx-auto shadow-sm heart-float" id="milestoneModalEmoji">
           🥹💖
         </div>
         <div class="space-y-1.5">
@@ -370,7 +363,7 @@
           </p>
         </div>
         <div class="pt-2">
-          <button onclick="closeMilestoneModal()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider btn-3d btn-pink-3d shadow-md">
+          <button aria-label="Acknowledge love note" onclick="closeMilestoneModal()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider btn-3d btn-pink-3d shadow-sm">
             Love You! Keep Going 💖
           </button>
         </div>
@@ -381,641 +374,12 @@
 
   <script>
     // =========================================================
-    // HIGH-YIELD QUESTION BANK WITH SECURE WIKIMEDIA FILEPATH ROUTES
+    // INITIALIZATION & CONSTANTS
     // =========================================================
-    const EXPANDED_QUESTION_BANK = [
-      // --- GROSS ANATOMY WITH SPECIAL:FILEPATH WIKIMEDIA ROUTES ---
-      {
-        id: 'anat_1',
-        unit: 'phase1',
-        category: 'Gross Anatomy',
-        prompt: 'Identify the primary distal insertion point of the biceps brachii muscle shown in the diagram.',
-        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Biceps_brachii.png?width=400',
-        options: [
-          'Radial tuberosity and bicipital aponeurosis',
-          'Olecranon process of the ulna',
-          'Coracoid process of the scapula',
-          'Ulnar tuberosity'
-        ],
-        correct: 0,
-        audioText: 'Identify the primary distal insertion point of the biceps brachii.',
-        pearl: 'The biceps brachii inserts distally onto the radial tuberosity and the bicipital aponeurosis, making it both a primary elbow flexor and a powerful supinator.'
-      },
-      {
-        id: 'anat_2',
-        unit: 'phase1',
-        category: 'Gross Anatomy',
-        prompt: 'Which bony landmark serves as the superior insertion point for the sternocleidomastoid muscle?',
-        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gray_-_musculus_sternocleidomastoideus.png?width=400',
-        options: [
-          'Mastoid process of the temporal bone',
-          'Occipital protuberance',
-          'Manubrium of the sternum',
-          'Medial third of the clavicle'
-        ],
-        correct: 0,
-        audioText: 'Which bony landmark serves as the superior insertion point for the sternocleidomastoid muscle?',
-        pearl: 'The sternocleidomastoid originates on the sternum and clavicle and inserts superiorly onto the mastoid process of the temporal bone and the superior nuchal line.'
-      },
-      {
-        id: 'anat_3',
-        unit: 'phase1',
-        category: 'Gross Anatomy',
-        prompt: 'Where does the deltoid muscle converge to insert on the lateral shaft of the humerus?',
-        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Deltoideus.png?width=400',
-        options: [
-          'Deltoid tuberosity',
-          'Greater tubercle',
-          'Lesser tubercle',
-          'Intertubercular sulcus'
-        ],
-        correct: 0,
-        audioText: 'Where does the deltoid muscle converge to insert on the humerus?',
-        pearl: 'All three heads of the deltoid (anterior, lateral, posterior) converge to insert on the deltoid tuberosity of the lateral humerus.'
-      },
-
-      // --- PHYSICAL EXAM (BATES) & CLINICAL (CMDT) ---
-      {
-        id: 'u1_1',
-        unit: 'phase1',
-        category: 'Physical Examination (Bates)',
-        prompt: 'According to established physical exam protocols, which sequence is the correct standard approach for examining the abdomen?',
-        options: [
-          'Inspection, Palpation, Percussion, Auscultation',
-          'Inspection, Auscultation, Percussion, Palpation',
-          'Auscultation, Inspection, Palpation, Percussion',
-          'Palpation, Percussion, Auscultation, Inspection'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Based on Bates’ Guide, auscultation must precede percussion and palpation in the abdominal exam so that bowel sounds are not artificially altered.'
-      },
-      {
-        id: 'u1_2',
-        unit: 'phase1',
-        category: 'Cardiology (CMDT)',
-        prompt: 'Which of the following is considered the first-line pharmacological treatment for an uncomplicated patient newly diagnosed with primary hypertension?',
-        options: [
-          'Beta-blockers',
-          'Alpha-blockers',
-          'Thiazide diuretics or ACE inhibitors',
-          'Loop diuretics'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'CMDT guidelines generally recommend ACE inhibitors, ARBs, calcium channel blockers, or thiazide diuretics as initial monotherapy for uncomplicated hypertension.'
-      },
-      {
-        id: 'u1_3',
-        unit: 'phase1',
-        category: 'PA Professional Practice (Ballweg)',
-        prompt: 'Which of the following best describes the principle of "beneficence" in clinical practice?',
-        options: [
-          'The duty to do no harm',
-          'The duty to act in the patient\'s best interest',
-          'The patient\'s right to make their own healthcare decisions',
-          'The fair distribution of healthcare resources'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Beneficence is the ethical obligation to act in a way that benefits the patient, a core concept covered in foundational PA practice texts.'
-      },
-      {
-        id: 'u1_4',
-        unit: 'phase1',
-        category: 'Pulmonology (CMDT)',
-        prompt: 'A 24-year-old presents with intermittent asthma symptoms occurring less than twice a week. What is the preferred initial step in management?',
-        options: [
-          'Daily low-dose inhaled corticosteroid (ICS)',
-          'PRN short-acting beta-agonist (SABA) alone',
-          'PRN low-dose ICS-formoterol',
-          'Daily long-acting beta-agonist (LABA)'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Updated asthma guidelines emphasize PRN low-dose ICS-formoterol (or ICS whenever SABA is used) rather than SABA alone to reduce exacerbation risks.'
-      },
-      {
-        id: 'u1_5',
-        unit: 'phase1',
-        category: 'Physical Examination (Bates)',
-        prompt: 'When evaluating a patient with a suspected deep vein thrombosis (DVT), pain in the calf upon abrupt passive dorsiflexion of the foot is known as:',
-        options: [
-          'Kernig sign',
-          'Brudzinski sign',
-          'Homan sign',
-          'Tinel sign'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Homan sign is calf pain on dorsiflexion. Though notoriously unreliable (low sensitivity/specificity), it is a classic physical exam eponym.'
-      },
-      {
-        id: 'u1_6',
-        unit: 'phase1',
-        category: 'Gastroenterology (CMDT)',
-        prompt: 'What is the diagnostic gold standard for confirming suspected peptic ulcer disease?',
-        options: [
-          'Upper endoscopy',
-          'Barium swallow study',
-          'Fecal occult blood test',
-          'Abdominal CT scan'
-        ],
-        correct: 0,
-        audioText: '',
-        pearl: 'Upper endoscopy (EGD) is the gold standard for diagnosing PUD as it allows for direct visualization and biopsy for H. pylori.'
-      },
-      {
-        id: 'u1_7',
-        unit: 'phase1',
-        category: 'Physical Examination (Bates)',
-        prompt: 'A patient presents with ptosis, miosis, and anhidrosis on one side of their face. This classic triad is indicative of:',
-        options: [
-          'Bell\'s Palsy',
-          'Horner Syndrome',
-          'Trigeminal Neuralgia',
-          'Stroke'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Horner Syndrome occurs due to a disruption of the sympathetic nerve supply to the face.'
-      },
-      {
-        id: 'u1_8',
-        unit: 'phase1',
-        category: 'Endocrinology (CMDT)',
-        prompt: 'In a patient with Type 2 Diabetes, which oral medication acts primarily by decreasing hepatic glucose production?',
-        options: [
-          'Glipizide',
-          'Metformin',
-          'Sitagliptin',
-          'Empagliflozin'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Metformin is a biguanide that lowers blood glucose mainly by decreasing hepatic gluconeogenesis and increasing insulin sensitivity.'
-      },
-      {
-        id: 'u1_9',
-        unit: 'phase1',
-        category: 'Physical Examination (Bates)',
-        prompt: 'A harsh, crescendo-decrescendo systolic murmur best heard at the right second intercostal space that radiates to the carotids is most characteristic of:',
-        options: [
-          'Mitral Regurgitation',
-          'Aortic Regurgitation',
-          'Mitral Stenosis',
-          'Aortic Stenosis'
-        ],
-        correct: 3,
-        audioText: '',
-        pearl: 'Aortic stenosis typically presents with a systolic ejection murmur that radiates to the neck (carotids).'
-      },
-      {
-        id: 'u1_10',
-        unit: 'phase1',
-        category: 'Infectious Disease (CMDT)',
-        prompt: 'What is the most common causative organism of community-acquired pneumonia (CAP)?',
-        options: [
-          'Haemophilus influenzae',
-          'Mycoplasma pneumoniae',
-          'Streptococcus pneumoniae',
-          'Staphylococcus aureus'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Streptococcus pneumoniae (pneumococcus) is the most frequently identified cause of classic community-acquired pneumonia.'
-      },
-      {
-        id: 'u1_11',
-        unit: 'phase1',
-        category: 'Pediatrics (CMDT / PAEA)',
-        prompt: 'What is the recommended first-line oral antibiotic for acute otitis media in a pediatric patient with no known drug allergies?',
-        options: [
-          'Azithromycin',
-          'Amoxicillin',
-          'Cefdinir',
-          'Clindamycin'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Amoxicillin is the preferred first-line therapy for acute otitis media in children due to its safety, cost, and narrow spectrum efficacy.'
-      },
-      {
-        id: 'u1_12',
-        unit: 'phase1',
-        category: 'Orthopedics (Bates / PPP)',
-        prompt: 'The Phalen test (sustained flexion of the wrists for 60 seconds) is primarily used to evaluate a patient for which condition?',
-        options: [
-          'De Quervain tenosynovitis',
-          'Cubital tunnel syndrome',
-          'Carpal tunnel syndrome',
-          'Lateral epicondylitis'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Phalen maneuver compresses the median nerve. Numbness or tingling in the median nerve distribution strongly suggests carpal tunnel syndrome.'
-      },
-      {
-        id: 'u1_13',
-        unit: 'phase1',
-        category: 'Dermatology (CMDT)',
-        prompt: 'Which characteristic is considered the most important prognostic indicator for a patient diagnosed with malignant melanoma?',
-        options: [
-          'Diameter of the lesion',
-          'Degree of asymmetry',
-          'Color variation',
-          'Depth of the lesion (Breslow depth)'
-        ],
-        correct: 3,
-        audioText: '',
-        pearl: 'Breslow depth (tumor thickness) is the single most important prognostic factor for localized melanoma, dictating surgical margins and survival rates.'
-      },
-      {
-        id: 'u1_14',
-        unit: 'phase1',
-        category: 'Neurology (CMDT / EM Blueprint)',
-        prompt: 'What is the most appropriate initial imaging study for a patient presenting to the emergency department with acute onset of focal neurologic deficits suggestive of a stroke?',
-        options: [
-          'MRI of the brain with contrast',
-          'Non-contrast CT scan of the head',
-          'CT angiogram of the head and neck',
-          'Transcranial Doppler ultrasound'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'A non-contrast head CT is the rapid, standard initial test to rule out hemorrhagic stroke before considering thrombolytic therapy for an ischemic stroke.'
-      },
-      {
-        id: 'u1_15',
-        unit: 'phase1',
-        category: 'General Surgery (CMDT)',
-        prompt: 'Abdominal pain that classically originates in the periumbilical region and later migrates to the right lower quadrant is most characteristic of:',
-        options: [
-          'Acute cholecystitis',
-          'Acute diverticulitis',
-          'Nephrolithiasis',
-          'Acute appendicitis'
-        ],
-        correct: 3,
-        audioText: '',
-        pearl: 'Visceral nerve pain initially refers appendicitis pain to the periumbilical area before localized peritoneal irritation shifts it to the RLQ (McBurney point).'
-      },
-      {
-        id: 'u1_16',
-        unit: 'phase1',
-        category: 'Psychiatry (PPP / NCCPA Blueprint)',
-        prompt: 'What is the defining clinical difference required to diagnose Bipolar I disorder versus Bipolar II disorder?',
-        options: [
-          'Presence of major depressive episodes',
-          'History of at least one full manic episode',
-          'Response to lithium therapy',
-          'Age of initial symptom onset'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Bipolar I is defined by the occurrence of at least one full manic episode. Bipolar II involves hypomanic episodes and major depressive episodes, but no full mania.'
-      },
-      {
-        id: 'u1_17',
-        unit: 'phase1',
-        category: 'OB/GYN (CMDT)',
-        prompt: 'A 26-year-old female presents with a 6-week history of amenorrhea, sudden unilateral pelvic pain, and light vaginal spotting. What is the most critical diagnosis to immediately rule out?',
-        options: [
-          'Pelvic inflammatory disease (PID)',
-          'Ovarian cyst rupture',
-          'Ectopic pregnancy',
-          'Endometriosis'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'The classic triad of amenorrhea, vaginal bleeding, and abdominal pain requires immediate evaluation for an ectopic pregnancy due to the risk of life-threatening rupture.'
-      },
-      {
-        id: 'u1_18',
-        unit: 'phase1',
-        category: 'Hematology (CMDT)',
-        prompt: 'Which of the following iron study profiles is most characteristic of early iron deficiency anemia?',
-        options: [
-          'Decreased serum ferritin and increased total iron-binding capacity (TIBC)',
-          'Increased serum ferritin and decreased TIBC',
-          'Decreased serum ferritin and decreased TIBC',
-          'Normal serum ferritin and increased mean corpuscular volume (MCV)'
-        ],
-        correct: 0,
-        audioText: '',
-        pearl: 'Ferritin (stored iron) drops first in iron deficiency, prompting the liver to produce more transferrin, which increases the total iron-binding capacity (TIBC).'
-      },
-      {
-        id: 'u1_19',
-        unit: 'phase1',
-        category: 'Ophthalmology (CMDT)',
-        prompt: 'A patient complains of severe, sudden unilateral eye pain, blurred vision, and seeing "halos" around lights. Exam reveals a cloudy cornea and a mid-dilated, nonreactive pupil. What is the most likely diagnosis?',
-        options: [
-          'Optic neuritis',
-          'Acute angle-closure glaucoma',
-          'Retinal detachment',
-          'Central retinal artery occlusion'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Acute angle-closure glaucoma is an ophthalmologic emergency characterized by sudden eye pain, a "steamy" cornea, and a fixed, mid-dilated pupil.'
-      },
-      {
-        id: 'u1_20',
-        unit: 'phase1',
-        category: 'Endocrinology (PPP / CMDT)',
-        prompt: 'Which of the following sets of laboratory values is most consistent with a diagnosis of primary hypothyroidism?',
-        options: [
-          'Low TSH and high free T4',
-          'Low TSH and low free T4',
-          'High TSH and low free T4',
-          'High TSH and high free T4'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'In primary hypothyroidism, the failing thyroid gland produces low free T4, which removes negative feedback on the pituitary, resulting in a high TSH.'
-      },
-      {
-        id: 'u1_21',
-        unit: 'phase1',
-        category: 'Vital Signs (Bates)',
-        prompt: 'What is considered a normal resting heart rate for a healthy adult?',
-        options: [
-          '40 to 60 beats per minute',
-          '60 to 100 beats per minute',
-          '80 to 120 beats per minute',
-          '100 to 140 beats per minute'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'According to Bates’ Guide, a normal adult resting heart rate is between 60 and 100 beats per minute.'
-      },
-      {
-        id: 'u1_22',
-        unit: 'phase1',
-        category: 'Anatomy (Bates)',
-        prompt: 'How many lobes does the right human lung typically have?',
-        options: [
-          'One',
-          'Two',
-          'Three',
-          'Four'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Foundational thoracic anatomy reviewed in Bates’ indicates the right lung has three lobes (superior, middle, inferior), while the left has two.'
-      },
-      {
-        id: 'u1_23',
-        unit: 'phase1',
-        category: 'Gastroenterology (Bates)',
-        prompt: 'During an abdominal exam, in which quadrant is the gallbladder primarily located?',
-        options: [
-          'Right Upper Quadrant (RUQ)',
-          'Left Upper Quadrant (LUQ)',
-          'Right Lower Quadrant (RLQ)',
-          'Left Lower Quadrant (LLQ)'
-        ],
-        correct: 0,
-        audioText: '',
-        pearl: 'Bates’ physical exam principles place the liver and the gallbladder in the Right Upper Quadrant (RUQ) of the abdomen.'
-      },
-      {
-        id: 'u1_24',
-        unit: 'phase1',
-        category: 'Pharmacology (CMDT)',
-        prompt: 'What is the generic medical name for the over-the-counter pain reliever and fever reducer Tylenol?',
-        options: [
-          'Ibuprofen',
-          'Acetaminophen',
-          'Naproxen',
-          'Aspirin'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Acetaminophen is the generic name for Tylenol, a core foundational pharmacology and antipyretic concept in CMDT.'
-      },
-      {
-        id: 'u1_25',
-        unit: 'phase1',
-        category: 'Vital Signs (Bates)',
-        prompt: 'Which of the following blood pressure readings is generally considered normal for a healthy adult?',
-        options: [
-          '140/90 mmHg',
-          '120/80 mmHg',
-          '90/60 mmHg',
-          '160/100 mmHg'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Bates’ Guide defines a normal, healthy adult blood pressure as a systolic reading of less than 120 and a diastolic reading of less than 80.'
-      },
-      {
-        id: 'u1_26',
-        unit: 'phase1',
-        category: 'Endocrinology (CMDT)',
-        prompt: 'The Hemoglobin A1C blood test is primarily used to diagnose and monitor which condition?',
-        options: [
-          'Hypertension',
-          'Hyperlipidemia',
-          'Diabetes Mellitus',
-          'Hypothyroidism'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Hemoglobin A1C reflects average blood sugar levels over the past 2-3 months and is a central diagnostic tool for diabetes management in CMDT.'
-      },
-      {
-        id: 'u1_27',
-        unit: 'phase1',
-        category: 'Infectious Disease (CMDT)',
-        prompt: 'What type of pathogen is responsible for causing the seasonal flu (influenza)?',
-        options: [
-          'Bacteria',
-          'Virus',
-          'Fungus',
-          'Parasite'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Influenza is a viral respiratory illness, a foundational infectious disease concept noted in CMDT and PANCE blueprints.'
-      },
-      {
-        id: 'u1_28',
-        unit: 'phase1',
-        category: 'Physical Examination (Bates)',
-        prompt: 'Which medical instrument is specifically designed to examine the tympanic membrane and external ear canal?',
-        options: [
-          'Ophthalmoscope',
-          'Stethoscope',
-          'Otoscope',
-          'Sphygmomanometer'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Bates’ Guide dictates the use of an otoscope to properly visualize the tympanic membrane and external auditory canal.'
-      },
-      {
-        id: 'u1_29',
-        unit: 'phase1',
-        category: 'Orthopedics (Bates)',
-        prompt: 'What is the correct anatomical medical term for the kneecap?',
-        options: [
-          'Femur',
-          'Tibia',
-          'Patella',
-          'Fibula'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'Foundational musculoskeletal anatomy, as reviewed for orthopedics in Bates, identifies the kneecap as the patella.'
-      },
-      {
-        id: 'u1_30',
-        unit: 'phase1',
-        category: 'PA Professional Practice (Ballweg)',
-        prompt: 'What does the federal law known as HIPAA primarily protect in healthcare?',
-        options: [
-          'Provider salaries and compensation',
-          'Patient privacy and protected health information',
-          'Hospital infection rates and sanitation protocols',
-          'Medical billing codes for insurance'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'Ballweg’s text emphasizes HIPAA as the core federal law protecting sensitive patient health information (PHI) from unauthorized disclosure.'
-      },
-
-      // --- MEDICAL SPANISH (SPAN 661) ---
-      {
-        id: 'sp_1',
-        unit: 'phase1',
-        category: 'Medical Spanish (SPAN 661)',
-        prompt: 'How do you ask a patient in the ED: "Where does it hurt?"',
-        options: [
-          '¿Dónde le duele?',
-          '¿Cómo se llama?',
-          '¿Desde cuándo toma esto?',
-          '¿Tiene seguro médico?'
-        ],
-        correct: 0,
-        audioText: '¿Dónde le duele?',
-        pearl: '“¿Dónde le duele?” uses the indirect object pronoun "le" with "doler" to ask where it hurts.'
-      },
-      {
-        id: 'sp_2',
-        unit: 'phase1',
-        category: 'Medical Spanish (SPAN 661)',
-        prompt: 'A patient says: "Tengo falta de aire." What chief complaint is this describing?',
-        options: [
-          'Chest palpitations',
-          'Shortness of breath / Dyspnea',
-          'Severe heartburn',
-          'Dizziness upon standing'
-        ],
-        correct: 1,
-        audioText: 'Tengo falta de aire',
-        pearl: '“Falta de aire” translates literally to "lack of air" and is the classic colloquial phrase for shortness of breath.'
-      },
-
-      // --- PHYSIOLOGY & ECG (PAP 601) ---
-      {
-        id: 'phys_1',
-        unit: 'phase2',
-        category: 'Physiology (PAP 601)',
-        prompt: 'On a standard 12-lead ECG, what electrical event in the heart corresponds to the P wave?',
-        options: [
-          'Ventricular depolarization',
-          'Atrial depolarization',
-          'Ventricular repolarization',
-          'AV nodal delay'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'The P wave represents atrial depolarization spreading from the SA node through the atria.'
-      },
-      {
-        id: 'phys_2',
-        unit: 'phase2',
-        category: 'Renal Physiology (PAP 601)',
-        prompt: 'In which segment of the renal nephron is the majority (approximately 65-70%) of filtered sodium and water reabsorbed?',
-        options: [
-          'Distal convoluted tubule',
-          'Loop of Henle',
-          'Proximal convoluted tubule',
-          'Cortical collecting duct'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'The proximal convoluted tubule is the workhorse of the nephron, reabsorbing the bulk of filtered sodium, water, bicarbonate, and 100% of filtered glucose.'
-      },
-
-      // --- PHARMACOLOGY & SOAP (PAP 611/621) ---
-      {
-        id: 'pharm_1',
-        unit: 'phase3',
-        category: 'Pharmacology (PAP 611)',
-        prompt: 'A medication ending in the suffix "-pril" (e.g., Lisinopril, Enalapril) belongs to which drug class?',
-        options: [
-          'Beta-blockers',
-          'Calcium channel blockers',
-          'ACE inhibitors',
-          'Angiotensin receptor blockers (ARBs)'
-        ],
-        correct: 2,
-        audioText: '',
-        pearl: 'The suffix "-pril" identifies ACE inhibitors, which prevent the conversion of angiotensin I to angiotensin II.'
-      },
-      {
-        id: 'pharm_2',
-        unit: 'phase3',
-        category: 'Clinical Skills (PAP 621)',
-        prompt: 'In a standard SOAP note, where would a patient\'s reported symptoms and chief complaint be documented?',
-        options: [
-          'Subjective',
-          'Objective',
-          'Assessment',
-          'Plan'
-        ],
-        correct: 0,
-        audioText: '',
-        pearl: 'The Subjective section contains the information the patient tells you (Chief Complaint, HPI, ROS).'
-      },
-
-      // --- UARIZONA COMPLIANCE (PHASE 4) ---
-      {
-        id: 'admin_1',
-        unit: 'phase4',
-        category: 'UArizona Policy',
-        prompt: 'What is the strict minimum passing threshold for didactic courses in the UArizona PA program?',
-        options: [
-          '69.5% (rounded to 70%)',
-          '70.0% (no rounding allowed)',
-          '75.0%',
-          '80.0%'
-        ],
-        correct: 1,
-        audioText: '',
-        pearl: 'UArizona maintains a strict 70.0% threshold to pass. A 69.9% will not be rounded up and results in a course failure.'
-      }
-    ];
-
-    // Spanish Clinic Phrases for Tab 3
-    const SPANISH_CLINIC_PHRASES = [
-      { es: '¿Dónde le duele exactamente?', en: 'Where does it hurt exactly?', tag: 'hpi' },
-      { es: '¿El dolor se pasa a otro lugar?', en: 'Does the pain radiate anywhere else?', tag: 'hpi' },
-      { es: 'Respire profundo, por favor.', en: 'Take a deep breath, please.', tag: 'exam' },
-      { es: 'Abra la boca y diga "ah".', en: 'Open your mouth and say "ah".', tag: 'exam' },
-      { es: '¿Es alérgico a algún medicamento?', en: 'Are you allergic to any medicines?', tag: 'meds' },
-      { es: 'Tómese esta pastilla una vez al día.', en: 'Take this pill once a day.', tag: 'meds' }
-    ];
-
-    // Kailyn's Badges & Love Notes Deck
     const KAILYN_LOVE_NOTES = [
-      { id: 'b_welcome', title: 'Future UArizona PA!', subtitle: 'I am so incredibly proud of you, Kailyn! 🥹', icon: '🩺💖', unlocked: true },
-      { id: 'b_streak3', title: '3-Streak Fire!', subtitle: 'You are crushing it, Kayfart! Keep pushing!', icon: '🔥', unlocked: true },
-      { id: 'b_anatomy', title: 'Anatomy Master', subtitle: 'Netter has nothing on you! Amazing work my love.', icon: '🦴', unlocked: true },
-      { id: 'b_spanish', title: 'Bilingual Clinician', subtitle: 'You are going to serve patients so well in Tucson!', icon: '🗣️', unlocked: true }
+      { id: 'b_welcome', title: 'Future UArizona PA!', subtitle: 'I am so incredibly proud of you, Kailyn! 🥹', icon: '🩺💖' },
+      { id: 'b_streak3', title: '3-Day Streak!', subtitle: 'You are crushing it, Kayfart! 3 days in a row!', icon: '🔥' },
+      { id: 'b_anatomy', title: 'Anatomy Master', subtitle: 'Netter has nothing on you! Amazing work my love.', icon: '🦴' }
     ];
 
     const KAILYN_CORRECT_HEADERS = [
@@ -1026,34 +390,55 @@
       "Nailed it! Future PA-C right here! ✨"
     ];
 
-    // =========================================================
-    // GAME & QUIZ STATE
-    // =========================================================
     let gameState = {
       xp: 120,
       hearts: 5,
       streak: 1,
-      mistakesIds: []
+      lastStudyDate: '',
+      mistakesIds: [],
+      unlockedBadges: ['b_welcome']
     };
 
     let activeDeck = [];
+    let currentSessionQuestion = null;
     let currentQuizIndex = 0;
-    let selectedOptionIndex = null;
     let comboStreak = 0;
-    let hasAnsweredCurrentQuestion = false;
 
+    // =========================================================
+    // STORAGE & STREAK LOGIC
+    // =========================================================
     function loadGameState() {
       try {
-        const saved = localStorage.getItem('uaz_pa_kailyn_state');
+        const saved = localStorage.getItem('uaz_pa_kailyn_v3');
         if (saved) gameState = { ...gameState, ...JSON.parse(saved) };
       } catch (e) {}
+
+      // Calculate Streak based on date diff
+      const today = new Date().toISOString().slice(0, 10);
+      if (!gameState.lastStudyDate) {
+        gameState.lastStudyDate = today;
+      } else if (gameState.lastStudyDate !== today) {
+        const lastDateObj = new Date(gameState.lastStudyDate);
+        const todayObj = new Date(today);
+        const diffTime = Math.abs(todayObj - lastDateObj);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) {
+          gameState.streak += 1;
+        } else if (diffDays > 1) {
+          gameState.streak = 1;
+        }
+        gameState.lastStudyDate = today;
+      }
+      
+      checkMilestones();
+      saveGameState();
       updateTopBarUI();
-      renderLoveNotesBadges();
     }
 
     function saveGameState() {
       try {
-        localStorage.setItem('uaz_pa_kailyn_state', JSON.stringify(gameState));
+        localStorage.setItem('uaz_pa_kailyn_v3', JSON.stringify(gameState));
       } catch (e) {}
     }
 
@@ -1062,7 +447,20 @@
       document.getElementById('statXP').textContent = gameState.xp;
       document.getElementById('statHearts').textContent = gameState.hearts;
       document.getElementById('quizHeartsRemaining').textContent = gameState.hearts;
-      document.getElementById('badgeCountPill').textContent = KAILYN_LOVE_NOTES.filter(b => b.unlocked).length;
+      document.getElementById('badgeCountPill').textContent = gameState.unlockedBadges.length;
+    }
+
+    function checkMilestones(topicCompleted = null) {
+      let newlyUnlocked = false;
+      if (gameState.streak >= 3 && !gameState.unlockedBadges.includes('b_streak3')) {
+        gameState.unlockedBadges.push('b_streak3');
+        newlyUnlocked = true;
+      }
+      if (topicCompleted === 'anatomy' && !gameState.unlockedBadges.includes('b_anatomy')) {
+        gameState.unlockedBadges.push('b_anatomy');
+        newlyUnlocked = true;
+      }
+      return newlyUnlocked;
     }
 
     function refillHearts() {
@@ -1073,25 +471,31 @@
     }
 
     // =========================================================
-    // QUIZ ENGINE WITH DYNAMIC SHUFFLING & SECURE IMAGES
+    // QUIZ ENGINE (FISHER-YATES SHUFFLE)
     // =========================================================
-    function startSpecificUnit(unitId, filterType) {
-      if (filterType === 'anat') {
-        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.category.includes('Anatomy'));
-      } else if (filterType === 'bates_cmdt') {
-        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.category.includes('Bates') || q.category.includes('CMDT') || q.category.includes('Ballweg') || q.category.includes('Vital'));
-      } else if (filterType === 'spanish') {
-        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.category.includes('Spanish'));
-      } else {
-        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.unit === unitId);
+    function shuffleArray(array) {
+      const a = [...array];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
+      return a;
+    }
 
-      if (activeDeck.length === 0) activeDeck = [...EXPANDED_QUESTION_BANK];
+    // Bind Roadmap Node clicks
+    document.querySelectorAll('.roadmap-node').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const topic = e.currentTarget.getAttribute('data-topic');
+        startSpecificUnit(topic);
+      });
+    });
 
-      // Shuffle order of questions for this session
-      activeDeck.sort(() => Math.random() - 0.5);
-      activeDeck = activeDeck.slice(0, 8);
+    function startSpecificUnit(topic) {
+      // Use window.EXPANDED_QUESTION_BANK from questions.js
+      activeDeck = window.EXPANDED_QUESTION_BANK.filter(q => q.topic === topic);
+      if (activeDeck.length === 0) activeDeck = [...window.EXPANDED_QUESTION_BANK];
 
+      activeDeck = shuffleArray(activeDeck).slice(0, 8);
       currentQuizIndex = 0;
       comboStreak = 0;
       switchTab('quiz');
@@ -1104,13 +508,11 @@
     }
 
     function loadQuizQuestion() {
-      hasAnsweredCurrentQuestion = false;
-      selectedOptionIndex = null;
       document.getElementById('resultDrawer').classList.add('hidden');
       document.getElementById('quizActionFooter').classList.remove('hidden');
 
-      const q = activeDeck[currentQuizIndex];
-      if (!q) {
+      const rawQ = activeDeck[currentQuizIndex];
+      if (!rawQ) {
         finishQuizSession();
         return;
       }
@@ -1119,95 +521,89 @@
       const pct = Math.round(((currentQuizIndex) / activeDeck.length) * 100);
       document.getElementById('quizProgressBar').style.width = `${Math.max(8, pct)}%`;
 
-      document.getElementById('qCategoryPill').textContent = q.category.toUpperCase();
-      document.getElementById('quizQuestionText').textContent = q.prompt;
+      document.getElementById('qCategoryPill').textContent = rawQ.category.toUpperCase();
+      document.getElementById('quizQuestionText').textContent = rawQ.prompt;
 
       // Handle Medical Illustration Diagram
       const imgContainer = document.getElementById('quizImageContainer');
       const imgTag = document.getElementById('quizImageTag');
       const loader = document.getElementById('quizImageLoader');
       
-      // Reset image state fully to fix the caching hidden bug
       imgContainer.classList.add('hidden');
       imgTag.classList.add('hidden');
       loader.classList.remove('hidden');
       imgTag.src = '';
       
-      if (q.imageUrl && q.imageUrl.trim() !== '') {
+      if (rawQ.imageUrl && rawQ.imageUrl.trim() !== '') {
         imgContainer.classList.remove('hidden');
-        imgTag.src = q.imageUrl;
+        imgTag.src = rawQ.imageUrl;
       }
 
-      // Spanish Voice Audio Button
       const voiceBtn = document.getElementById('qVoiceBtn');
-      if (q.audioText && q.audioText.trim() !== '') {
-        voiceBtn.classList.remove('hidden');
-      } else {
-        voiceBtn.classList.add('hidden');
-      }
+      voiceBtn.classList.toggle('hidden', !rawQ.audioText);
 
-      // --- FISHER-YATES DYNAMIC OPTION SHUFFLE (Fixes "Always A" bug) ---
-      let pairedOptions = q.options.map((opt, idx) => ({
-        text: opt,
-        isCorrect: idx === q.correct
-      }));
+      // Create session state separating UI from original object
+      const pairedOptions = rawQ.options.map((optText, i) => ({ text: optText, isCorrect: i === rawQ.correct }));
+      const shuffled = shuffleArray(pairedOptions);
+      
+      currentSessionQuestion = {
+        ref: rawQ,
+        options: shuffled,
+        correctIndex: shuffled.findIndex(o => o.isCorrect),
+        answered: false,
+        selectedIndex: null
+      };
 
-      // Randomize choice order
-      pairedOptions.sort(() => Math.random() - 0.5);
-
-      // Track the dynamically assigned correct index
-      q.dynamicCorrectIndex = pairedOptions.findIndex(o => o.isCorrect);
-      q.currentShuffledOptions = pairedOptions;
-
-      // Render choice buttons with dynamic assignments
+      // Render choice buttons via delegation wrapper
       const container = document.getElementById('quizChoicesContainer');
       const letters = ['A', 'B', 'C', 'D'];
-      container.innerHTML = pairedOptions.map((optObj, idx) => `
-        <button id="choiceBtn_${idx}" onclick="selectQuizChoice(${idx})" class="w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition">
-          <span class="w-7 h-7 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-xs flex items-center justify-center shrink-0">
-            ${letters[idx]}
-          </span>
+      container.innerHTML = shuffled.map((optObj, idx) => `
+        <button class="quiz-choice-btn" data-index="${idx}">
+          <span class="w-7 h-7 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-xs flex items-center justify-center shrink-0">${letters[idx]}</span>
           <span class="text-xs font-bold text-slate-800 leading-snug flex-1">${optObj.text}</span>
         </button>
       `).join('');
 
-      // Reset Check Button
+      // Attach delegated event listener
+      container.onclick = (e) => {
+        const btn = e.target.closest('.quiz-choice-btn');
+        if (!btn || currentSessionQuestion.answered) return;
+        const idx = parseInt(btn.getAttribute('data-index'));
+        selectQuizChoice(idx);
+      };
+
       const checkBtn = document.getElementById('btnCheckAnswer');
       checkBtn.textContent = 'Check Answer';
-      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed';
+      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-sm transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed';
     }
 
     function selectQuizChoice(idx) {
-      if (hasAnsweredCurrentQuestion) return;
-      selectedOptionIndex = idx;
-
-      document.querySelectorAll('#quizChoicesContainer button').forEach((btn, i) => {
-        if (i === idx) {
-          btn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-selected';
-        } else {
-          btn.className = 'w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition';
-        }
+      currentSessionQuestion.selectedIndex = idx;
+      
+      document.querySelectorAll('.quiz-choice-btn').forEach((btn, i) => {
+        btn.classList.toggle('selected', i === idx);
       });
 
       const checkBtn = document.getElementById('btnCheckAnswer');
-      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d btn-green-3d';
+      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-sm transition btn-3d btn-green-3d';
     }
 
     function speakCurrentQuestionPrompt() {
-      const q = activeDeck[currentQuizIndex];
-      if (q && q.audioText) speakSpanish(q.audioText);
+      if (currentSessionQuestion?.ref?.audioText) {
+        speakSpanish(currentSessionQuestion.ref.audioText);
+      }
     }
 
     function handleCheckOrNext() {
-      if (selectedOptionIndex === null) return;
-      if (hasAnsweredCurrentQuestion) {
+      if (currentSessionQuestion.selectedIndex === null) return;
+      if (currentSessionQuestion.answered) {
         advanceNextQuestion();
         return;
       }
 
-      hasAnsweredCurrentQuestion = true;
-      const q = activeDeck[currentQuizIndex];
-      const isCorrect = (selectedOptionIndex === q.dynamicCorrectIndex);
+      currentSessionQuestion.answered = true;
+      const q = currentSessionQuestion.ref;
+      const isCorrect = (currentSessionQuestion.selectedIndex === currentSessionQuestion.correctIndex);
 
       const drawer = document.getElementById('resultDrawer');
       const drawerIcon = document.getElementById('resultIcon');
@@ -1217,6 +613,8 @@
 
       document.getElementById('quizActionFooter').classList.add('hidden');
       drawer.classList.remove('hidden');
+      
+      const buttons = document.querySelectorAll('.quiz-choice-btn');
 
       if (isCorrect) {
         playChime('correct');
@@ -1225,28 +623,22 @@
 
         if (comboStreak >= 2) {
           const comboEl = document.getElementById('comboBanner');
-          const comboTxt = document.getElementById('comboBannerText');
-          comboTxt.textContent = comboStreak >= 3
-            ? `🔥 ${comboStreak} in a Row! Good job Kayfart! +15 XP`
-            : `🔥 ${comboStreak} in a Row, Kailyn! +15 XP`;
+          document.getElementById('comboBannerText').textContent = comboStreak >= 3 ? `🔥 ${comboStreak} in a Row! Good job Kayfart! +15 XP` : `🔥 ${comboStreak} in a Row, Kailyn! +15 XP`;
           comboEl.classList.remove('hidden');
         }
 
-        const correctBtn = document.getElementById(`choiceBtn_${selectedOptionIndex}`);
-        if (correctBtn) correctBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
-
-        const randomPraise = KAILYN_CORRECT_HEADERS[Math.floor(Math.random() * KAILYN_CORRECT_HEADERS.length)];
+        buttons[currentSessionQuestion.selectedIndex].classList.add('correct');
+        buttons[currentSessionQuestion.selectedIndex].classList.remove('selected');
 
         drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#58CC02] bg-[#D7FFB8] transition-all';
         drawerIcon.className = 'w-10 h-10 rounded-full bg-[#58CC02] text-white flex items-center justify-center font-black text-xl shrink-0';
         drawerIcon.innerHTML = '✓';
         drawerTitle.className = 'text-base font-black text-[#357B01]';
-        drawerTitle.textContent = randomPraise;
+        drawerTitle.textContent = KAILYN_CORRECT_HEADERS[Math.floor(Math.random() * KAILYN_CORRECT_HEADERS.length)];
         drawerExp.className = 'text-xs font-bold mt-1 text-[#357B01] leading-relaxed';
         drawerExp.innerHTML = `<span class="font-black">UA Clinical Pearl:</span> ${q.pearl}`;
         drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d btn-green-3d';
 
-        // Remove from mistakes if fixed
         gameState.mistakesIds = gameState.mistakesIds.filter(id => id !== q.id);
 
         if (comboStreak === 4) {
@@ -1262,13 +654,11 @@
           gameState.mistakesIds.push(q.id);
         }
 
-        const chosenBtn = document.getElementById(`choiceBtn_${selectedOptionIndex}`);
-        if (chosenBtn) chosenBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-incorrect';
+        buttons[currentSessionQuestion.selectedIndex].classList.add('incorrect');
+        buttons[currentSessionQuestion.selectedIndex].classList.remove('selected');
+        buttons[currentSessionQuestion.correctIndex].classList.add('correct');
 
-        const correctBtn = document.getElementById(`choiceBtn_${q.dynamicCorrectIndex}`);
-        if (correctBtn) correctBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
-
-        const correctOptText = q.currentShuffledOptions[q.dynamicCorrectIndex].text;
+        const correctOptText = currentSessionQuestion.options[currentSessionQuestion.correctIndex].text;
 
         drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#FF4B4B] bg-[#FFDFE0] transition-all';
         drawerIcon.className = 'w-10 h-10 rounded-full bg-[#FF4B4B] text-white flex items-center justify-center font-black text-xl shrink-0';
@@ -1297,7 +687,14 @@
       gameState.xp += 30;
       saveGameState();
       updateTopBarUI();
-      triggerMilestoneModal('Lesson Complete! 🎉', 'I’m so proud of you my love! 🥹 You are one step closer to UArizona PA!', '🩺💖');
+      
+      const topicJustDone = activeDeck[0]?.topic;
+      const earnedBadge = checkMilestones(topicJustDone);
+      saveGameState();
+
+      if (!earnedBadge) {
+        triggerMilestoneModal('Lesson Complete! 🎉', 'I’m so proud of you my love! 🥹 You are one step closer to UArizona PA!', '🩺💖');
+      }
       switchTab('roadmap');
     }
 
@@ -1305,14 +702,24 @@
     // AUDIO & SPEECH SYNTHESIS ENGINE
     // =========================================================
     let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
     function playChime(type) {
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
+        gain.connect(ctx.destination);
 
         if (type === 'correct') {
           osc.type = 'triangle';
@@ -1339,18 +746,27 @@
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'es-MX';
+        const voices = window.speechSynthesis.getVoices();
+        const esVoice = voices.find(v => v.lang.startsWith('es-')) || voices.find(v => v.lang.startsWith('es'));
+        if (esVoice) u.voice = esVoice;
+        u.lang = esVoice ? esVoice.lang : 'es-MX';
         u.rate = 0.9;
         window.speechSynthesis.speak(u);
       }
     }
 
+    // Workaround for speech synthesis voice loading
+    if ('speechSynthesis' in window && window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+    }
+
     // =========================================================
-    // LOVE NOTES & MILESTONES UI
+    // LOVE NOTES, MILESTONES & MODALS
     // =========================================================
     function openLoveNotesDrawer() {
       renderLoveNotesBadges();
       document.getElementById('loveNotesDrawer').classList.remove('hidden');
+      document.getElementById('loveNotesDrawer').focus();
     }
 
     function closeLoveNotesDrawer() {
@@ -1359,9 +775,11 @@
 
     function renderLoveNotesBadges() {
       const container = document.getElementById('loveBadgesGrid');
-      container.innerHTML = KAILYN_LOVE_NOTES.map(b => `
+      // Only show unlocked badges
+      const unlocked = KAILYN_LOVE_NOTES.filter(b => gameState.unlockedBadges.includes(b.id));
+      container.innerHTML = unlocked.map(b => `
         <div class="bg-pink-50/70 border-2 border-pink-200 rounded-2xl p-3 flex items-center space-x-3">
-          <div class="text-3xl shrink-0">${b.icon}</div>
+          <div class="text-3xl shrink-0" aria-hidden="true">${b.icon}</div>
           <div class="flex-1">
             <h4 class="text-xs font-black text-slate-800">${b.title}</h4>
             <p class="text-[11px] font-bold text-pink-600 mt-0.5 leading-tight">${b.subtitle}</p>
@@ -1375,6 +793,7 @@
       document.getElementById('milestoneModalSubtitle').textContent = subtitle;
       document.getElementById('milestoneModalEmoji').textContent = emoji;
       document.getElementById('milestoneModal').classList.remove('hidden');
+      document.getElementById('milestoneModal').focus();
     }
 
     function closeMilestoneModal() {
@@ -1407,6 +826,14 @@
       showMascotSpeech(notes[Math.floor(Math.random() * notes.length)]);
     }
 
+    // Modal Escape Key Listener
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLoveNotesDrawer();
+        closeMilestoneModal();
+      }
+    });
+
     // =========================================================
     // TABS, MISTAKES & SPANISH CLINIC
     // =========================================================
@@ -1425,45 +852,66 @@
 
       if (tabKey === 'spanish') renderSpanishClinicCards();
       if (tabKey === 'mistakes') renderMistakesView();
-      if (tabKey === 'quiz' && activeDeck.length === 0) startSpecificUnit('phase1', 'anat');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSpanishFilterRow() {
+      const totalPhrases = window.SPANISH_CLINIC_PHRASES.length;
+      document.getElementById('spanishFilterRow').innerHTML = `
+        <button class="span-filter-pill selected shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white" data-tag="all">All (${totalPhrases})</button>
+        <button class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700" data-tag="hpi">H&P / Pain</button>
+        <button class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700" data-tag="exam">Physical Exam</button>
+        <button class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700" data-tag="meds">Meds & Allergies</button>
+      `;
+
+      // Delegate filter clicks
+      document.getElementById('spanishFilterRow').onclick = (e) => {
+        if (e.target.tagName !== 'BUTTON') return;
+        document.querySelectorAll('.span-filter-pill').forEach(btn => {
+          btn.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700';
+        });
+        e.target.className = 'span-filter-pill selected shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white';
+        renderSpanishClinicCards(e.target.getAttribute('data-tag'));
+      };
     }
 
     function renderSpanishClinicCards(filter = 'all') {
       const container = document.getElementById('spanishCardsList');
-      const filtered = filter === 'all'
-        ? SPANISH_CLINIC_PHRASES
-        : SPANISH_CLINIC_PHRASES.filter(p => p.tag === filter);
+      const phrases = window.SPANISH_CLINIC_PHRASES;
+      const filtered = filter === 'all' ? phrases : phrases.filter(p => p.tag === filter);
 
-      container.innerHTML = filtered.map(item => `
-        <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 flex items-center justify-between shadow-xs hover:border-[#1CB0F6] transition">
+      container.innerHTML = filtered.map((item, index) => {
+        // Find the absolute index in the main array to avoid speaking the wrong item when filtered
+        const absoluteIndex = phrases.indexOf(item);
+        return `
+        <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 flex items-center justify-between shadow-sm hover:border-[#1CB0F6] transition">
           <div class="flex-1 pr-2">
             <h4 class="text-xs font-black text-slate-800">${item.es}</h4>
             <p class="text-[11px] font-bold text-slate-500 mt-0.5">${item.en}</p>
           </div>
-          <button onclick="speakSpanish('${item.es}')" class="w-10 h-10 rounded-2xl bg-[#EBF7FF] border-2 border-b-4 border-[#84D8FF] text-[#1CB0F6] flex items-center justify-center text-sm active:translate-y-0.5 active:border-b-2 transition shrink-0">
+          <button aria-label="Listen" class="clinic-audio-btn w-10 h-10 rounded-2xl bg-[#EBF7FF] border-2 border-b-4 border-[#84D8FF] text-[#1CB0F6] flex items-center justify-center text-sm active:translate-y-0.5 active:border-b-2 transition shrink-0" data-index="${absoluteIndex}">
             <i class="fa-solid fa-volume-high"></i>
           </button>
         </div>
-      `).join('');
-    }
+      `}).join('');
 
-    function filterSpanishPhrases(tag) {
-      document.querySelectorAll('.span-filter-pill').forEach(btn => {
-        btn.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700';
-      });
-      event.target.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white';
-      renderSpanishClinicCards(tag);
+      // Delegate audio button clicks
+      container.onclick = (e) => {
+        const btn = e.target.closest('.clinic-audio-btn');
+        if (!btn) return;
+        const i = parseInt(btn.getAttribute('data-index'));
+        speakSpanish(window.SPANISH_CLINIC_PHRASES[i].es);
+      };
     }
 
     function renderMistakesView() {
       const container = document.getElementById('mistakesContainer');
-      const missed = EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
+      const missed = window.EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
 
       if (missed.length === 0) {
         container.innerHTML = `
           <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 text-center space-y-2">
-            <span class="text-4xl">🛡️</span>
+            <span class="text-4xl" aria-hidden="true">🛡️</span>
             <h3 class="text-sm font-black text-slate-800">Zero Mistakes, Kayfart! 💖</h3>
             <p class="text-xs font-bold text-slate-500">You have cleared every single missed question. I’m so proud of you my love! 🥹</p>
           </div>
@@ -1487,9 +935,9 @@
     }
 
     function practiceOnlyMistakes() {
-      const missed = EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
+      const missed = window.EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
       if (missed.length === 0) return;
-      activeDeck = [...missed];
+      activeDeck = shuffleArray([...missed]);
       currentQuizIndex = 0;
       switchTab('quiz');
       loadQuizQuestion();
@@ -1501,6 +949,7 @@
 
     window.onload = function() {
       loadGameState();
+      renderSpanishFilterRow();
       renderSpanishClinicCards();
     };
   </script>
