@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Browser Tabs, Bookmarks & Google Search Favicon -->
-  <link rel="icon" type="image/png" sizes="192x192" href="PA-App-Icon.png?v=3" />
-  <link rel="shortcut icon" href="PA-App-Icon.png?v=3" />
-
-  <!-- iOS Safari Add to Home Screen -->
-  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=3" />
-
-  <!-- Android Chrome PWA Support -->
-  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=3" />
-
+  <link rel="icon" type="image/png" sizes="192x192" href="PA-App-Icon.png?v=4" />
+  <link rel="shortcut icon" href="PA-App-Icon.png?v=4" />
+  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=4" />
+  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=4" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#58CC02" />
@@ -19,15 +13,10 @@
   <meta name="apple-mobile-web-app-title" content="Kailyn's PA Prep" />
   <title>Kailyn's UArizona PA '27 Prep</title>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts: Nunito -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <script>
@@ -117,6 +106,8 @@
       
       <!-- TAB 1: ROADMAP -->
       <section id="tab-roadmap" class="space-y-6 pb-8">
+        
+        <!-- UNIT 1 -->
         <div class="bg-gradient-to-b from-[#58CC02] to-[#46A302] rounded-3xl p-4 text-white shadow-md relative overflow-hidden border-b-4 border-[#357B01]">
           <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 1 • Nov 2026 – Jan 2027</span>
           <h2 class="text-lg font-black mt-1">Foundation, Clinical & Anatomy</h2>
@@ -149,6 +140,7 @@
           </div>
         </div>
 
+        <!-- UNIT 2 -->
         <div class="bg-gradient-to-b from-[#1CB0F6] to-[#1899D6] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#0F75A5] mt-6">
           <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 2 • Feb 2027 – Apr 2027</span>
           <h2 class="text-lg font-black mt-1">High-Yield Physiology</h2>
@@ -156,14 +148,63 @@
         </div>
 
         <div class="flex flex-col items-center space-y-5 my-2">
-          <div class="flex flex-col items-center">
-            <button onclick="startSpecificUnit('phase2', 1)" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+          <div class="flex flex-col items-center -translate-x-6">
+            <button onclick="startSpecificUnit('phase2', 'phys')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
               <span class="text-2xl">📈</span>
               <span class="text-[11px] font-black tracking-wide">2.1</span>
             </button>
-            <span class="text-xs font-black text-slate-600 mt-1.5">Physiology & ECG</span>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Cardiac & ECG</span>
+          </div>
+          
+          <div class="flex flex-col items-center translate-x-8">
+            <button onclick="startSpecificUnit('phase2', 'renal')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🧪</span>
+              <span class="text-[11px] font-black tracking-wide">2.2</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Renal & Acid-Base</span>
           </div>
         </div>
+
+        <!-- UNIT 3 -->
+        <div class="bg-gradient-to-b from-[#FF9600] to-[#E68700] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#B86C00] mt-6">
+          <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 3 • May 2027 – Jun 2027</span>
+          <h2 class="text-lg font-black mt-1">Pharm & Clinical SOAP</h2>
+          <p class="text-xs text-white/90 font-bold">PAP 611 / 621 • Drug suffixes, autonomic receptors, & H&P</p>
+        </div>
+
+        <div class="flex flex-col items-center space-y-5 my-2">
+          <div class="flex flex-col items-center -translate-x-10">
+            <button onclick="startSpecificUnit('phase3', 'pharm')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">💊</span>
+              <span class="text-[11px] font-black tracking-wide">3.1</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Drug Suffixes</span>
+          </div>
+          
+          <div class="flex flex-col items-center translate-x-10">
+            <button onclick="startSpecificUnit('phase3', 'soap')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#B86C00] hover:bg-[#FFB03A] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">📋</span>
+              <span class="text-[11px] font-black tracking-wide">3.2</span>
+            </button>
+            <span class="text-xs font-black text-slate-600 mt-1.5">SOAP / H&P Note</span>
+          </div>
+        </div>
+
+        <!-- UNIT 4 -->
+        <div class="bg-gradient-to-b from-[#A463F8] to-[#8836E8] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#6918CB] mt-6">
+          <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 4 • Jul 2027 – Aug 2027</span>
+          <h2 class="text-lg font-black mt-1">UArizona Admin & Taper</h2>
+          <p class="text-xs text-white/90 font-bold">Strict 70% rule, UAccess EDGE, AZ Fingerprint, & Orientation</p>
+        </div>
+
+        <div class="flex flex-col items-center my-4">
+          <button onclick="startSpecificUnit('phase4', 'admin')" class="w-20 h-20 rounded-full bg-[#A463F8] border-b-8 border-[#6918CB] hover:bg-[#B983FA] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+            <span class="text-2xl">🎓</span>
+            <span class="text-[11px] font-black tracking-wide">4.1</span>
+          </button>
+          <span class="text-xs font-black text-slate-600 mt-1.5">Matriculation Check</span>
+        </div>
+
       </section>
 
       <!-- TAB 2: ACTIVE QUIZ -->
@@ -188,11 +229,9 @@
 
           <!-- ANATOMY DIAGRAM CONTAINER -->
           <div id="quizImageContainer" class="hidden mb-3 bg-slate-50 border-2 border-slate-200 rounded-2xl overflow-hidden p-2 text-center relative min-h-[160px] flex items-center justify-center">
-            <!-- Loading indicator -->
             <div id="quizImageLoader" class="absolute inset-0 flex items-center justify-center text-slate-400">
               <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
             </div>
-            <!-- Image tag using Special:FilePath routing -->
             <img id="quizImageTag" src="" alt="Anatomical Reference Diagram" class="max-h-48 mx-auto rounded-xl object-contain shadow-xs relative z-10 hidden" onload="this.classList.remove('hidden'); document.getElementById('quizImageLoader').classList.add('hidden');" onerror="this.parentElement.classList.add('hidden')" />
           </div>
 
@@ -909,6 +948,55 @@
         correct: 2,
         audioText: '',
         pearl: 'The proximal convoluted tubule is the workhorse of the nephron, reabsorbing the bulk of filtered sodium, water, bicarbonate, and 100% of filtered glucose.'
+      },
+
+      // --- PHARMACOLOGY & SOAP (PAP 611/621) ---
+      {
+        id: 'pharm_1',
+        unit: 'phase3',
+        category: 'Pharmacology (PAP 611)',
+        prompt: 'A medication ending in the suffix "-pril" (e.g., Lisinopril, Enalapril) belongs to which drug class?',
+        options: [
+          'Beta-blockers',
+          'Calcium channel blockers',
+          'ACE inhibitors',
+          'Angiotensin receptor blockers (ARBs)'
+        ],
+        correct: 2,
+        audioText: '',
+        pearl: 'The suffix "-pril" identifies ACE inhibitors, which prevent the conversion of angiotensin I to angiotensin II.'
+      },
+      {
+        id: 'pharm_2',
+        unit: 'phase3',
+        category: 'Clinical Skills (PAP 621)',
+        prompt: 'In a standard SOAP note, where would a patient\'s reported symptoms and chief complaint be documented?',
+        options: [
+          'Subjective',
+          'Objective',
+          'Assessment',
+          'Plan'
+        ],
+        correct: 0,
+        audioText: '',
+        pearl: 'The Subjective section contains the information the patient tells you (Chief Complaint, HPI, ROS).'
+      },
+
+      // --- UARIZONA COMPLIANCE (PHASE 4) ---
+      {
+        id: 'admin_1',
+        unit: 'phase4',
+        category: 'UArizona Policy',
+        prompt: 'What is the strict minimum passing threshold for didactic courses in the UArizona PA program?',
+        options: [
+          '69.5% (rounded to 70%)',
+          '70.0% (no rounding allowed)',
+          '75.0%',
+          '80.0%'
+        ],
+        correct: 1,
+        audioText: '',
+        pearl: 'UArizona maintains a strict 70.0% threshold to pass. A 69.9% will not be rounded up and results in a course failure.'
       }
     ];
 
