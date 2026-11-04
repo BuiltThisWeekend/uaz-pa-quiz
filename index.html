@@ -1,427 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Browser Tabs, Bookmarks & Google Search Favicon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="PA-App-Icon.png?v=3" />
+  <link rel="shortcut icon" href="PA-App-Icon.png?v=3" />
+
+  <!-- iOS Safari Add to Home Screen -->
+  <link rel="apple-touch-icon" sizes="180x180" href="PA-App-Icon.png?v=3" />
+
+  <!-- Android Chrome PWA Support -->
+  <link rel="icon" type="image/png" sizes="512x512" href="PA-App-Icon.png?v=3" />
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#58CC02" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Kailyn PA Prep" />
-  <link rel="apple-touch-icon" href="PA-App-Icon.png" />
-  <link rel="icon" type="image/png" href="PA-App-Icon.png" />
-  <title>Kailyn's UArizona PA 2027 • Duolingo Clinical Prep</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Kailyn's PA Prep" />
+  <title>Kailyn's UArizona PA '27 Prep</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Nunito (Duolingo Rounded Typography) -->
+  <!-- Google Fonts: Nunito -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Nunito', 'sans-serif'] },
+          colors: {
+            duogreen: { DEFAULT: '#58CC02', dark: '#46A302', light: '#89E219', bg: '#D7FFB8' },
+            duoblue: { DEFAULT: '#1CB0F6', dark: '#1899D6', light: '#70D7FF' },
+            duocharcoal: '#3C3C3C',
+            duoheart: '#FF4B4B',
+            duoheartDark: '#EA2B2B',
+            duogem: '#1CB0F6',
+            duofire: '#FF9600',
+            uablue: '#0C234B',
+            uared: '#AB0520'
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    body {
-      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #F7F7F7;
-      color: #3C3C3C;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Tactile Duolingo 3D Buttons */
-    .btn-3d {
-      transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn-3d:active:not(:disabled) {
-      transform: translateY(4px);
-      border-bottom-width: 0px !important;
-      margin-bottom: 4px;
-    }
-
-    .btn-green-3d {
-      background-color: #58CC02;
-      border-bottom: 4px solid #46A302;
-      color: #FFFFFF;
-    }
-    .btn-green-3d:hover:not(:disabled) {
-      background-color: #61E002;
-    }
-
-    .btn-blue-3d {
-      background-color: #1CB0F6;
-      border-bottom: 4px solid #1899D6;
-      color: #FFFFFF;
-    }
-    .btn-blue-3d:hover:not(:disabled) {
-      background-color: #2BD4FF;
-    }
-
-    .btn-pink-3d {
-      background-color: #FF4B91;
-      border-bottom: 4px solid #D83172;
-      color: #FFFFFF;
-    }
-
-    /* Choice Cards in Quiz */
-    .btn-card-3d {
-      background-color: #FFFFFF;
-      border: 2px solid #E5E5E5;
-      border-bottom-width: 4px;
-    }
-    .btn-card-3d:hover {
-      background-color: #F7F7F7;
-      border-color: #CECECE;
-    }
-    .btn-card-3d:active {
-      transform: translateY(2px);
-      border-bottom-width: 2px;
-    }
-
-    .btn-card-selected {
-      background-color: #DDF4FF !important;
-      border: 2px solid #84D8FF !important;
-      border-bottom-width: 4px !important;
-      color: #1899D6 !important;
-    }
-
-    .btn-card-correct {
-      background-color: #D7FFB8 !important;
-      border: 2px solid #58CC02 !important;
-      border-bottom-width: 4px !important;
-      color: #357B01 !important;
-    }
-
-    .btn-card-incorrect {
-      background-color: #FFDFE0 !important;
-      border: 2px solid #FF4B4B !important;
-      border-bottom-width: 4px !important;
-      color: #EA2B2B !important;
-    }
-
-    /* Animations */
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-6px); }
-      40%, 80% { transform: translateX(6px); }
-    }
-    .animate-shake {
-      animation: shake 0.4s ease-in-out;
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.85); opacity: 0; }
-      70% { transform: scale(1.04); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .animate-pop {
-      animation: popIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-4deg); }
-      75% { transform: rotate(4deg); }
-    }
-    .animate-wiggle {
-      animation: wiggle 0.4s ease-in-out;
-    }
-
-    /* Hide scrollbars cleanly */
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
-      border-radius: 9999px;
-    }
+    body { font-family: 'Nunito', sans-serif; background-color: #F7F7F7; -webkit-tap-highlight-color: transparent; user-select: none; }
+    .btn-3d { transition: all 0.08s ease; position: relative; }
+    .btn-3d:active { transform: translateY(4px); }
+    .btn-green-3d { background-color: #58CC02; border-bottom: 4px solid #46A302; }
+    .btn-green-3d:active { border-bottom-width: 0px; margin-top: 4px; }
+    .btn-pink-3d { background-color: #EC4899; border-bottom: 4px solid #BE185D; }
+    .btn-pink-3d:active { border-bottom-width: 0px; margin-top: 4px; }
+    .btn-card-3d { border: 2px solid #E5E5E5; border-bottom: 4px solid #E5E5E5; background-color: #FFFFFF; }
+    .btn-card-3d:hover { background-color: #F7F7F7; }
+    .btn-card-3d:active { transform: translateY(2px); border-bottom-width: 2px; }
+    .btn-card-selected { border: 2px solid #84D8FF !important; border-bottom: 4px solid #1CB0F6 !important; background-color: #DDF4FF !important; color: #1899D6 !important; }
+    .btn-card-correct { border: 2px solid #58CC02 !important; border-bottom: 4px solid #46A302 !important; background-color: #D7FFB8 !important; color: #46A302 !important; }
+    .btn-card-incorrect { border: 2px solid #FF4B4B !important; border-bottom: 4px solid #EA2B2B !important; background-color: #FFDFE0 !important; color: #EA2B2B !important; }
+    .safe-bottom { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
+    @keyframes floatHeart { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-6px) scale(1.06); } }
+    .heart-float { animation: floatHeart 2.4s ease-in-out infinite; }
+    @keyframes popIn { 0% { transform: scale(0.75); opacity: 0; } 70% { transform: scale(1.06); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    .animate-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center bg-[#F2F4F7]">
-
-  <!-- MOBILE APP SHELL -->
-  <div class="w-full max-w-md min-h-screen bg-white shadow-xl flex flex-col justify-between relative pb-20">
-
-    <!-- ==================================================== -->
-    <!-- STICKY TOP STATUS BAR (STREAK, XP, HEARTS, NOTES)     -->
-    <!-- ==================================================== -->
-    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b-2 border-slate-200 px-3.5 py-2.5">
-      <div class="flex items-center justify-between">
-        <!-- App Brand / Shuffle Quick Launch -->
-        <button onclick="startDailyRandomShuffle()" class="flex items-center space-x-1.5 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-200 px-2.5 py-1 rounded-xl transition active:scale-95" title="Start Shuffled Daily 10 Mix">
-          <span class="text-base">🔀</span>
-          <span class="text-[11px] font-black text-emerald-700 uppercase tracking-tight">Shuffle 10</span>
-        </button>
-
-        <!-- Gamified Counters -->
-        <div class="flex items-center space-x-3">
-          <!-- Streak -->
-          <button onclick="triggerPepTalkFromMascot()" class="flex items-center space-x-1 group" title="Daily Streak">
-            <span class="text-base group-hover:scale-110 transition">🔥</span>
-            <span id="statStreak" class="font-black text-sm text-[#FF9600]">1</span>
-          </button>
-
-          <!-- XP Gems -->
-          <div class="flex items-center space-x-1" title="Total XP Earned">
-            <span class="text-base">💎</span>
-            <span id="statXP" class="font-black text-sm text-[#1CB0F6]">120</span>
-          </div>
-
-          <!-- Hearts -->
-          <button onclick="refillHearts()" class="flex items-center space-x-1 active:scale-95 transition" title="Tap to Refill Hearts">
-            <span class="text-base">❤️</span>
-            <span id="statHearts" class="font-black text-sm text-[#FF4B4B]">5</span>
-          </button>
-
-          <!-- Kailyn's Love Notes & Trophy Case Button -->
-          <button onclick="openLoveNotesDrawer()" class="relative flex items-center space-x-1 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 px-2.5 py-1 rounded-xl transition active:scale-95" title="Kailyn's Love Notes & Milestones">
-            <span class="text-sm">💌</span>
-            <span id="badgeCountPill" class="font-black text-xs text-pink-600">1</span>
-          </button>
-        </div>
+<body class="min-h-screen flex justify-center items-start text-slate-800 antialiased">
+  <div class="w-full max-w-md min-h-screen bg-white shadow-2xl flex flex-col relative overflow-x-hidden border-x border-slate-200">
+    
+    <!-- TOP STATS BAR -->
+    <header class="bg-white sticky top-0 z-30 px-3.5 py-2.5 border-b-2 border-slate-200 flex items-center justify-between shadow-xs">
+      <div class="flex items-center space-x-1 cursor-pointer" onclick="showMascotSpeech('Keep up your streak, Kailyn! I am so proud of you my love! 🥹')">
+        <span class="text-xl">🔥</span>
+        <span id="statStreak" class="font-black text-sm text-[#FF9600]">1</span>
       </div>
-
-      <!-- Interactive Mascot Banner (Dr. Duo for Kailyn) -->
-      <div id="mascotBubble" onclick="triggerPepTalkFromMascot()" class="mt-2 bg-[#FFF9F2] border-2 border-[#FFD8A8] rounded-2xl p-2.5 flex items-center space-x-2.5 cursor-pointer hover:bg-[#FFF3E6] transition">
-        <div class="w-10 h-10 rounded-2xl bg-[#58CC02] border-b-4 border-[#46A302] flex items-center justify-center text-xl shrink-0 shadow-xs">
-          🦉
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center justify-between">
-            <span class="text-[10px] font-black uppercase tracking-wider text-[#FF9600]">Dr. Duo • For Future PA-C Kailyn 💖</span>
-            <span class="text-[9px] font-extrabold text-slate-400">Tap me!</span>
-          </div>
-          <p id="mascotText" class="text-xs font-extrabold text-slate-700 leading-snug mt-0.5">
-            "Welcome back my love! Ready to crush Bates, CMDT & Medical Spanish today? 🥹🩺"
-          </p>
-        </div>
+      <div class="flex items-center space-x-1 cursor-pointer" onclick="openLoveNotesDrawer()">
+        <span class="text-xl">💎</span>
+        <span id="statXP" class="font-black text-sm text-[#1CB0F6]">120</span>
       </div>
+      <div class="flex items-center space-x-1 cursor-pointer" onclick="refillHearts()">
+        <span class="text-xl">❤️</span>
+        <span id="statHearts" class="font-black text-sm text-[#FF4B4B]">5</span>
+      </div>
+      <button onclick="openLoveNotesDrawer()" class="bg-pink-50 hover:bg-pink-100 border-2 border-b-4 border-pink-300 rounded-xl px-2.5 py-1 text-xs font-black text-pink-600 active:translate-y-0.5 active:border-b-2 transition flex items-center space-x-1" title="Kailyn's Love Notes">
+        <span>💌</span>
+        <span id="badgeCountPill">1</span>
+      </button>
+      <button onclick="toggleInstallPrompt()" class="bg-slate-100 hover:bg-slate-200 border-2 border-b-4 border-slate-300 rounded-xl px-2 py-1 text-xs font-black text-slate-700 active:translate-y-0.5 active:border-b-2 transition">
+        <i class="fa-solid fa-cloud-arrow-down text-[#1CB0F6]"></i>
+      </button>
     </header>
 
-    <!-- ==================================================== -->
-    <!-- MAIN CONTENT CONTAINER                               -->
-    <!-- ==================================================== -->
-    <main class="flex-1 px-4 pt-4">
+    <!-- MASCOT BUBBLE -->
+    <div id="mascotBubble" onclick="triggerCuteNote()" class="cursor-pointer bg-gradient-to-r from-[#EBF7FF] to-[#FFF0F6] border-2 border-[#84D8FF] mx-4 mt-3 rounded-2xl p-3 flex items-center space-x-3 transition-all duration-300">
+      <div class="w-12 h-12 rounded-2xl bg-white border-2 border-[#1CB0F6] flex items-center justify-center text-2xl shrink-0 shadow-xs">🩺🦉</div>
+      <div class="flex-1">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-black uppercase text-[#1899D6] tracking-wider">Dr. Duo • For Kailyn 💖</span>
+          <span class="text-[10px] bg-[#AB0520] text-white px-1.5 py-0.5 font-black rounded-md">UA PA '27</span>
+        </div>
+        <p id="mascotText" class="text-xs font-bold text-slate-700 mt-0.5 leading-snug">
+          "Welcome back, Kailyn! Tap me anytime for a love note, or start a lesson below!"
+        </p>
+      </div>
+    </div>
 
-      <!-- ==================================================== -->
-      <!-- TAB 1: DUOLINGO WINDING ROADMAP                      -->
-      <!-- ==================================================== -->
-      <section id="tab-roadmap" class="space-y-4 pb-8">
-
-        <!-- Quick Daily Shuffle Hero Card -->
-        <div class="bg-gradient-to-r from-[#FF4B91] to-[#FF7676] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#D83172] flex items-center justify-between">
-          <div class="pr-2">
-            <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2.5 py-0.5 rounded-full">Randomized Question & Option Shuffler</span>
-            <h2 class="text-base font-black mt-1">Kailyn's Daily Shuffle Mix 🎲</h2>
-            <p class="text-xs text-white/95 font-bold mt-0.5">10 randomized cards from all units with shuffled A/B/C/D choices!</p>
-          </div>
-          <button onclick="startDailyRandomShuffle()" class="shrink-0 bg-white text-[#D83172] font-black text-xs px-3.5 py-2.5 rounded-2xl border-b-4 border-pink-200 active:translate-y-1 active:border-b-0 transition shadow-sm">
-            Play Mix
-          </button>
+    <!-- MAIN APP TABS -->
+    <main class="flex-1 px-4 pt-3 safe-bottom overflow-y-auto">
+      
+      <!-- TAB 1: ROADMAP -->
+      <section id="tab-roadmap" class="space-y-6 pb-8">
+        <div class="bg-gradient-to-b from-[#58CC02] to-[#46A302] rounded-3xl p-4 text-white shadow-md relative overflow-hidden border-b-4 border-[#357B01]">
+          <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 1 • Nov 2026 – Jan 2027</span>
+          <h2 class="text-lg font-black mt-1">Foundation, Clinical & Anatomy</h2>
+          <p class="text-xs text-white/90 font-bold">Physical Exam (Bates), CMDT Medicine, Spanish & Muscle Anatomy</p>
         </div>
 
-        <!-- UNIT 1 BANNER -->
-        <div class="bg-gradient-to-b from-[#58CC02] to-[#46A302] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#357B01]">
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 1 • Clinical Foundations & Bates</span>
-              <h2 class="text-lg font-black mt-1">Bates Exam, CMDT & Spanish</h2>
-              <p class="text-xs text-white/90 font-bold">38 Cards • Bates Physical Exam, CMDT Pearls, Ballweg & SPAN 661</p>
-            </div>
-            <div class="text-3xl">🩺</div>
-          </div>
-        </div>
-
-        <!-- Winding Stepping Stones for Unit 1 -->
-        <div class="flex flex-col items-center space-y-5 my-3">
-          <!-- Node 1.1: Bates & Vital Signs -->
+        <div class="flex flex-col items-center space-y-5 my-2">
           <div class="flex flex-col items-center">
-            <button onclick="startSpecificUnit('phase1', 'bates')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#61E002] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">🩺</span>
+            <button onclick="startSpecificUnit('phase1', 'anat')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🦴</span>
               <span class="text-[11px] font-black tracking-wide">1.1</span>
             </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">Bates Physical Exam</span>
-            <span class="text-[10px] font-bold text-slate-400">Vitals, Murmurs & Eponyms</span>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Gross Anatomy</span>
           </div>
 
-          <!-- Node 1.2: CMDT High-Yield Clinical Medicine (Shifted Right) -->
           <div class="flex flex-col items-center translate-x-10">
-            <button onclick="startSpecificUnit('phase1', 'cmdt')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#61E002] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">💊</span>
+            <button onclick="startSpecificUnit('phase1', 'bates_cmdt')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+              <span class="text-2xl">🩺</span>
               <span class="text-[11px] font-black tracking-wide">1.2</span>
             </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">CMDT & Specialties</span>
-            <span class="text-[10px] font-bold text-slate-400">Cards, Pulm, GI, Endo, OB</span>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Bates & CMDT</span>
           </div>
 
-          <!-- Node 1.3: Medical Spanish & Roots (Shifted Left) -->
           <div class="flex flex-col items-center -translate-x-10">
-            <button onclick="startSpecificUnit('phase1', 'spanish')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#61E002] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+            <button onclick="startSpecificUnit('phase1', 'spanish')" class="w-20 h-20 rounded-full bg-[#58CC02] border-b-8 border-[#46A302] hover:bg-[#89E219] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
               <span class="text-2xl">🗣️</span>
               <span class="text-[11px] font-black tracking-wide">1.3</span>
             </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">SPAN 661 & Roots</span>
-            <span class="text-[10px] font-bold text-slate-400">H&P Phrases & Greek Roots</span>
-          </div>
-
-          <!-- Node 1.4: Full Phase 1 Shuffled Boss Mix -->
-          <div class="flex flex-col items-center">
-            <button onclick="startSpecificUnit('phase1', 'all')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#CC7800] hover:bg-[#FFA826] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">👑</span>
-              <span class="text-[11px] font-black tracking-wide">1.4</span>
-            </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">Unit 1 Boss Shuffle</span>
-            <span class="text-[10px] font-bold text-amber-600">All 38 Phase 1 Questions</span>
+            <span class="text-xs font-black text-slate-600 mt-1.5">SPAN 661 Clinical</span>
           </div>
         </div>
 
-        <!-- UNIT 2 BANNER -->
         <div class="bg-gradient-to-b from-[#1CB0F6] to-[#1899D6] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#0F75A5] mt-6">
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 2 • Feb 2027 – Apr 2027</span>
-              <h2 class="text-lg font-black mt-1">High-Yield Physiology</h2>
-              <p class="text-xs text-white/90 font-bold">PAP 601 • Cardiopulmonary, ECG, ABG & Renal Nephrons</p>
-            </div>
-            <div class="text-3xl">⚡</div>
-          </div>
+          <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 2 • Feb 2027 – Apr 2027</span>
+          <h2 class="text-lg font-black mt-1">High-Yield Physiology</h2>
+          <p class="text-xs text-white/90 font-bold">PAP 601 • Cardiopulmonary, ECG, ABG & Renal Nephrons</p>
         </div>
 
-        <!-- Winding Stepping Stones for Unit 2 -->
-        <div class="flex flex-col items-center space-y-5 my-3">
+        <div class="flex flex-col items-center space-y-5 my-2">
           <div class="flex flex-col items-center">
-            <button onclick="startSpecificUnit('phase2', 'cardio')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#42C0FB] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
+            <button onclick="startSpecificUnit('phase2', 1)" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#70D7FF] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
               <span class="text-2xl">📈</span>
               <span class="text-[11px] font-black tracking-wide">2.1</span>
             </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">Cardiac & ECG</span>
-          </div>
-
-          <div class="flex flex-col items-center translate-x-10">
-            <button onclick="startSpecificUnit('phase2', 'renal')" class="w-20 h-20 rounded-full bg-[#1CB0F6] border-b-8 border-[#1899D6] hover:bg-[#42C0FB] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">🧪</span>
-              <span class="text-[11px] font-black tracking-wide">2.2</span>
-            </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">Renal & Acid-Base</span>
+            <span class="text-xs font-black text-slate-600 mt-1.5">Physiology & ECG</span>
           </div>
         </div>
-
-        <!-- UNIT 3 BANNER -->
-        <div class="bg-gradient-to-b from-[#FF9600] to-[#E08200] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#B86A00] mt-6">
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 3 • May 2027 – Jun 2027</span>
-              <h2 class="text-lg font-black mt-1">Pharmacology & SOAP Intro</h2>
-              <p class="text-xs text-white/90 font-bold">PAP 611 & 621 • Drug Suffixes, Mechanisms & H&P</p>
-            </div>
-            <div class="text-3xl">💉</div>
-          </div>
-        </div>
-
-        <!-- Winding Stepping Stones for Unit 3 -->
-        <div class="flex flex-col items-center space-y-5 my-3">
-          <div class="flex flex-col items-center -translate-x-8">
-            <button onclick="startSpecificUnit('phase3', 'all')" class="w-20 h-20 rounded-full bg-[#FF9600] border-b-8 border-[#CC7800] hover:bg-[#FFA826] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-              <span class="text-2xl">📋</span>
-              <span class="text-[11px] font-black tracking-wide">3.1</span>
-            </button>
-            <span class="text-xs font-black text-slate-700 mt-1.5">Pharm Suffixes & SOAP</span>
-          </div>
-        </div>
-
-        <!-- UNIT 4 BANNER -->
-        <div class="bg-gradient-to-b from-[#A463F8] to-[#853BCE] rounded-3xl p-4 text-white shadow-md border-b-4 border-[#6918CB] mt-6">
-          <div class="flex justify-between items-center">
-            <div>
-              <span class="text-[11px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Unit 4 • Jul 2027 – Aug 2027</span>
-              <h2 class="text-lg font-black mt-1">UArizona Admin & Orientation</h2>
-              <p class="text-xs text-white/90 font-bold">70.0% Unrounded Policy, HIPAA, OSHA & AZFCC</p>
-            </div>
-            <div class="text-3xl">🎓</div>
-          </div>
-        </div>
-
-        <div class="flex flex-col items-center my-4">
-          <button onclick="startSpecificUnit('phase4', 'all')" class="w-20 h-20 rounded-full bg-[#A463F8] border-b-8 border-[#6918CB] hover:bg-[#B983FA] active:translate-y-2 active:border-b-2 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-            <span class="text-2xl">🏁</span>
-            <span class="text-[11px] font-black tracking-wide">4.1</span>
-          </button>
-          <span class="text-xs font-black text-slate-700 mt-1.5">Matriculation Check</span>
-        </div>
-
       </section>
 
-      <!-- ==================================================== -->
-      <!-- TAB 2: ACTIVE DUOLINGO QUIZ SESSION                  -->
-      <!-- ==================================================== -->
+      <!-- TAB 2: ACTIVE QUIZ -->
       <section id="tab-quiz" class="hidden flex flex-col min-h-[75vh] justify-between pb-4">
-        
         <div>
-          <!-- Quiz Top Progress Row -->
           <div class="flex items-center justify-between space-x-3 mb-3">
-            <button onclick="exitQuizToRoadmap()" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg" title="Exit to Map">
+            <button onclick="exitQuizToRoadmap()" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
               <i class="fa-solid fa-xmark"></i>
             </button>
-            <!-- Animated Green Progress Bar -->
             <div class="flex-1 bg-slate-200 h-4 rounded-full overflow-hidden p-0.5">
               <div id="quizProgressBar" class="h-full bg-[#58CC02] rounded-full transition-all duration-300" style="width: 10%"></div>
             </div>
-            <span id="quizCounterBadge" class="text-[11px] font-black text-slate-500">1/10</span>
             <div class="flex items-center space-x-1">
               <span class="text-base">❤️</span>
               <span id="quizHeartsRemaining" class="font-black text-sm text-[#FF4B4B]">5</span>
             </div>
           </div>
 
-          <!-- Combo Multiplier Pill -->
           <div id="comboBanner" class="hidden text-center mb-2">
-            <span id="comboBannerText" class="bg-[#FF9600] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider animate-bounce inline-block shadow-sm">
-              🔥 2 in a Row, Kayfart! +15 XP
-            </span>
+            <span id="comboBannerText" class="bg-[#FF9600] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider animate-bounce inline-block shadow-sm"></span>
           </div>
 
-          <!-- Question Prompt Card -->
-          <div class="mt-2 bg-white rounded-3xl p-4 border-2 border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between mb-2 gap-2">
-              <span id="qCategoryPill" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#EBF7FF] text-[#1899D6] border border-[#84D8FF] truncate">
-                PHYSICAL EXAMINATION (BATES)
-              </span>
-              <div class="flex items-center space-x-1.5 shrink-0">
-                <span class="text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200" title="Options dynamically shuffled">
-                  🔀 Shuffled
-                </span>
-                <button id="qVoiceBtn" onclick="speakCurrentQuestionPrompt()" class="hidden w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition" title="Listen in Spanish">
-                  <i class="fa-solid fa-volume-high"></i>
-                </button>
-              </div>
+          <!-- ANATOMY DIAGRAM CONTAINER -->
+          <div id="quizImageContainer" class="hidden mb-3 bg-slate-50 border-2 border-slate-200 rounded-2xl overflow-hidden p-2 text-center relative min-h-[160px] flex items-center justify-center">
+            <!-- Loading indicator -->
+            <div id="quizImageLoader" class="absolute inset-0 flex items-center justify-center text-slate-400">
+              <i class="fa-solid fa-spinner fa-spin text-2xl"></i>
             </div>
-            <h3 id="quizQuestionText" class="text-base font-extrabold text-slate-800 leading-snug">
-              Loading question...
-            </h3>
+            <!-- Image tag using Special:FilePath routing -->
+            <img id="quizImageTag" src="" alt="Anatomical Reference Diagram" class="max-h-48 mx-auto rounded-xl object-contain shadow-xs relative z-10 hidden" onload="this.classList.remove('hidden'); document.getElementById('quizImageLoader').classList.add('hidden');" onerror="this.parentElement.classList.add('hidden')" />
           </div>
 
-          <!-- 4 Dynamically Shuffled Answer Options -->
-          <div id="quizChoicesContainer" class="mt-4 space-y-2.5">
-            <!-- Populated via JS -->
+          <div class="mt-2 bg-white rounded-3xl p-4 border-2 border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span id="qCategoryPill" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#EBF7FF] text-[#1899D6] border border-[#84D8FF]"></span>
+              <button id="qVoiceBtn" onclick="speakCurrentQuestionPrompt()" class="w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+            <h3 id="quizQuestionText" class="text-base font-extrabold text-slate-800 leading-snug"></h3>
           </div>
+
+          <div id="quizChoicesContainer" class="mt-4 space-y-2.5"></div>
         </div>
 
-        <!-- Sticky Answer Check Button -->
         <div id="quizActionFooter" class="mt-6 pt-3 border-t-2 border-slate-100">
-          <button id="btnCheckAnswer" onclick="handleCheckOrNext()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed">
+          <button id="btnCheckAnswer" onclick="handleCheckOrNext()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d btn-green-3d">
             Check Answer
           </button>
         </div>
 
-        <!-- Duolingo Feedback Drawer for Correct / Incorrect Results -->
         <div id="resultDrawer" class="hidden mt-4 p-4 rounded-3xl border-2 transition-all duration-300">
           <div class="flex items-start space-x-3">
             <div id="resultIcon" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0"></div>
             <div class="flex-1">
-              <h4 id="resultTitle" class="text-base font-black">Nicely done!</h4>
+              <h4 id="resultTitle" class="text-base font-black"></h4>
               <p id="resultExplanation" class="text-xs font-bold mt-1 leading-relaxed"></p>
             </div>
           </div>
@@ -429,65 +227,51 @@
             Continue
           </button>
         </div>
-
       </section>
 
-      <!-- ==================================================== -->
-      <!-- TAB 3: SPANISH CLINIC AUDIO FLASHCARDS               -->
-      <!-- ==================================================== -->
+      <!-- TAB 3: SPANISH AUDIO CLINIC -->
       <section id="tab-spanish" class="hidden space-y-4 pb-8">
         <div class="bg-gradient-to-r from-[#AB0520] to-[#D11936] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#820317]">
-          <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">SPAN 661 / 662 Practice</span>
+          <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">SPAN 661 Practice</span>
           <h2 class="text-lg font-black mt-1">Medical Spanish Audio Lab</h2>
-          <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish (es-MX) for patient interviewing.</p>
+          <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish for clinical interviewing.</p>
         </div>
 
-        <!-- Filter category selector -->
         <div class="flex space-x-2 overflow-x-auto pb-1" id="spanishFilterRow">
-          <button onclick="filterSpanishPhrases('all', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white">All (12)</button>
-          <button onclick="filterSpanishPhrases('hpi', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">H&P / Pain</button>
-          <button onclick="filterSpanishPhrases('exam', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Physical Exam</button>
-          <button onclick="filterSpanishPhrases('meds', this)" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Meds & Allergies</button>
+          <button onclick="filterSpanishPhrases('all')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white">All (12)</button>
+          <button onclick="filterSpanishPhrases('hpi')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">H&P / Pain</button>
+          <button onclick="filterSpanishPhrases('exam')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Physical Exam</button>
+          <button onclick="filterSpanishPhrases('meds')" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Meds & Allergies</button>
         </div>
 
-        <div id="spanishCardsList" class="space-y-2.5">
-          <!-- Populated by JS -->
-        </div>
+        <div id="spanishCardsList" class="space-y-2.5"></div>
       </section>
 
-      <!-- ==================================================== -->
-      <!-- TAB 4: MISTAKES & WEAK SPOTS ("DUMBBELL")            -->
-      <!-- ==================================================== -->
+      <!-- TAB 4: MISTAKES REVIEW -->
       <section id="tab-mistakes" class="hidden space-y-4 pb-8">
         <div class="bg-gradient-to-b from-[#FF4B4B] to-[#EA2B2B] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#C81A1A]">
           <div class="flex justify-between items-center">
             <div>
               <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Targeted Remediation</span>
               <h2 class="text-lg font-black mt-1">Review Missed Questions</h2>
-              <p class="text-xs text-white/90 font-bold">Master concepts you got wrong to guarantee &gt;70% in Fall I.</p>
+              <p class="text-xs text-white/90 font-bold">Master concepts you missed to guarantee >70% in Fall I.</p>
             </div>
             <div class="text-3xl">🥊</div>
           </div>
         </div>
-
-        <div id="mistakesContainer" class="space-y-3">
-          <!-- Populated dynamically -->
-        </div>
+        <div id="mistakesContainer" class="space-y-3"></div>
       </section>
-
     </main>
 
-    <!-- ==================================================== -->
-    <!-- DUOLINGO BOTTOM NAVIGATION BAR                       -->
-    <!-- ==================================================== -->
+    <!-- BOTTOM NAVBAR -->
     <nav class="fixed bottom-0 w-full max-w-md bg-white border-t-2 border-slate-200 px-3 py-2 grid grid-cols-4 gap-1 z-30 shadow-lg">
       <button onclick="switchTab('roadmap')" id="nav-roadmap" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition">
         <i class="fa-solid fa-map text-xl mb-0.5"></i>
         <span class="text-[10px]">Learn</span>
       </button>
-      <button onclick="startDailyRandomShuffle()" id="nav-quiz" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
-        <i class="fa-solid fa-shuffle text-xl mb-0.5"></i>
-        <span class="text-[10px]">Shuffle Quiz</span>
+      <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+        <i class="fa-solid fa-dumbbell text-xl mb-0.5"></i>
+        <span class="text-[10px]">Practice</span>
       </button>
       <button onclick="switchTab('spanish')" id="nav-spanish" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-comments text-xl mb-0.5"></i>
@@ -499,171 +283,122 @@
       </button>
     </nav>
 
-  </div>
-
-  <!-- ========================================================= -->
-  <!-- MODAL 1: MILESTONE CELEBRATION POPUP FOR KAILYN           -->
-  <!-- ========================================================= -->
-  <div id="milestoneModalBackdrop" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-sm rounded-3xl p-6 border-2 border-pink-200 border-b-8 border-b-pink-400 text-center space-y-4 shadow-2xl animate-pop">
-      <div id="milestoneModalIcon" class="w-20 h-20 mx-auto rounded-3xl bg-pink-50 border-2 border-pink-200 flex items-center justify-center text-5xl shadow-inner">
-        🥹
-      </div>
-      <div>
-        <span class="text-[10px] font-black uppercase tracking-widest bg-pink-100 text-pink-600 px-3 py-1 rounded-full">
-          New Love Note Unlocked! 💖
-        </span>
-        <h3 id="milestoneModalTitle" class="text-xl font-black text-slate-800 mt-2">
-          I’m proud of you my love! 🥹
-        </h3>
-        <p id="milestoneModalBody" class="text-xs font-bold text-slate-600 mt-1.5 leading-relaxed">
-          You are putting in the work every single day. You are going to be the most incredible PA-C, Kayfart!
-        </p>
-      </div>
-      <button onclick="closeMilestoneModal()" class="w-full py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider btn-3d btn-pink-3d shadow-md">
-        Aww thank you! 💖
-      </button>
-    </div>
-  </div>
-
-  <!-- ========================================================= -->
-  <!-- MODAL 2: KAILYN'S LOVE NOTES & MILESTONE TROPHY CASE      -->
-  <!-- ========================================================= -->
-  <div id="loveDrawerBackdrop" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-sm rounded-3xl p-5 border-2 border-slate-200 border-b-8 border-b-slate-300 max-h-[85vh] flex flex-col justify-between shadow-2xl animate-pop">
-      
-      <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
-        <div class="flex items-center space-x-2">
-          <span class="text-2xl">💌</span>
-          <div>
-            <h3 class="text-base font-black text-slate-800 leading-none">Kailyn's Love Notes</h3>
-            <p class="text-[11px] font-bold text-pink-500 mt-0.5">Milestones & Reminders for Kayfart</p>
+    <!-- KAILYN'S LOVE NOTES DRAWER -->
+    <div id="loveNotesDrawer" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-end sm:items-center justify-center p-3">
+      <div class="bg-white rounded-3xl w-full max-w-md p-5 max-h-[85vh] flex flex-col shadow-2xl border-2 border-pink-200">
+        <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-2xl">💌</span>
+            <div>
+              <h3 class="text-base font-black text-slate-800 leading-none">Kailyn's Love Notes</h3>
+              <p class="text-[11px] font-bold text-pink-500 mt-0.5">Milestones & Reminders for Kayfart</p>
+            </div>
           </div>
+          <button onclick="closeLoveNotesDrawer()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-black">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
-        <button onclick="closeLoveNotesDrawer()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-black">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div id="loveBadgesGrid" class="my-4 space-y-2.5 overflow-y-auto pr-1">
-        <!-- Populated dynamically -->
-      </div>
-
-      <div class="pt-3 border-t-2 border-slate-100 flex gap-2">
-        <button onclick="triggerRandomMilestoneSurprise()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-pink-600 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 transition">
-          ✨ Surprise Pep Talk
-        </button>
-        <button onclick="closeLoveNotesDrawer()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-white btn-3d btn-green-3d">
-          Back to Prep
-        </button>
+        <div id="loveBadgesGrid" class="my-4 space-y-2.5 overflow-y-auto pr-1"></div>
+        <div class="pt-3 border-t-2 border-slate-100 flex gap-2">
+          <button onclick="triggerRandomMilestoneSurprise()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-pink-600 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 transition">
+            ✨ Pep Talk
+          </button>
+          <button onclick="closeLoveNotesDrawer()" class="flex-1 py-2.5 rounded-xl text-xs font-black text-white btn-3d btn-green-3d">
+            Back to Prep
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- MILESTONE MODAL -->
+    <div id="milestoneModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl w-full max-w-sm p-6 text-center space-y-4 shadow-2xl border-4 border-pink-300">
+        <div class="flex justify-center items-center space-x-2 text-lg">
+          <span>✨</span><span>💖</span><span>✨</span>
+        </div>
+        <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-pink-100 via-rose-50 to-amber-100 border-4 border-pink-300 flex items-center justify-center text-5xl mx-auto shadow-md heart-float" id="milestoneModalEmoji">
+          🥹💖
+        </div>
+        <div class="space-y-1.5">
+          <span id="milestoneModalBadgeTag" class="inline-block text-[10px] font-black uppercase tracking-widest bg-pink-100 text-pink-600 px-3 py-1 rounded-full">
+            Milestone Unlocked!
+          </span>
+          <h3 id="milestoneModalTitle" class="text-xl font-black text-slate-800 leading-tight">
+            I’m proud of you my love! 🥹
+          </h3>
+          <p id="milestoneModalSubtitle" class="text-xs sm:text-sm font-bold text-slate-600 leading-relaxed px-2">
+            Good job Kayfart! You are going to be the smartest, most caring PA at UArizona!
+          </p>
+        </div>
+        <div class="pt-2">
+          <button onclick="closeMilestoneModal()" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider btn-3d btn-pink-3d shadow-md">
+            Love You! Keep Going 💖
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- ========================================================= -->
-  <!-- AUDIO SYNTHESIS & SOUND EFFECTS (WEB AUDIO API)           -->
-  <!-- ========================================================= -->
   <script>
-    let audioCtx = null;
-    function getAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      return audioCtx;
-    }
-
-    // Play cheerful Duolingo chime for correct answer
-    function playSoundCorrect() {
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, now); // C5
-        osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
-        osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
-        osc.frequency.setValueAtTime(1046.50, now + 0.24); // C6
-
-        gain.gain.setValueAtTime(0.18, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.55);
-      } catch (e) {}
-    }
-
-    // Play soft bonk for incorrect answer
-    function playSoundIncorrect() {
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(220, now); // A3
-        osc.frequency.setValueAtTime(164.81, now + 0.12); // E3
-
-        gain.gain.setValueAtTime(0.14, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.38);
-      } catch (e) {}
-    }
-
-    // Play celebratory fanfare for unlocking a Kailyn milestone
-    function playSoundFanfare() {
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
-        notes.forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.09);
-          gain.gain.setValueAtTime(0.16, now + idx * 0.09);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.45);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now + idx * 0.09);
-          osc.stop(now + idx * 0.09 + 0.45);
-        });
-      } catch (e) {}
-    }
-
-    // Browser Native Spanish Speech Synthesis (es-MX)
-    function speakSpanish(text) {
-      if (!text || text === 'None' || !('speechSynthesis' in window)) return;
-      try {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'es-MX';
-        utter.rate = 0.92;
-        window.speechSynthesis.speak(utter);
-      } catch (e) {}
-    }
-  </script>
-
-  <!-- ========================================================= -->
-  <!-- COMPLETE QUESTION BANK (USER'S 30 NEW + EXISTING DECK)    -->
-  <!-- ========================================================= -->
-  <script>
+    // =========================================================
+    // HIGH-YIELD QUESTION BANK WITH SECURE WIKIMEDIA FILEPATH ROUTES
+    // =========================================================
     const EXPANDED_QUESTION_BANK = [
-      // =========================================================================
-      // USER-PROVIDED 30 CLINICAL, BATES, CMDT, BALLWEG & PAEA QUESTIONS (u1_1 - u1_30)
-      // =========================================================================
+      // --- GROSS ANATOMY WITH SPECIAL:FILEPATH WIKIMEDIA ROUTES ---
+      {
+        id: 'anat_1',
+        unit: 'phase1',
+        category: 'Gross Anatomy',
+        prompt: 'Identify the primary distal insertion point of the biceps brachii muscle shown in the diagram.',
+        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Biceps_brachii.png?width=400',
+        options: [
+          'Radial tuberosity and bicipital aponeurosis',
+          'Olecranon process of the ulna',
+          'Coracoid process of the scapula',
+          'Ulnar tuberosity'
+        ],
+        correct: 0,
+        audioText: 'Identify the primary distal insertion point of the biceps brachii.',
+        pearl: 'The biceps brachii inserts distally onto the radial tuberosity and the bicipital aponeurosis, making it both a primary elbow flexor and a powerful supinator.'
+      },
+      {
+        id: 'anat_2',
+        unit: 'phase1',
+        category: 'Gross Anatomy',
+        prompt: 'Which bony landmark serves as the superior insertion point for the sternocleidomastoid muscle?',
+        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gray_-_musculus_sternocleidomastoideus.png?width=400',
+        options: [
+          'Mastoid process of the temporal bone',
+          'Occipital protuberance',
+          'Manubrium of the sternum',
+          'Medial third of the clavicle'
+        ],
+        correct: 0,
+        audioText: 'Which bony landmark serves as the superior insertion point for the sternocleidomastoid muscle?',
+        pearl: 'The sternocleidomastoid originates on the sternum and clavicle and inserts superiorly onto the mastoid process of the temporal bone and the superior nuchal line.'
+      },
+      {
+        id: 'anat_3',
+        unit: 'phase1',
+        category: 'Gross Anatomy',
+        prompt: 'Where does the deltoid muscle converge to insert on the lateral shaft of the humerus?',
+        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Deltoideus.png?width=400',
+        options: [
+          'Deltoid tuberosity',
+          'Greater tubercle',
+          'Lesser tubercle',
+          'Intertubercular sulcus'
+        ],
+        correct: 0,
+        audioText: 'Where does the deltoid muscle converge to insert on the humerus?',
+        pearl: 'All three heads of the deltoid (anterior, lateral, posterior) converge to insert on the deltoid tuberosity of the lateral humerus.'
+      },
+
+      // --- PHYSICAL EXAM (BATES) & CLINICAL (CMDT) ---
       {
         id: 'u1_1',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Physical Examination (Bates)',
         prompt: 'According to established physical exam protocols, which sequence is the correct standard approach for examining the abdomen?',
         options: [
@@ -673,13 +408,12 @@
           'Palpation, Percussion, Auscultation, Inspection'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Based on Bates’ Guide, auscultation must precede percussion and palpation in the abdominal exam so that bowel sounds are not artificially altered.'
       },
       {
         id: 'u1_2',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Cardiology (CMDT)',
         prompt: 'Which of the following is considered the first-line pharmacological treatment for an uncomplicated patient newly diagnosed with primary hypertension?',
         options: [
@@ -689,13 +423,12 @@
           'Loop diuretics'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'CMDT guidelines generally recommend ACE inhibitors, ARBs, calcium channel blockers, or thiazide diuretics as initial monotherapy for uncomplicated hypertension.'
       },
       {
         id: 'u1_3',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'PA Professional Practice (Ballweg)',
         prompt: 'Which of the following best describes the principle of "beneficence" in clinical practice?',
         options: [
@@ -705,13 +438,12 @@
           'The fair distribution of healthcare resources'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Beneficence is the ethical obligation to act in a way that benefits the patient, a core concept covered in foundational PA practice texts.'
       },
       {
         id: 'u1_4',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Pulmonology (CMDT)',
         prompt: 'A 24-year-old presents with intermittent asthma symptoms occurring less than twice a week. What is the preferred initial step in management?',
         options: [
@@ -721,13 +453,12 @@
           'Daily long-acting beta-agonist (LABA)'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Updated asthma guidelines emphasize PRN low-dose ICS-formoterol (or ICS whenever SABA is used) rather than SABA alone to reduce exacerbation risks.'
       },
       {
         id: 'u1_5',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Physical Examination (Bates)',
         prompt: 'When evaluating a patient with a suspected deep vein thrombosis (DVT), pain in the calf upon abrupt passive dorsiflexion of the foot is known as:',
         options: [
@@ -737,13 +468,12 @@
           'Tinel sign'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Homan sign is calf pain on dorsiflexion. Though notoriously unreliable (low sensitivity/specificity), it is a classic physical exam eponym.'
       },
       {
         id: 'u1_6',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Gastroenterology (CMDT)',
         prompt: 'What is the diagnostic gold standard for confirming suspected peptic ulcer disease?',
         options: [
@@ -753,13 +483,12 @@
           'Abdominal CT scan'
         ],
         correct: 0,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Upper endoscopy (EGD) is the gold standard for diagnosing PUD as it allows for direct visualization and biopsy for H. pylori.'
       },
       {
         id: 'u1_7',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Physical Examination (Bates)',
         prompt: 'A patient presents with ptosis, miosis, and anhidrosis on one side of their face. This classic triad is indicative of:',
         options: [
@@ -769,13 +498,12 @@
           'Stroke'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Horner Syndrome occurs due to a disruption of the sympathetic nerve supply to the face.'
       },
       {
         id: 'u1_8',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Endocrinology (CMDT)',
         prompt: 'In a patient with Type 2 Diabetes, which oral medication acts primarily by decreasing hepatic glucose production?',
         options: [
@@ -785,13 +513,12 @@
           'Empagliflozin'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Metformin is a biguanide that lowers blood glucose mainly by decreasing hepatic gluconeogenesis and increasing insulin sensitivity.'
       },
       {
         id: 'u1_9',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Physical Examination (Bates)',
         prompt: 'A harsh, crescendo-decrescendo systolic murmur best heard at the right second intercostal space that radiates to the carotids is most characteristic of:',
         options: [
@@ -801,13 +528,12 @@
           'Aortic Stenosis'
         ],
         correct: 3,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Aortic stenosis typically presents with a systolic ejection murmur that radiates to the neck (carotids).'
       },
       {
         id: 'u1_10',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Infectious Disease (CMDT)',
         prompt: 'What is the most common causative organism of community-acquired pneumonia (CAP)?',
         options: [
@@ -817,13 +543,12 @@
           'Staphylococcus aureus'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Streptococcus pneumoniae (pneumococcus) is the most frequently identified cause of classic community-acquired pneumonia.'
       },
       {
         id: 'u1_11',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Pediatrics (CMDT / PAEA)',
         prompt: 'What is the recommended first-line oral antibiotic for acute otitis media in a pediatric patient with no known drug allergies?',
         options: [
@@ -833,15 +558,14 @@
           'Clindamycin'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Amoxicillin is the preferred first-line therapy for acute otitis media in children due to its safety, cost, and narrow spectrum efficacy.'
       },
       {
         id: 'u1_12',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Orthopedics (Bates / PPP)',
-        prompt: 'The Phalen test (sustained flexion of the wrists for 60 seconds) is primarily used to evaluate a patient for which of the following conditions?',
+        prompt: 'The Phalen test (sustained flexion of the wrists for 60 seconds) is primarily used to evaluate a patient for which condition?',
         options: [
           'De Quervain tenosynovitis',
           'Cubital tunnel syndrome',
@@ -849,13 +573,12 @@
           'Lateral epicondylitis'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Phalen maneuver compresses the median nerve. Numbness or tingling in the median nerve distribution strongly suggests carpal tunnel syndrome.'
       },
       {
         id: 'u1_13',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Dermatology (CMDT)',
         prompt: 'Which characteristic is considered the most important prognostic indicator for a patient diagnosed with malignant melanoma?',
         options: [
@@ -865,13 +588,12 @@
           'Depth of the lesion (Breslow depth)'
         ],
         correct: 3,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Breslow depth (tumor thickness) is the single most important prognostic factor for localized melanoma, dictating surgical margins and survival rates.'
       },
       {
         id: 'u1_14',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Neurology (CMDT / EM Blueprint)',
         prompt: 'What is the most appropriate initial imaging study for a patient presenting to the emergency department with acute onset of focal neurologic deficits suggestive of a stroke?',
         options: [
@@ -881,14 +603,13 @@
           'Transcranial Doppler ultrasound'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'A non-contrast head CT is the rapid, standard initial test to rule out hemorrhagic stroke before considering thrombolytic therapy for an ischemic stroke.'
       },
       {
         id: 'u1_15',
         unit: 'phase1',
-        subtopic: 'cmdt',
-        category: 'General Surgery (SmartyPants / CMDT)',
+        category: 'General Surgery (CMDT)',
         prompt: 'Abdominal pain that classically originates in the periumbilical region and later migrates to the right lower quadrant is most characteristic of:',
         options: [
           'Acute cholecystitis',
@@ -897,13 +618,12 @@
           'Acute appendicitis'
         ],
         correct: 3,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Visceral nerve pain initially refers appendicitis pain to the periumbilical area before localized peritoneal irritation shifts it to the RLQ (McBurney point).'
       },
       {
         id: 'u1_16',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Psychiatry (PPP / NCCPA Blueprint)',
         prompt: 'What is the defining clinical difference required to diagnose Bipolar I disorder versus Bipolar II disorder?',
         options: [
@@ -913,13 +633,12 @@
           'Age of initial symptom onset'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Bipolar I is defined by the occurrence of at least one full manic episode. Bipolar II involves hypomanic episodes and major depressive episodes, but no full mania.'
       },
       {
         id: 'u1_17',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'OB/GYN (CMDT)',
         prompt: 'A 26-year-old female presents with a 6-week history of amenorrhea, sudden unilateral pelvic pain, and light vaginal spotting. What is the most critical diagnosis to immediately rule out?',
         options: [
@@ -929,14 +648,13 @@
           'Endometriosis'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'The classic triad of amenorrhea, vaginal bleeding, and abdominal pain requires immediate evaluation for an ectopic pregnancy due to the risk of life-threatening rupture.'
       },
       {
         id: 'u1_18',
         unit: 'phase1',
-        subtopic: 'cmdt',
-        category: 'Hematology (CMDT / SmartyPants)',
+        category: 'Hematology (CMDT)',
         prompt: 'Which of the following iron study profiles is most characteristic of early iron deficiency anemia?',
         options: [
           'Decreased serum ferritin and increased total iron-binding capacity (TIBC)',
@@ -945,13 +663,12 @@
           'Normal serum ferritin and increased mean corpuscular volume (MCV)'
         ],
         correct: 0,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Ferritin (stored iron) drops first in iron deficiency, prompting the liver to produce more transferrin, which increases the total iron-binding capacity (TIBC).'
       },
       {
         id: 'u1_19',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Ophthalmology (CMDT)',
         prompt: 'A patient complains of severe, sudden unilateral eye pain, blurred vision, and seeing "halos" around lights. Exam reveals a cloudy cornea and a mid-dilated, nonreactive pupil. What is the most likely diagnosis?',
         options: [
@@ -961,13 +678,12 @@
           'Central retinal artery occlusion'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Acute angle-closure glaucoma is an ophthalmologic emergency characterized by sudden eye pain, a "steamy" cornea, and a fixed, mid-dilated pupil.'
       },
       {
         id: 'u1_20',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Endocrinology (PPP / CMDT)',
         prompt: 'Which of the following sets of laboratory values is most consistent with a diagnosis of primary hypothyroidism?',
         options: [
@@ -977,13 +693,12 @@
           'High TSH and high free T4'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'In primary hypothyroidism, the failing thyroid gland produces low free T4, which removes negative feedback on the pituitary, resulting in a high TSH.'
       },
       {
         id: 'u1_21',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Vital Signs (Bates)',
         prompt: 'What is considered a normal resting heart rate for a healthy adult?',
         options: [
@@ -993,13 +708,12 @@
           '100 to 140 beats per minute'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'According to Bates’ Guide, a normal adult resting heart rate is between 60 and 100 beats per minute.'
       },
       {
         id: 'u1_22',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Anatomy (Bates)',
         prompt: 'How many lobes does the right human lung typically have?',
         options: [
@@ -1009,13 +723,12 @@
           'Four'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Foundational thoracic anatomy reviewed in Bates’ indicates the right lung has three lobes (superior, middle, inferior), while the left has two.'
       },
       {
         id: 'u1_23',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Gastroenterology (Bates)',
         prompt: 'During an abdominal exam, in which quadrant is the gallbladder primarily located?',
         options: [
@@ -1025,13 +738,12 @@
           'Left Lower Quadrant (LLQ)'
         ],
         correct: 0,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Bates’ physical exam principles place the liver and the gallbladder in the Right Upper Quadrant (RUQ) of the abdomen.'
       },
       {
         id: 'u1_24',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Pharmacology (CMDT)',
         prompt: 'What is the generic medical name for the over-the-counter pain reliever and fever reducer Tylenol?',
         options: [
@@ -1041,13 +753,12 @@
           'Aspirin'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Acetaminophen is the generic name for Tylenol, a core foundational pharmacology and antipyretic concept in CMDT.'
       },
       {
         id: 'u1_25',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Vital Signs (Bates)',
         prompt: 'Which of the following blood pressure readings is generally considered normal for a healthy adult?',
         options: [
@@ -1057,13 +768,12 @@
           '160/100 mmHg'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Bates’ Guide defines a normal, healthy adult blood pressure as a systolic reading of less than 120 and a diastolic reading of less than 80.'
       },
       {
         id: 'u1_26',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Endocrinology (CMDT)',
         prompt: 'The Hemoglobin A1C blood test is primarily used to diagnose and monitor which condition?',
         options: [
@@ -1073,13 +783,12 @@
           'Hypothyroidism'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Hemoglobin A1C reflects average blood sugar levels over the past 2-3 months and is a central diagnostic tool for diabetes management in CMDT.'
       },
       {
         id: 'u1_27',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'Infectious Disease (CMDT)',
         prompt: 'What type of pathogen is responsible for causing the seasonal flu (influenza)?',
         options: [
@@ -1089,13 +798,12 @@
           'Parasite'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Influenza is a viral respiratory illness, a foundational infectious disease concept noted in CMDT and PANCE blueprints.'
       },
       {
         id: 'u1_28',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Physical Examination (Bates)',
         prompt: 'Which medical instrument is specifically designed to examine the tympanic membrane and external ear canal?',
         options: [
@@ -1105,13 +813,12 @@
           'Sphygmomanometer'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Bates’ Guide dictates the use of an otoscope to properly visualize the tympanic membrane and external auditory canal.'
       },
       {
         id: 'u1_29',
         unit: 'phase1',
-        subtopic: 'bates',
         category: 'Orthopedics (Bates)',
         prompt: 'What is the correct anatomical medical term for the kneecap?',
         options: [
@@ -1121,13 +828,12 @@
           'Fibula'
         ],
         correct: 2,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Foundational musculoskeletal anatomy, as reviewed for orthopedics in Bates, identifies the kneecap as the patella.'
       },
       {
         id: 'u1_30',
         unit: 'phase1',
-        subtopic: 'cmdt',
         category: 'PA Professional Practice (Ballweg)',
         prompt: 'What does the federal law known as HIPAA primarily protect in healthcare?',
         options: [
@@ -1137,602 +843,172 @@
           'Medical billing codes for insurance'
         ],
         correct: 1,
-        audioText: 'None',
+        audioText: '',
         pearl: 'Ballweg’s text emphasizes HIPAA as the core federal law protecting sensitive patient health information (PHI) from unauthorized disclosure.'
       },
 
-      // =========================================================================
-      // SPAN 661 MEDICAL SPANISH & MEDICAL TERMINOLOGY (u1_sp1 - u1_sp8)
-      // =========================================================================
+      // --- MEDICAL SPANISH (SPAN 661) ---
       {
-        id: 'u1_sp1',
+        id: 'sp_1',
         unit: 'phase1',
-        subtopic: 'spanish',
         category: 'Medical Spanish (SPAN 661)',
-        prompt: 'In the ED, how do you ask a Spanish-speaking patient: "Where does it hurt?"',
-        options: ['¿Dónde le duele?', '¿Cómo se llama?', '¿Desde cuándo toma esto?', '¿Tiene seguro médico?'],
+        prompt: 'How do you ask a patient in the ED: "Where does it hurt?"',
+        options: [
+          '¿Dónde le duele?',
+          '¿Cómo se llama?',
+          '¿Desde cuándo toma esto?',
+          '¿Tiene seguro médico?'
+        ],
         correct: 0,
         audioText: '¿Dónde le duele?',
-        pearl: '“¿Dónde le duele?” is the primary phrase for pinpointing the location of pain.'
+        pearl: '“¿Dónde le duele?” uses the indirect object pronoun "le" with "doler" to ask where it hurts.'
       },
       {
-        id: 'u1_sp2',
+        id: 'sp_2',
         unit: 'phase1',
-        subtopic: 'spanish',
         category: 'Medical Spanish (SPAN 661)',
-        prompt: 'Translate the classic OLDCARTS question: "¿El dolor se corre hacia el brazo o la espalda?"',
+        prompt: 'A patient says: "Tengo falta de aire." What chief complaint is this describing?',
         options: [
-          'Does the pain radiate to your arm or back?',
-          'Is the pain sharp or throbbing?',
-          'Does the pain get worse with exercise?',
-          'Have you had this pain before?'
+          'Chest palpitations',
+          'Shortness of breath / Dyspnea',
+          'Severe heartburn',
+          'Dizziness upon standing'
         ],
-        correct: 0,
-        audioText: '¿El dolor se corre hacia el brazo o la espalda?',
-        pearl: '“Correrse” or “irradiarse” are used clinically to describe pain radiation in angina and pancreatitis.'
-      },
-      {
-        id: 'u1_sp3',
-        unit: 'phase1',
-        subtopic: 'spanish',
-        category: 'Medical Spanish (SPAN 661)',
-        prompt: 'When taking allergies in history, what does: "¿Es alérgico a algún medicamento?" mean?',
-        options: [
-          'Are you allergic to any medication?',
-          'Do you take medication every day?',
-          'Who prescribed this medication?',
-          'Did this pill upset your stomach?'
-        ],
-        correct: 0,
-        audioText: '¿Es alérgico a algún medicamento?',
-        pearl: 'Essential for patient safety before prescribing antibiotics or analgesics.'
-      },
-      {
-        id: 'u1_sp4',
-        unit: 'phase1',
-        subtopic: 'spanish',
-        category: 'Medical Terminology',
-        prompt: 'What does the Greek prefix "Oligo-" mean in conditions like oliguria or oligomenorrhea?',
-        options: ['Scant / abnormally low quantity', 'Complete absence', 'Excessive / high quantity', 'Painful / difficult'],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'Oliguria = <400 mL/day urine output in adults. Distinguish from anuria (<100 mL/day).'
-      },
-      {
-        id: 'u1_sp5',
-        unit: 'phase1',
-        subtopic: 'spanish',
-        category: 'Medical Spanish (SPAN 661)',
-        prompt: 'During a pulmonary physical exam, how do you tell the patient: "Breathe deeply, please"?',
-        options: ['Respire hondo, por favor', 'Abra la boca', 'Tosa fuerte', 'No se mueva'],
-        correct: 0,
-        audioText: 'Respire hondo, por favor',
-        pearl: '“Respire hondo” (or “respire profundo”) is standard for auscultating breath and heart sounds.'
-      },
-      {
-        id: 'u1_sp6',
-        unit: 'phase1',
-        subtopic: 'spanish',
-        category: 'Medical Spanish (SPAN 661)',
-        prompt: 'What organ are you evaluating when discussing "la vesícula biliar"?',
-        options: ['Gallbladder', 'Urinary bladder', 'Pancreas', 'Spleen'],
-        correct: 0,
-        audioText: 'La vesícula biliar',
-        pearl: 'Vesícula biliar = gallbladder (site of cholelithiasis). Vejiga = urinary bladder.'
-      },
-      {
-        id: 'u1_sp7',
-        unit: 'phase1',
-        subtopic: 'spanish',
-        category: 'Medical Terminology',
-        prompt: 'Break down "Hematemesis": what is the clinical definition?',
-        options: ['Vomiting blood', 'Coughing up blood', 'Blood in the stool', 'Blood in the urine'],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'Hemat- (blood) + -emesis (vomiting) indicates an upper GI bleed proximal to the ligament of Treitz.'
-      },
-      {
-        id: 'u1_sp8',
-        unit: 'phase1',
-        subtopic: 'spanish',
-        category: 'Medical Spanish (SPAN 661)',
-        prompt: 'What symptom is a patient reporting when they say: "Siento falta de aire"?',
-        options: ['Shortness of breath (dyspnea)', 'Chest pressure', 'Dizziness / lightheadedness', 'Heart palpitations'],
-        correct: 0,
-        audioText: 'Siento falta de aire',
-        pearl: '“Falta de aire” or “dificultad para respirar” is how patients describe dyspnea.'
+        correct: 1,
+        audioText: 'Tengo falta de aire',
+        pearl: '“Falta de aire” translates literally to "lack of air" and is the classic colloquial phrase for shortness of breath.'
       },
 
-      // =========================================================================
-      // UNIT 2: HIGH-YIELD PHYSIOLOGY (PAP 601)
-      // =========================================================================
+      // --- PHYSIOLOGY & ECG (PAP 601) ---
       {
-        id: 'u2_1',
+        id: 'phys_1',
         unit: 'phase2',
-        subtopic: 'cardio',
-        category: 'Cardiac Physiology (PAP 601)',
-        prompt: 'On a standard 12-lead ECG, what electrical event is represented by the QRS complex?',
+        category: 'Physiology (PAP 601)',
+        prompt: 'On a standard 12-lead ECG, what electrical event in the heart corresponds to the P wave?',
         options: [
           'Ventricular depolarization',
           'Atrial depolarization',
           'Ventricular repolarization',
           'AV nodal delay'
         ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'P wave = atrial depolarization; QRS = ventricular depolarization; T wave = ventricular repolarization.'
+        correct: 1,
+        audioText: '',
+        pearl: 'The P wave represents atrial depolarization spreading from the SA node through the atria.'
       },
       {
-        id: 'u2_2',
+        id: 'phys_2',
         unit: 'phase2',
-        subtopic: 'cardio',
-        category: 'Cardiac Physiology (PAP 601)',
-        prompt: 'According to the Frank-Starling law of the heart, what directly increases stroke volume?',
-        options: [
-          'Increased venous return (preload) stretching ventricular sarcomeres',
-          'Increased systemic vascular resistance (afterload)',
-          'Parasympathetic vagal stimulation of the SA node',
-          'Decreased end-diastolic volume (EDV)'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'More blood returning to the heart stretches sarcomeres toward optimal overlap, increasing contraction force.'
-      },
-      {
-        id: 'u2_3',
-        unit: 'phase2',
-        subtopic: 'renal',
         category: 'Renal Physiology (PAP 601)',
-        prompt: 'Where in the nephron is the vast majority (~65-70%) of filtered sodium, water, glucose, and amino acids reabsorbed?',
+        prompt: 'In which segment of the renal nephron is the majority (approximately 65-70%) of filtered sodium and water reabsorbed?',
         options: [
-          'Proximal Convoluted Tubule (PCT)',
-          'Thick Ascending Loop of Henle',
-          'Distal Convoluted Tubule (DCT)',
-          'Cortical Collecting Duct'
+          'Distal convoluted tubule',
+          'Loop of Henle',
+          'Proximal convoluted tubule',
+          'Cortical collecting duct'
         ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'The PCT is the workhorse of bulk isotonic reabsorption in the kidney.'
-      },
-      {
-        id: 'u2_4',
-        unit: 'phase2',
-        subtopic: 'renal',
-        category: 'Acid-Base Balance (PAP 601)',
-        prompt: 'Interpret this ABG: pH 7.28, PaCO2 56 mmHg, HCO3- 26 mEq/L.',
-        options: [
-          'Uncompensated Respiratory Acidosis',
-          'Metabolic Acidosis with respiratory compensation',
-          'Respiratory Alkalosis',
-          'Metabolic Alkalosis'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'Low pH (<7.35) = acidosis. High PaCO2 (>45) = respiratory cause (hypoventilation/CO2 retention).'
-      },
-
-      // =========================================================================
-      // UNIT 3: PHARMACOLOGY & CLINICAL SOAP INTRO (PAP 611 / 621)
-      // =========================================================================
-      {
-        id: 'u3_1',
-        unit: 'phase3',
-        subtopic: 'all',
-        category: 'Pharmacology (PAP 611)',
-        prompt: 'Why do ACE inhibitors (ending in "-pril" like lisinopril) cause a dry, nagging cough in some patients, whereas ARBs ("-sartan") do not?',
-        options: [
-          'ACE inhibitors block bradykinin breakdown in the lungs',
-          'ACE inhibitors directly stimulate histamine H1 receptors',
-          'ACE inhibitors constrict bronchial smooth muscle via beta-2 blockade',
-          'ACE inhibitors deplete pulmonary surfactant'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'ACE (kininase II) normally degrades bradykinin. Blocking ACE causes bradykinin accumulation -> dry cough or angioedema.'
-      },
-      {
-        id: 'u3_2',
-        unit: 'phase3',
-        subtopic: 'all',
-        category: 'Pharmacology (PAP 611)',
-        prompt: 'Which beta-blocker is cardioselective (beta-1 specific) and preferred over non-selective propranolol in patients with mild asthma/COPD?',
-        options: [
-          'Metoprolol (or Atenolol)',
-          'Carvedilol',
-          'Labetalol',
-          'Timolol'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'Mnemonic: Beta-1 selective blockers cover letters A through M (Acebutolol, Atenolol, Betaxolol, Bisoprolol, Esmolol, Metoprolol).'
-      },
-      {
-        id: 'u3_3',
-        unit: 'phase3',
-        subtopic: 'all',
-        category: 'Clinical Skills (PAP 621)',
-        prompt: 'When writing a standard SOAP note, where does "Tenderness to palpation in the right lower quadrant" belong?',
-        options: [
-          'Objective (O)',
-          'Subjective (S)',
-          'Assessment (A)',
-          'Plan (P)'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'Physical exam findings, vitals, and lab results always go in Objective. Patient-reported pain goes in Subjective.'
-      },
-      {
-        id: 'u3_4',
-        unit: 'phase3',
-        subtopic: 'all',
-        category: 'Pharmacology (PAP 611)',
-        prompt: 'Medications ending in "-flozin" (e.g., empagliflozin) treat Type 2 Diabetes and Heart Failure via which mechanism?',
-        options: [
-          'Inhibiting SGLT2 in the proximal tubule to promote urinary glucose excretion',
-          'Stimulating pancreatic beta-cell insulin release',
-          'Activating GLP-1 receptors',
-          'Inhibiting DPP-4 enzymes'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'SGLT2 inhibitors ("-flozins") block glucose reabsorption in the PCT and confer strong cardiorenal protection.'
-      },
-
-      // =========================================================================
-      // UNIT 4: UARIZONA PA COMPLIANCE & MATRICULATION (PHASE 4)
-      // =========================================================================
-      {
-        id: 'u4_1',
-        unit: 'phase4',
-        subtopic: 'all',
-        category: 'UArizona PA Program Policy',
-        prompt: 'Under UArizona PA program academic progression standards, what is the minimum passing grade percentage, and are grades rounded?',
-        options: [
-          '70.0% minimum; scores are strictly NOT rounded (69.9% does not pass)',
-          '70% minimum; 69.5% rounds up to 70%',
-          '75.0% minimum with standard rounding',
-          '65.0% minimum pass threshold'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'UArizona PA enforces a strict unrounded 70.0% minimum threshold on exams and courses—why we prep early!'
-      },
-      {
-        id: 'u4_2',
-        unit: 'phase4',
-        subtopic: 'all',
-        category: 'Infection Control / OSHA',
-        prompt: 'Following an accidental needlestick injury in clinic, what is the immediate first action after washing the site with soap and water?',
-        options: [
-          'Report the exposure immediately to the clinical supervisor / occupational health',
-          'Wait 6 weeks to draw baseline HIV/HBV serologies',
-          'Squeeze and bleach the puncture wound aggressively',
-          'Ask the patient directly to pay for testing'
-        ],
-        correct: 0,
-        audioText: 'None',
-        pearl: 'Prompt reporting is critical because HIV post-exposure prophylaxis (PEP) is most effective when started within hours.'
+        correct: 2,
+        audioText: '',
+        pearl: 'The proximal convoluted tubule is the workhorse of the nephron, reabsorbing the bulk of filtered sodium, water, bicarbonate, and 100% of filtered glucose.'
       }
     ];
 
-    // Dedicated Spanish phrases for the Clinic Audio Lab
+    // Spanish Clinic Phrases for Tab 3
     const SPANISH_CLINIC_PHRASES = [
-      { id: 'sp1', tag: 'hpi', es: '¿Dónde le duele exactamente?', en: 'Where does it hurt exactly?' },
-      { id: 'sp2', tag: 'hpi', es: '¿El dolor es punzante, sordo o como ardor?', en: 'Is the pain sharp, dull, or burning?' },
-      { id: 'sp3', tag: 'hpi', es: '¿Desde cuándo tiene este problema?', en: 'How long have you had this problem?' },
-      { id: 'sp4', tag: 'hpi', es: '¿El dolor se corre hacia el brazo o la espalda?', en: 'Does the pain radiate to your arm or back?' },
-      { id: 'sp5', tag: 'hpi', es: 'En una escala del uno al diez, ¿cuánto le duele?', en: 'On a scale from 1 to 10, how bad is the pain?' },
-      { id: 'sp6', tag: 'exam', es: 'Respire hondo por la boca, por favor.', en: 'Take a deep breath through your mouth, please.' },
-      { id: 'sp7', tag: 'exam', es: 'Doble la rodilla derecha y empuje.', en: 'Bend your right knee and push.' },
-      { id: 'sp8', tag: 'exam', es: 'Abra la boca y diga "ah".', en: 'Open your mouth and say "ah".' },
-      { id: 'sp9', tag: 'exam', es: 'Voy a escuchar su corazón y sus pulmones, y luego presionar su abdomen.', en: 'I am going to listen to your heart and lungs, and then press your abdomen.' },
-      { id: 'sp10', tag: 'meds', es: '¿Toma alguna medicina para la presión alta?', en: 'Do you take any medication for high blood pressure?' },
-      { id: 'sp11', tag: 'meds', es: '¿Es alérgico a la penicilina o a otros medicamentos?', en: 'Are you allergic to penicillin or other medicines?' },
-      { id: 'sp12', tag: 'meds', es: '¿Fuma o toma bebidas alcohólicas?', en: 'Do you smoke or drink alcoholic beverages?' }
+      { es: '¿Dónde le duele exactamente?', en: 'Where does it hurt exactly?', tag: 'hpi' },
+      { es: '¿El dolor se pasa a otro lugar?', en: 'Does the pain radiate anywhere else?', tag: 'hpi' },
+      { es: 'Respire profundo, por favor.', en: 'Take a deep breath, please.', tag: 'exam' },
+      { es: 'Abra la boca y diga "ah".', en: 'Open your mouth and say "ah".', tag: 'exam' },
+      { es: '¿Es alérgico a algún medicamento?', en: 'Are you allergic to any medicines?', tag: 'meds' },
+      { es: 'Tómese esta pastilla una vez al día.', en: 'Take this pill once a day.', tag: 'meds' }
     ];
-  </script>
 
-  <!-- ========================================================= -->
-  <!-- KAILYN'S MILESTONES, LOVE NOTES & STATE ENGINE            -->
-  <!-- ========================================================= -->
-  <script>
-    const DUO_STORAGE_KEY = 'uaz_pa2027_kailyn_v3';
+    // Kailyn's Badges & Love Notes Deck
+    const KAILYN_LOVE_NOTES = [
+      { id: 'b_welcome', title: 'Future UArizona PA!', subtitle: 'I am so incredibly proud of you, Kailyn! 🥹', icon: '🩺💖', unlocked: true },
+      { id: 'b_streak3', title: '3-Streak Fire!', subtitle: 'You are crushing it, Kayfart! Keep pushing!', icon: '🔥', unlocked: true },
+      { id: 'b_anatomy', title: 'Anatomy Master', subtitle: 'Netter has nothing on you! Amazing work my love.', icon: '🦴', unlocked: true },
+      { id: 'b_spanish', title: 'Bilingual Clinician', subtitle: 'You are going to serve patients so well in Tucson!', icon: '🗣️', unlocked: true }
+    ];
 
     const KAILYN_CORRECT_HEADERS = [
-      'Good job Kayfart! 💨💖',
-      'I’m so proud of you my love! 🥹',
-      'Future PA-C Kailyn strikes again! 🩺✨',
-      'Brilliant clinical reasoning, my love! 💖',
-      'Unstoppable, Kayfart! 🔥',
-      'Bates & CMDT don’t stand a chance! 🏆'
+      "Nicely done, Kailyn! 💖",
+      "I’m proud of you my love! 🥹",
+      "Good job Kayfart! 🌟",
+      "You're a genius, Dr. Kay! 🩺",
+      "Nailed it! Future PA-C right here! ✨"
     ];
 
-    const KAILYN_MASCOT_PEP_TALKS = [
-      'I’m proud of you my love! 🥹 Every question you do now makes Fall semester so much easier.',
-      'Good job Kayfart! 💨💖 Your future patients are so lucky to have you.',
-      'Pro tip: All answer choices A, B, C, and D now shuffle randomly every single time!',
-      'Remember: Auscultate before palpating the abdomen, and know that I love you tons! 🩺💖',
-      'Tap the 🔀 Shuffle 10 button in the top left anytime for a quick randomized review!'
-    ];
-
-    const KAILYN_MILESTONES = [
-      {
-        id: 'm_welcome',
-        icon: '💌',
-        title: 'Welcome, Future PA-C Kailyn!',
-        body: 'This custom app was made just for you. I’m so proud of you my love! 🥹'
-      },
-      {
-        id: 'm_combo3',
-        icon: '💨',
-        title: 'Good job Kayfart! (3x Combo)',
-        body: 'Three correct answers in a row without missing a beat! Your clinical instincts are sharp!'
-      },
-      {
-        id: 'm_first_round',
-        icon: '🥹',
-        title: 'I’m proud of you my love!',
-        body: 'You completed your first full study round! Consistency is going to make UArizona PA school a breeze.'
-      },
-      {
-        id: 'm_xp200',
-        icon: '🩺',
-        title: '200+ XP Clinical Star!',
-        body: 'Look at those gems stacking up! Good job Kayfart—keep shining my love!'
-      },
-      {
-        id: 'm_xp350',
-        icon: '👑',
-        title: 'Bates & CMDT Queen (350+ XP)',
-        body: 'You are mastering physical exam signs, first-line meds, and Spanish! I’m endlessly proud of you! 🥹💖'
-      }
-    ];
-
+    // =========================================================
+    // GAME & QUIZ STATE
+    // =========================================================
     let gameState = {
-      streak: 1,
-      lastDate: new Date().toISOString().slice(0, 10),
       xp: 120,
       hearts: 5,
-      completedRounds: 0,
-      mistakesIds: [],
-      unlockedMilestones: ['m_welcome']
+      streak: 1,
+      mistakesIds: []
     };
 
-    function loadGameState() {
-      try {
-        const raw = localStorage.getItem(DUO_STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          gameState = {
-            ...gameState,
-            ...parsed,
-            unlockedMilestones: Array.isArray(parsed.unlockedMilestones) && parsed.unlockedMilestones.length > 0
-              ? parsed.unlockedMilestones
-              : ['m_welcome']
-          };
-        }
-      } catch (e) {
-        console.error('State load error', e);
-      }
-      updateTopBarUI();
-    }
-
-    function saveGameState() {
-      try {
-        localStorage.setItem(DUO_STORAGE_KEY, JSON.stringify(gameState));
-      } catch (e) {}
-      updateTopBarUI();
-    }
-
-    function updateTopBarUI() {
-      document.getElementById('statStreak').textContent = gameState.streak;
-      document.getElementById('statXP').textContent = gameState.xp;
-      document.getElementById('statHearts').textContent = gameState.hearts;
-      const badgePill = document.getElementById('badgeCountPill');
-      if (badgePill) badgePill.textContent = (gameState.unlockedMilestones || ['m_welcome']).length;
-      const quizHearts = document.getElementById('quizHeartsRemaining');
-      if (quizHearts) quizHearts.textContent = gameState.hearts;
-    }
-
-    function refillHearts() {
-      if (gameState.hearts < 5) {
-        gameState.hearts = 5;
-        saveGameState();
-        playSoundCorrect();
-        showMascotSpeech('❤️ Refilled all 5 hearts for you, my love! Keep crushing it!');
-      } else {
-        showMascotSpeech('You already have all 5 hearts, Kayfart! 💖');
-      }
-    }
-
-    function showMascotSpeech(text) {
-      const bubble = document.getElementById('mascotBubble');
-      const txt = document.getElementById('mascotText');
-      txt.textContent = `"${text}"`;
-      bubble.classList.remove('animate-wiggle');
-      void bubble.offsetWidth;
-      bubble.classList.add('animate-wiggle');
-    }
-
-    function triggerPepTalkFromMascot() {
-      const msg = KAILYN_MASCOT_PEP_TALKS[Math.floor(Math.random() * KAILYN_MASCOT_PEP_TALKS.length)];
-      showMascotSpeech(msg);
-      playSoundCorrect();
-    }
-
-    // Milestone Unlocking & Modal Display
-    function unlockMilestone(milestoneId) {
-      if (!gameState.unlockedMilestones.includes(milestoneId)) {
-        gameState.unlockedMilestones.push(milestoneId);
-        saveGameState();
-        const m = KAILYN_MILESTONES.find(item => item.id === milestoneId);
-        if (m) {
-          showMilestonePopup(m);
-        }
-      }
-    }
-
-    function checkAndTriggerMilestones(currentCombo, finishedRound) {
-      if (currentCombo >= 3 && !gameState.unlockedMilestones.includes('m_combo3')) {
-        unlockMilestone('m_combo3');
-        return;
-      }
-      if (finishedRound && gameState.completedRounds >= 1 && !gameState.unlockedMilestones.includes('m_first_round')) {
-        unlockMilestone('m_first_round');
-        return;
-      }
-      if (gameState.xp >= 200 && !gameState.unlockedMilestones.includes('m_xp200')) {
-        unlockMilestone('m_xp200');
-        return;
-      }
-      if (gameState.xp >= 350 && !gameState.unlockedMilestones.includes('m_xp350')) {
-        unlockMilestone('m_xp350');
-      }
-    }
-
-    function showMilestonePopup(milestoneObj) {
-      document.getElementById('milestoneModalIcon').textContent = milestoneObj.icon;
-      document.getElementById('milestoneModalTitle').textContent = milestoneObj.title;
-      document.getElementById('milestoneModalBody').textContent = milestoneObj.body;
-      document.getElementById('milestoneModalBackdrop').classList.remove('hidden');
-      playSoundFanfare();
-    }
-
-    function closeMilestoneModal() {
-      document.getElementById('milestoneModalBackdrop').classList.add('hidden');
-    }
-
-    function openLoveNotesDrawer() {
-      const container = document.getElementById('loveBadgesGrid');
-      container.innerHTML = KAILYN_MILESTONES.map(m => {
-        const unlocked = gameState.unlockedMilestones.includes(m.id);
-        return `
-          <div class="p-3.5 rounded-2xl border-2 flex items-start space-x-3 transition ${unlocked ? 'bg-pink-50/70 border-pink-200' : 'bg-slate-50 border-slate-200 opacity-60'}">
-            <div class="w-11 h-11 rounded-2xl ${unlocked ? 'bg-white border-2 border-pink-200' : 'bg-slate-200'} flex items-center justify-center text-2xl shrink-0">
-              ${unlocked ? m.icon : '🔒'}
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center justify-between">
-                <h4 class="text-xs font-black text-slate-800">${m.title}</h4>
-                ${unlocked ? '<span class="text-[9px] font-black uppercase text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full">Unlocked</span>' : ''}
-              </div>
-              <p class="text-[11px] font-bold text-slate-600 mt-1 leading-snug">
-                ${unlocked ? m.body : 'Keep practicing quizzes and earning XP to unlock this love note!'}
-              </p>
-            </div>
-          </div>
-        `;
-      }).join('');
-      document.getElementById('loveDrawerBackdrop').classList.remove('hidden');
-    }
-
-    function closeLoveNotesDrawer() {
-      document.getElementById('loveDrawerBackdrop').classList.add('hidden');
-    }
-
-    function triggerRandomMilestoneSurprise() {
-      closeLoveNotesDrawer();
-      const customNotes = [
-        {
-          icon: '🥹',
-          title: 'I’m proud of you my love!',
-          body: 'Just a reminder that you are smart, capable, compassionate, and going to crush PA school!'
-        },
-        {
-          icon: '💨',
-          title: 'Good job Kayfart! 💖',
-          body: 'Even on busy days, taking 5 minutes to review your clinical pearls sets you apart!'
-        },
-        {
-          icon: '🩺',
-          title: 'Future PA-C Kailyn!',
-          body: 'From Bates abdominal exam sequences to CMDT first-line drugs, you are building a rock-solid foundation!'
-        }
-      ];
-      const pick = customNotes[Math.floor(Math.random() * customNotes.length)];
-      showMilestonePopup(pick);
-    }
-  </script>
-
-  <!-- ========================================================= -->
-  <!-- BUILT-IN FISHER-YATES RANDOM SHUFFLER & QUIZ ENGINE       -->
-  <!-- ========================================================= -->
-  <script>
     let activeDeck = [];
     let currentQuizIndex = 0;
     let selectedOptionIndex = null;
     let comboStreak = 0;
     let hasAnsweredCurrentQuestion = false;
 
-    /**
-     * Unbiased Fisher-Yates Array Shuffler
-     * Returns a new shuffled array without mutating the source array.
-     */
-    function shuffleArray(sourceArray) {
-      const arr = [...sourceArray];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+    function loadGameState() {
+      try {
+        const saved = localStorage.getItem('uaz_pa_kailyn_state');
+        if (saved) gameState = { ...gameState, ...JSON.parse(saved) };
+      } catch (e) {}
+      updateTopBarUI();
+      renderLoveNotesBadges();
+    }
+
+    function saveGameState() {
+      try {
+        localStorage.setItem('uaz_pa_kailyn_state', JSON.stringify(gameState));
+      } catch (e) {}
+    }
+
+    function updateTopBarUI() {
+      document.getElementById('statStreak').textContent = gameState.streak;
+      document.getElementById('statXP').textContent = gameState.xp;
+      document.getElementById('statHearts').textContent = gameState.hearts;
+      document.getElementById('quizHeartsRemaining').textContent = gameState.hearts;
+      document.getElementById('badgeCountPill').textContent = KAILYN_LOVE_NOTES.filter(b => b.unlocked).length;
+    }
+
+    function refillHearts() {
+      gameState.hearts = 5;
+      saveGameState();
+      updateTopBarUI();
+      showMascotSpeech('Hearts refilled! You have got 5 lives ready to go, my love! ❤️');
+    }
+
+    // =========================================================
+    // QUIZ ENGINE WITH DYNAMIC SHUFFLING & SECURE IMAGES
+    // =========================================================
+    function startSpecificUnit(unitId, filterType) {
+      if (filterType === 'anat') {
+        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.category.includes('Anatomy'));
+      } else if (filterType === 'bates_cmdt') {
+        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.category.includes('Bates') || q.category.includes('CMDT') || q.category.includes('Ballweg') || q.category.includes('Vital'));
+      } else if (filterType === 'spanish') {
+        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.category.includes('Spanish'));
+      } else {
+        activeDeck = EXPANDED_QUESTION_BANK.filter(q => q.unit === unitId);
       }
-      return arr;
-    }
 
-    /**
-     * Clones a question and applies Fisher-Yates shuffling to its 4 options
-     * while recalculating the exact index of the correct answer so it lands
-     * randomly on A, B, C, or D every time.
-     */
-    function prepareQuestionWithShuffledOptions(rawQuestion) {
-      const indexedOptions = rawQuestion.options.map((optText, idx) => ({
-        text: optText,
-        isCorrect: idx === rawQuestion.correct
-      }));
+      if (activeDeck.length === 0) activeDeck = [...EXPANDED_QUESTION_BANK];
 
-      const shuffledPairs = shuffleArray(indexedOptions);
-      const newCorrectIndex = shuffledPairs.findIndex(item => item.isCorrect);
-
-      return {
-        ...rawQuestion,
-        shuffledOptions: shuffledPairs.map(item => item.text),
-        shuffledCorrectIndex: newCorrectIndex
-      };
-    }
-
-    // Launch a 10-question completely randomized mix across the entire bank
-    function startDailyRandomShuffle() {
-      const allShuffled = shuffleArray(EXPANDED_QUESTION_BANK).slice(0, 10);
-      activeDeck = allShuffled.map(q => prepareQuestionWithShuffledOptions(q));
-      currentQuizIndex = 0;
-      comboStreak = 0;
-      switchTab('quiz');
-      loadQuizQuestion();
-      showMascotSpeech('🎲 Shuffled 10 random questions AND shuffled all A/B/C/D options for you, Kayfart!');
-    }
-
-    // Launch a specific unit or subtopic node from the roadmap
-    function startSpecificUnit(unitId, subtopicFilter = 'all') {
-      let pool = EXPANDED_QUESTION_BANK.filter(q => q.unit === unitId);
-      if (subtopicFilter && subtopicFilter !== 'all') {
-        const subFiltered = pool.filter(q => q.subtopic === subtopicFilter);
-        if (subFiltered.length > 0) pool = subFiltered;
-      }
-      if (pool.length === 0) pool = [...EXPANDED_QUESTION_BANK];
-
-      // Determine session size (10 cards for full unit/boss mix, up to 10 for subtopics)
-      const sessionSize = subtopicFilter === 'all' ? Math.min(12, pool.length) : Math.min(10, pool.length);
-      const shuffledPool = shuffleArray(pool).slice(0, sessionSize);
-
-      // Shuffle options for each question in the deck
-      activeDeck = shuffledPool.map(q => prepareQuestionWithShuffledOptions(q));
+      // Shuffle order of questions for this session
+      activeDeck.sort(() => Math.random() - 0.5);
+      activeDeck = activeDeck.slice(0, 8);
 
       currentQuizIndex = 0;
       comboStreak = 0;
       switchTab('quiz');
       loadQuizQuestion();
-      showMascotSpeech(`You've got this, Kailyn! Starting ${unitId.toUpperCase()} (${activeDeck.length} shuffled cards)!`);
+      showMascotSpeech(`You've got this, Kailyn! Let's crush this session! 💖`);
     }
 
     function exitQuizToRoadmap() {
@@ -1751,42 +1027,63 @@
         return;
       }
 
-      // Ensure options are freshly shuffled if not already prepared
-      if (!q.shuffledOptions || typeof q.shuffledCorrectIndex !== 'number') {
-        const prepared = prepareQuestionWithShuffledOptions(q);
-        q.shuffledOptions = prepared.shuffledOptions;
-        q.shuffledCorrectIndex = prepared.shuffledCorrectIndex;
-      }
-
-      // Update progress bar and counter
-      const pct = Math.round(((currentQuizIndex + 1) / activeDeck.length) * 100);
-      document.getElementById('quizProgressBar').style.width = `${Math.max(10, pct)}%`;
-      document.getElementById('quizCounterBadge').textContent = `${currentQuizIndex + 1}/${activeDeck.length}`;
+      // Update Progress Bar
+      const pct = Math.round(((currentQuizIndex) / activeDeck.length) * 100);
+      document.getElementById('quizProgressBar').style.width = `${Math.max(8, pct)}%`;
 
       document.getElementById('qCategoryPill').textContent = q.category.toUpperCase();
       document.getElementById('quizQuestionText').textContent = q.prompt;
 
-      // Show speaker button only when valid Spanish audioText exists (hide if 'None')
+      // Handle Medical Illustration Diagram
+      const imgContainer = document.getElementById('quizImageContainer');
+      const imgTag = document.getElementById('quizImageTag');
+      const loader = document.getElementById('quizImageLoader');
+      
+      // Reset image state fully to fix the caching hidden bug
+      imgContainer.classList.add('hidden');
+      imgTag.classList.add('hidden');
+      loader.classList.remove('hidden');
+      imgTag.src = '';
+      
+      if (q.imageUrl && q.imageUrl.trim() !== '') {
+        imgContainer.classList.remove('hidden');
+        imgTag.src = q.imageUrl;
+      }
+
+      // Spanish Voice Audio Button
       const voiceBtn = document.getElementById('qVoiceBtn');
-      if (q.audioText && q.audioText !== 'None') {
+      if (q.audioText && q.audioText.trim() !== '') {
         voiceBtn.classList.remove('hidden');
       } else {
         voiceBtn.classList.add('hidden');
       }
 
-      // Render the 4 dynamically shuffled choice cards
+      // --- FISHER-YATES DYNAMIC OPTION SHUFFLE (Fixes "Always A" bug) ---
+      let pairedOptions = q.options.map((opt, idx) => ({
+        text: opt,
+        isCorrect: idx === q.correct
+      }));
+
+      // Randomize choice order
+      pairedOptions.sort(() => Math.random() - 0.5);
+
+      // Track the dynamically assigned correct index
+      q.dynamicCorrectIndex = pairedOptions.findIndex(o => o.isCorrect);
+      q.currentShuffledOptions = pairedOptions;
+
+      // Render choice buttons with dynamic assignments
       const container = document.getElementById('quizChoicesContainer');
       const letters = ['A', 'B', 'C', 'D'];
-      container.innerHTML = q.shuffledOptions.map((optText, idx) => `
+      container.innerHTML = pairedOptions.map((optObj, idx) => `
         <button id="choiceBtn_${idx}" onclick="selectQuizChoice(${idx})" class="w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition">
           <span class="w-7 h-7 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-xs flex items-center justify-center shrink-0">
             ${letters[idx]}
           </span>
-          <span class="text-xs font-bold text-slate-800 leading-snug flex-1">${optText}</span>
+          <span class="text-xs font-bold text-slate-800 leading-snug flex-1">${optObj.text}</span>
         </button>
       `).join('');
 
-      // Reset check button state
+      // Reset Check Button
       const checkBtn = document.getElementById('btnCheckAnswer');
       checkBtn.textContent = 'Check Answer';
       checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed';
@@ -1810,9 +1107,7 @@
 
     function speakCurrentQuestionPrompt() {
       const q = activeDeck[currentQuizIndex];
-      if (q && q.audioText && q.audioText !== 'None') {
-        speakSpanish(q.audioText);
-      }
+      if (q && q.audioText) speakSpanish(q.audioText);
     }
 
     function handleCheckOrNext() {
@@ -1824,7 +1119,7 @@
 
       hasAnsweredCurrentQuestion = true;
       const q = activeDeck[currentQuizIndex];
-      const isCorrect = (selectedOptionIndex === q.shuffledCorrectIndex);
+      const isCorrect = (selectedOptionIndex === q.dynamicCorrectIndex);
 
       const drawer = document.getElementById('resultDrawer');
       const drawerIcon = document.getElementById('resultIcon');
@@ -1836,9 +1131,10 @@
       drawer.classList.remove('hidden');
 
       if (isCorrect) {
-        playSoundCorrect();
+        playChime('correct');
         comboStreak++;
         gameState.xp += 15;
+
         if (comboStreak >= 2) {
           const comboEl = document.getElementById('comboBanner');
           const comboTxt = document.getElementById('comboBannerText');
@@ -1859,15 +1155,17 @@
         drawerTitle.className = 'text-base font-black text-[#357B01]';
         drawerTitle.textContent = randomPraise;
         drawerExp.className = 'text-xs font-bold mt-1 text-[#357B01] leading-relaxed';
-        drawerExp.innerHTML = `<span class="font-black">Clinical Pearl:</span> ${q.pearl}`;
+        drawerExp.innerHTML = `<span class="font-black">UA Clinical Pearl:</span> ${q.pearl}`;
         drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d btn-green-3d';
 
-        // Remove from mistakes if mastered
+        // Remove from mistakes if fixed
         gameState.mistakesIds = gameState.mistakesIds.filter(id => id !== q.id);
 
-        checkAndTriggerMilestones(comboStreak, false);
+        if (comboStreak === 4) {
+          triggerMilestoneModal('🔥 4-Combo Master!', 'Good job Kayfart! You are on absolute fire today! 🥹', '🔥💖');
+        }
       } else {
-        playSoundIncorrect();
+        playChime('wrong');
         comboStreak = 0;
         document.getElementById('comboBanner').classList.add('hidden');
         gameState.hearts = Math.max(0, gameState.hearts - 1);
@@ -1878,18 +1176,19 @@
 
         const chosenBtn = document.getElementById(`choiceBtn_${selectedOptionIndex}`);
         if (chosenBtn) chosenBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-incorrect';
-        const correctBtn = document.getElementById(`choiceBtn_${q.shuffledCorrectIndex}`);
+
+        const correctBtn = document.getElementById(`choiceBtn_${q.dynamicCorrectIndex}`);
         if (correctBtn) correctBtn.className = 'w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
 
-        const correctAnswerText = q.shuffledOptions[q.shuffledCorrectIndex];
+        const correctOptText = q.currentShuffledOptions[q.dynamicCorrectIndex].text;
 
-        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#FF4B4B] bg-[#FFDFE0] transition-all animate-shake';
+        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#FF4B4B] bg-[#FFDFE0] transition-all';
         drawerIcon.className = 'w-10 h-10 rounded-full bg-[#FF4B4B] text-white flex items-center justify-center font-black text-xl shrink-0';
         drawerIcon.innerHTML = '✕';
         drawerTitle.className = 'text-base font-black text-[#EA2B2B]';
         drawerTitle.textContent = 'Shake it off my love! Here is the pearl:';
         drawerExp.className = 'text-xs font-bold mt-1 text-[#931717] leading-relaxed';
-        drawerExp.innerHTML = `<span class="font-black">Correct Answer:</span> ${correctAnswerText}<br><br><span class="font-black">Why:</span> ${q.pearl}`;
+        drawerExp.innerHTML = `<span class="font-black">Correct Answer:</span> ${correctOptText}<br><br><span class="font-black">Why:</span> ${q.pearl}`;
         drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d bg-[#FF4B4B] border-b-4 border-[#EA2B2B]';
       }
 
@@ -1907,20 +1206,141 @@
     }
 
     function finishQuizSession() {
-      gameState.completedRounds++;
       gameState.xp += 30;
       saveGameState();
-
-      showMascotSpeech('🎉 Lesson Complete, Kailyn! I’m so proud of you my love! 🥹 (+30 XP)');
+      updateTopBarUI();
+      triggerMilestoneModal('Lesson Complete! 🎉', 'I’m so proud of you my love! 🥹 You are one step closer to UArizona PA!', '🩺💖');
       switchTab('roadmap');
-      checkAndTriggerMilestones(comboStreak, true);
     }
-  </script>
 
-  <!-- ========================================================= -->
-  <!-- SPANISH CLINIC LAB & MISTAKES LOGIC                       -->
-  <!-- ========================================================= -->
-  <script>
+    // =========================================================
+    // AUDIO & SPEECH SYNTHESIS ENGINE
+    // =========================================================
+    let audioCtx = null;
+    function playChime(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.08);
+          osc.frequency.setValueAtTime(783.99, now + 0.16);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          osc.start(now);
+          osc.stop(now + 0.38);
+        } else {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(196, now + 0.12);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }
+      } catch (e) {}
+    }
+
+    function speakSpanish(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'es-MX';
+        u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    // =========================================================
+    // LOVE NOTES & MILESTONES UI
+    // =========================================================
+    function openLoveNotesDrawer() {
+      renderLoveNotesBadges();
+      document.getElementById('loveNotesDrawer').classList.remove('hidden');
+    }
+
+    function closeLoveNotesDrawer() {
+      document.getElementById('loveNotesDrawer').classList.add('hidden');
+    }
+
+    function renderLoveNotesBadges() {
+      const container = document.getElementById('loveBadgesGrid');
+      container.innerHTML = KAILYN_LOVE_NOTES.map(b => `
+        <div class="bg-pink-50/70 border-2 border-pink-200 rounded-2xl p-3 flex items-center space-x-3">
+          <div class="text-3xl shrink-0">${b.icon}</div>
+          <div class="flex-1">
+            <h4 class="text-xs font-black text-slate-800">${b.title}</h4>
+            <p class="text-[11px] font-bold text-pink-600 mt-0.5 leading-tight">${b.subtitle}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function triggerMilestoneModal(title, subtitle, emoji) {
+      document.getElementById('milestoneModalTitle').textContent = title;
+      document.getElementById('milestoneModalSubtitle').textContent = subtitle;
+      document.getElementById('milestoneModalEmoji').textContent = emoji;
+      document.getElementById('milestoneModal').classList.remove('hidden');
+    }
+
+    function closeMilestoneModal() {
+      document.getElementById('milestoneModal').classList.add('hidden');
+    }
+
+    function triggerRandomMilestoneSurprise() {
+      closeLoveNotesDrawer();
+      triggerMilestoneModal(
+        'Surprise Pep Talk! 💖',
+        'Good job Kayfart! Remember: every question you practice now is making you an incredible clinician!',
+        '🥹🌸'
+      );
+    }
+
+    function showMascotSpeech(text) {
+      const bubble = document.getElementById('mascotBubble');
+      const txt = document.getElementById('mascotText');
+      txt.textContent = `"${text}"`;
+      bubble.classList.remove('hidden');
+    }
+
+    function triggerCuteNote() {
+      const notes = [
+        "I'm proud of you my love! 🥹",
+        "Good job Kayfart! Keep shining! 💖",
+        "Future PA-C Kailyn! You've got this! 🩺",
+        "Tucson isn't ready for how smart you are! 🌵"
+      ];
+      showMascotSpeech(notes[Math.floor(Math.random() * notes.length)]);
+    }
+
+    // =========================================================
+    // TABS, MISTAKES & SPANISH CLINIC
+    // =========================================================
+    function switchTab(tabKey) {
+      ['roadmap', 'quiz', 'spanish', 'mistakes'].forEach(k => {
+        const view = document.getElementById(`tab-${k}`);
+        const nav = document.getElementById(`nav-${k}`);
+        if (k === tabKey) {
+          view.classList.remove('hidden');
+          nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition';
+        } else {
+          view.classList.add('hidden');
+          nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition';
+        }
+      });
+
+      if (tabKey === 'spanish') renderSpanishClinicCards();
+      if (tabKey === 'mistakes') renderMistakesView();
+      if (tabKey === 'quiz' && activeDeck.length === 0) startSpecificUnit('phase1', 'anat');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function renderSpanishClinicCards(filter = 'all') {
       const container = document.getElementById('spanishCardsList');
       const filtered = filter === 'all'
@@ -1933,20 +1353,18 @@
             <h4 class="text-xs font-black text-slate-800">${item.es}</h4>
             <p class="text-[11px] font-bold text-slate-500 mt-0.5">${item.en}</p>
           </div>
-          <button onclick="speakSpanish('${item.es.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-2xl bg-[#EBF7FF] border-2 border-b-4 border-[#84D8FF] text-[#1CB0F6] flex items-center justify-center text-sm active:translate-y-0.5 active:border-b-2 transition shrink-0" title="Play Pronunciation">
+          <button onclick="speakSpanish('${item.es}')" class="w-10 h-10 rounded-2xl bg-[#EBF7FF] border-2 border-b-4 border-[#84D8FF] text-[#1CB0F6] flex items-center justify-center text-sm active:translate-y-0.5 active:border-b-2 transition shrink-0">
             <i class="fa-solid fa-volume-high"></i>
           </button>
         </div>
       `).join('');
     }
 
-    function filterSpanishPhrases(tag, btnEl) {
+    function filterSpanishPhrases(tag) {
       document.querySelectorAll('.span-filter-pill').forEach(btn => {
         btn.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700';
       });
-      if (btnEl) {
-        btnEl.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white';
-      }
+      event.target.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white';
       renderSpanishClinicCards(tag);
     }
 
@@ -1967,7 +1385,7 @@
 
       container.innerHTML = `
         <button onclick="practiceOnlyMistakes()" class="w-full py-3 rounded-2xl text-white font-black text-xs uppercase tracking-wider btn-3d bg-[#FF4B4B] border-b-4 border-[#EA2B2B] shadow-sm mb-3">
-          Practice ${missed.length} Missed Question${missed.length > 1 ? 's' : ''} (Shuffled)
+          Practice ${missed.length} Missed Question${missed.length > 1 ? 's' : ''} Now
         </button>
       ` + missed.map(q => `
         <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 space-y-1">
@@ -1976,7 +1394,6 @@
           <p class="text-[11px] font-bold text-[#46A302] bg-[#D7FFB8]/50 p-2 rounded-xl mt-1">
             <span class="font-black">Correct:</span> ${q.options[q.correct]}
           </p>
-          <p class="text-[11px] font-semibold text-slate-500 pt-1">${q.pearl}</p>
         </div>
       `).join('');
     }
@@ -1984,37 +1401,14 @@
     function practiceOnlyMistakes() {
       const missed = EXPANDED_QUESTION_BANK.filter(q => gameState.mistakesIds.includes(q.id));
       if (missed.length === 0) return;
-      activeDeck = shuffleArray(missed).map(q => prepareQuestionWithShuffledOptions(q));
+      activeDeck = [...missed];
       currentQuizIndex = 0;
-      comboStreak = 0;
       switchTab('quiz');
       loadQuizQuestion();
     }
-  </script>
 
-  <!-- ========================================================= -->
-  <!-- TAB SWITCHER & INITIALIZATION                             -->
-  <!-- ========================================================= -->
-  <script>
-    function switchTab(tabKey) {
-      ['roadmap', 'quiz', 'spanish', 'mistakes'].forEach(k => {
-        const view = document.getElementById(`tab-${k}`);
-        const nav = document.getElementById(`nav-${k}`);
-        if (k === tabKey) {
-          view.classList.remove('hidden');
-          if (nav) nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition';
-        } else {
-          view.classList.add('hidden');
-          if (nav) nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition';
-        }
-      });
-
-      if (tabKey === 'spanish') renderSpanishClinicCards();
-      if (tabKey === 'mistakes') renderMistakesView();
-      if (tabKey === 'quiz' && activeDeck.length === 0) {
-        startDailyRandomShuffle();
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function toggleInstallPrompt() {
+      showMascotSpeech('To install on iPhone: tap Safari Share > "Add to Home Screen"!');
     }
 
     window.onload = function() {
