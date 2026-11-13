@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #F7F9FA;
+}
+
+.btn-3d {
+  transition: transform 0.1s ease, border-bottom-width 0.1s ease;
+}
+
+.btn-3d:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 2px !important;
+}
+
+.btn-green-3d {
+  background-color: #58CC02;
+  border-bottom: 4px solid #46A302;
+}
+
+.btn-green-3d:hover {
+  background-color: #61E002;
+}
+
+.btn-card-3d {
+  background-color: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-bottom-width: 4px;
+}
+
+.btn-card-3d:hover {
+  border-color: #CBD5E1;
+  background-color: #F8FAFC;
+}
+
+.btn-card-selected {
+  background-color: #EBF7FF;
+  border: 2px solid #1CB0F6;
+  border-bottom-width: 4px;
+}
+
+.btn-card-correct {
+  background-color: #D7FFB8;
+  border: 2px solid #58CC02;
+  border-bottom-width: 4px;
+}
+
+.btn-card-incorrect {
+  background-color: #FFDFE0;
+  border: 2px solid #FF4B4B;
+  border-bottom-width: 4px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}
+

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,60 +10,9 @@
   <link rel="apple-touch-icon" href="PA-App-Icon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: #F7F9FA;
-    }
-    .btn-3d {
-      transition: transform 0.1s ease, border-bottom-width 0.1s ease;
-    }
-    .btn-3d:active:not(:disabled) {
-      transform: translateY(2px);
-      border-bottom-width: 2px !important;
-    }
-    .btn-green-3d {
-      background-color: #58CC02;
-      border-bottom: 4px solid #46A302;
-    }
-    .btn-green-3d:hover {
-      background-color: #61E002;
-    }
-    .btn-card-3d {
-      background-color: #FFFFFF;
-      border: 2px solid #E2E8F0;
-      border-bottom-width: 4px;
-    }
-    .btn-card-3d:hover {
-      border-color: #CBD5E1;
-      background-color: #F8FAFC;
-    }
-    .btn-card-selected {
-      background-color: #EBF7FF;
-      border: 2px solid #1CB0F6;
-      border-bottom-width: 4px;
-    }
-    .btn-card-correct {
-      background-color: #D7FFB8;
-      border: 2px solid #58CC02;
-      border-bottom-width: 4px;
-    }
-    .btn-card-incorrect {
-      background-color: #FFDFE0;
-      border: 2px solid #FF4B4B;
-      border-bottom-width: 4px;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-    .animate-shake {
-      animation: shake 0.3s ease-in-out;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body class="min-h-dvh flex flex-col text-slate-800">
 
   <!-- TOP NAVIGATION BAR -->
@@ -77,19 +27,23 @@
       </div>
 
       <div class="flex items-center space-x-3">
-        <div class="flex items-center space-x-1 bg-orange-50 px-2.5 py-1 rounded-xl border border-orange-200" title="Daily Streak">
+        <div class="flex items-center space-x-1 bg-orange-50 px-2.5 py-1 rounded-xl border border-orange-200"
+          title="Daily Streak">
           <span>🔥</span>
           <span id="topStreakCount" class="font-black text-xs text-[#FF9600]">1</span>
         </div>
-        <div class="flex items-center space-x-1 bg-sky-50 px-2.5 py-1 rounded-xl border border-sky-200" title="Total XP">
+        <div class="flex items-center space-x-1 bg-sky-50 px-2.5 py-1 rounded-xl border border-sky-200"
+          title="Total XP">
           <span>💎</span>
           <span id="topXpCount" class="font-black text-xs text-[#1CB0F6]">0</span>
         </div>
-        <div class="flex items-center space-x-1 bg-rose-50 px-2.5 py-1 rounded-xl border border-rose-200" title="Hearts">
+        <div class="flex items-center space-x-1 bg-rose-50 px-2.5 py-1 rounded-xl border border-rose-200"
+          title="Hearts">
           <span>❤️</span>
           <span id="topHeartsCount" class="font-black text-xs text-[#FF4B4B]">5</span>
         </div>
-        <button id="btnOpenTrophies" aria-label="Open Love Notes & Badges" class="w-8 h-8 rounded-xl bg-amber-100 border-b-2 border-amber-300 flex items-center justify-center text-sm">
+        <button id="btnOpenTrophies" aria-label="Open Love Notes & Badges"
+          class="w-8 h-8 rounded-xl bg-amber-100 border-b-2 border-amber-300 flex items-center justify-center text-sm">
           🏆
         </button>
       </div>
@@ -98,7 +52,8 @@
 
   <!-- MASCOT CHEER BANNER -->
   <div class="max-w-md w-full mx-auto px-4 pt-3">
-    <div id="mascotBubble" class="bg-white border-2 border-slate-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
+    <div id="mascotBubble"
+      class="bg-white border-2 border-slate-200 rounded-2xl p-3 flex items-center space-x-3 shadow-sm">
       <div class="text-2xl shrink-0">🩺</div>
       <p id="mascotText" class="text-xs font-extrabold text-slate-700 leading-snug">
         Welcome back, Kailyn! ❤️ Tap any stepping stone below to start a high-yield quiz session! 🥹💖
@@ -125,11 +80,13 @@
       <div>
         <!-- Header Progress inside quiz -->
         <div class="flex items-center justify-between space-x-3 mb-3">
-          <button id="btnExitQuiz" aria-label="Exit Quiz" class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
+          <button id="btnExitQuiz" aria-label="Exit Quiz"
+            class="text-slate-400 hover:text-slate-600 p-1 font-black text-lg">
             <i class="fa-solid fa-xmark"></i>
           </button>
           <div class="flex-1 bg-slate-200 h-4 rounded-full overflow-hidden p-0.5">
-            <div id="quizProgressBar" class="h-full bg-[#58CC02] rounded-full transition-all duration-300" style="width: 10%"></div>
+            <div id="quizProgressBar" class="h-full bg-[#58CC02] rounded-full transition-all duration-300"
+              style="width: 10%"></div>
           </div>
           <div class="flex items-center space-x-1">
             <span class="text-base">❤️</span>
@@ -139,7 +96,8 @@
 
         <!-- Combo Multiplier Pill -->
         <div id="comboBanner" class="hidden text-center mb-2">
-          <span id="comboBannerText" class="bg-[#FF9600] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider animate-bounce inline-block shadow-sm">
+          <span id="comboBannerText"
+            class="bg-[#FF9600] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider animate-bounce inline-block shadow-sm">
             🔥 2 in a Row, Kaylove! 💖 +15 XP
           </span>
         </div>
@@ -147,17 +105,22 @@
         <!-- Question Prompt Card -->
         <div class="mt-2 bg-white rounded-3xl p-4 border-2 border-slate-200 shadow-sm">
           <div class="flex items-center justify-between mb-2">
-            <span id="qCategoryPill" class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#EBF7FF] text-[#1899D6] border border-[#84D8FF]">
+            <span id="qCategoryPill"
+              class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#EBF7FF] text-[#1899D6] border border-[#84D8FF]">
               UNIT • CATEGORY
             </span>
-            <button id="qVoiceBtn" aria-label="Listen in Spanish" class="hidden w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition" title="Listen in Spanish">
+            <button id="qVoiceBtn" aria-label="Listen in Spanish"
+              class="hidden w-8 h-8 rounded-full bg-[#EBF7FF] border border-[#84D8FF] text-[#1899D6] flex items-center justify-center text-sm active:scale-95 transition"
+              title="Listen in Spanish">
               <i class="fa-solid fa-volume-high"></i>
             </button>
           </div>
 
           <!-- Optional Anatomy Diagram Container -->
-          <div id="qImageContainer" class="hidden my-3 flex justify-center bg-slate-50 p-2 rounded-2xl border border-slate-200">
-            <img id="qImageElement" src="" alt="Clinical diagram" class="max-h-48 object-contain rounded-xl" onerror="this.parentElement.classList.add('hidden')" />
+          <div id="qImageContainer"
+            class="hidden my-3 flex justify-center bg-slate-50 p-2 rounded-2xl border border-slate-200">
+            <img id="qImageElement" alt="Clinical diagram" class="max-h-48 object-contain rounded-xl"
+              onerror="this.parentElement.classList.add('hidden')" />
           </div>
 
           <h3 id="quizQuestionText" class="text-base font-extrabold text-slate-800 leading-snug">
@@ -173,7 +136,8 @@
 
       <!-- Sticky Answer Drawer / Action Bar -->
       <div id="quizActionFooter" class="mt-6 pt-3 border-t-2 border-slate-100">
-        <button id="btnCheckAnswer" class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed">
+        <button id="btnCheckAnswer"
+          class="w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed">
           Check Answer
         </button>
       </div>
@@ -181,13 +145,15 @@
       <!-- Duolingo Slanted Drawer for Correct / Incorrect Results -->
       <div id="resultDrawer" class="hidden mt-4 p-4 rounded-3xl border-2 transition-all duration-300">
         <div class="flex items-start space-x-3">
-          <div id="resultIcon" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0"></div>
+          <div id="resultIcon"
+            class="w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shrink-0"></div>
           <div class="flex-1">
             <h4 id="resultTitle" class="text-base font-black">Nicely done!</h4>
             <p id="resultExplanation" class="text-xs font-bold mt-1 leading-relaxed"></p>
           </div>
         </div>
-        <button id="btnDrawerContinue" class="mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d">
+        <button id="btnDrawerContinue"
+          class="mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d">
           Continue
         </button>
       </div>
@@ -197,17 +163,17 @@
     <!-- TAB 3: SPANISH CLINIC AUDIO FLASHCARDS               -->
     <!-- ==================================================== -->
     <section id="tab-spanish" class="hidden space-y-4 pb-8">
-      <div class="bg-gradient-to-r from-[#AB0520] to-[#D11936] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#820317]">
-        <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">SPAN 661 / 662 Practice</span>
+      <div
+        class="bg-gradient-to-r from-[#AB0520] to-[#D11936] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#820317]">
+        <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">SPAN 661 /
+          662 Practice</span>
         <h2 class="text-lg font-black mt-1">Medical Spanish Audio Lab</h2>
-        <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish for patient interviewing.</p>
+        <p class="text-xs text-white/90 font-bold">Tap the speaker to hear authentic Latin American Spanish for patient
+          interviewing.</p>
       </div>
 
       <div class="flex space-x-2 overflow-x-auto pb-1" id="spanishFilterRow">
-        <button data-tag="all" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white">All</button>
-        <button data-tag="hpi" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">H&P / Pain</button>
-        <button data-tag="exam" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Physical Exam</button>
-        <button data-tag="meds" class="span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Meds & Allergies</button>
+        <!-- Populated dynamically from window.SPANISH_CLINIC_PHRASES tags -->
       </div>
 
       <div id="spanishCardsList" class="space-y-2.5"></div>
@@ -217,10 +183,12 @@
     <!-- TAB 4: MISTAKES & WEAK SPOTS ("DUMBBELL")            -->
     <!-- ==================================================== -->
     <section id="tab-mistakes" class="hidden space-y-4 pb-8">
-      <div class="bg-gradient-to-b from-[#FF4B4B] to-[#EA2B2B] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#C81A1A]">
+      <div
+        class="bg-gradient-to-b from-[#FF4B4B] to-[#EA2B2B] text-white rounded-3xl p-4 shadow-md border-b-4 border-[#C81A1A]">
         <div class="flex justify-between items-center">
           <div>
-            <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Targeted Remediation</span>
+            <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2 py-0.5 rounded-full">Targeted
+              Remediation</span>
             <h2 class="text-lg font-black mt-1">Review Missed Questions</h2>
             <p class="text-xs text-white/90 font-bold">Master concepts you got wrong to guarantee &gt;70% in Fall I.</p>
           </div>
@@ -234,11 +202,13 @@
   </main>
 
   <!-- MILESTONE & TROPHY MODAL -->
-  <div id="trophyModal" role="dialog" aria-modal="true" aria-labelledby="trophyModalTitle" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="trophyModal" role="dialog" aria-modal="true" aria-labelledby="trophyModalTitle"
+    class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-5 border-2 border-slate-200 shadow-xl space-y-4">
       <div class="flex items-center justify-between">
         <h3 id="trophyModalTitle" class="text-base font-black text-slate-800">💖 Kailyn's Love Notes & Badges</h3>
-        <button id="btnCloseTrophies" aria-label="Close Modal" class="text-slate-400 hover:text-slate-600 font-black text-lg">✕</button>
+        <button id="btnCloseTrophies" aria-label="Close Modal"
+          class="text-slate-400 hover:text-slate-600 font-black text-lg">✕</button>
       </div>
       <div id="trophyListContainer" class="space-y-2.5 max-h-80 overflow-y-auto pr-1"></div>
     </div>
@@ -247,691 +217,32 @@
   <!-- BOTTOM NAVIGATION BAR -->
   <nav class="fixed bottom-0 inset-x-0 z-30 bg-white border-t-2 border-slate-200 px-4 py-2">
     <div class="max-w-md mx-auto grid grid-cols-4 gap-2">
-      <button id="nav-roadmap" data-tab="roadmap" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition">
+      <button id="nav-roadmap" data-tab="roadmap"
+        class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition">
         <i class="fa-solid fa-map-location-dot text-lg"></i>
         <span class="text-[10px] mt-0.5">Path</span>
       </button>
-      <button id="nav-quiz" data-tab="quiz" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+      <button id="nav-quiz" data-tab="quiz"
+        class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-bolt text-lg"></i>
         <span class="text-[10px] mt-0.5">Quiz</span>
       </button>
-      <button id="nav-spanish" data-tab="spanish" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+      <button id="nav-spanish" data-tab="spanish"
+        class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-comments text-lg"></i>
         <span class="text-[10px] mt-0.5">Spanish</span>
       </button>
-      <button id="nav-mistakes" data-tab="mistakes" class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
+      <button id="nav-mistakes" data-tab="mistakes"
+        class="nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition">
         <i class="fa-solid fa-dumbbell text-lg"></i>
         <span class="text-[10px] mt-0.5">Mistakes</span>
       </button>
     </div>
   </nav>
 
-  <!-- LOAD EXTERNAL QUESTION BANK -->
-  <script src="questions.js"></script>
-
-  <!-- CORE APPLICATION LOGIC -->
-  <script>
-    // =========================================================
-    // 1. UNIT & NODE CONFIGURATION + DYNAMIC GENERATOR
-    // =========================================================
-    const UNIT_METADATA = {
-      '1': {
-        title: 'Foundations & Clinical Exam',
-        subtitle: 'Unit 1 • Gross Anatomy, Bates Physical Exam & Medical Spanish',
-        icon: '🩺',
-        bgGradient: 'from-[#58CC02] to-[#46A302]',
-        borderBottom: 'border-[#357B01]',
-        nodeBg: 'bg-[#58CC02] border-[#46A302] hover:bg-[#61E002]'
-      },
-      '2': {
-        title: 'High-Yield Physiology',
-        subtitle: 'Unit 2 • Cardiopulmonary, ECG, ABG & Renal Nephrons',
-        icon: '⚡',
-        bgGradient: 'from-[#1CB0F6] to-[#1899D6]',
-        borderBottom: 'border-[#0F75A5]',
-        nodeBg: 'bg-[#1CB0F6] border-[#1899D6] hover:bg-[#42C0FB]'
-      },
-      '3': {
-        title: 'Pharmacology & SOAP Notes',
-        subtitle: 'Unit 3 • PAP 611 Drug Classes & PAP 621 Clinical Documentation',
-        icon: '💊',
-        bgGradient: 'from-[#FF9600] to-[#E08200]',
-        borderBottom: 'border-[#B86A00]',
-        nodeBg: 'bg-[#FF9600] border-[#E08200] hover:bg-[#FFA726]'
-      },
-      '4': {
-        title: 'UArizona Admin & Compliance',
-        subtitle: 'Unit 4 • Didactic Policies, Grading & Clinical Prerequisites',
-        icon: '🏁',
-        bgGradient: 'from-[#A463F8] to-[#863EE2]',
-        borderBottom: 'border-[#6918CB]',
-        nodeBg: 'bg-[#A463F8] border-[#863EE2] hover:bg-[#B983FA]'
-      },
-      '5': {
-        title: 'Didactic Organ Systems I',
-        subtitle: 'Unit 5 • Cardiology, Pulmonology, GI & Endocrinology',
-        icon: '🫀',
-        bgGradient: 'from-[#EC4899] to-[#DB2777]',
-        borderBottom: 'border-[#9D174D]',
-        nodeBg: 'bg-[#EC4899] border-[#DB2777] hover:bg-[#F472B6]'
-      },
-      '6': {
-        title: 'Clinical Rotations & Special Populations',
-        subtitle: 'Unit 6 • Pediatrics (6.1), OB/GYN (6.2) & Subspecialties',
-        icon: '👶',
-        bgGradient: 'from-[#14B8A6] to-[#0D9488]',
-        borderBottom: 'border-[#115E59]',
-        nodeBg: 'bg-[#14B8A6] border-[#0D9488] hover:bg-[#2DD4BF]'
-      }
-    };
-
-    // Map legacy topic names to numbered sub-units so all existing and new questions group cleanly
-    const LEGACY_TOPIC_MAP = {
-      'anatomy':   { code: '1.1', label: 'Gross Anatomy', icon: '🦴' },
-      'anat':      { code: '1.1', label: 'Gross Anatomy', icon: '🦴' },
-      'bates_cmdt':{ code: '1.2', label: 'Bates & CMDT', icon: '🩺' },
-      'spanish':   { code: '1.3', label: 'Medical Spanish', icon: '🗣️' },
-      'cardiac':   { code: '2.1', label: 'Cardiac & ECG', icon: '📈' },
-      'cardio_phys':{ code: '2.1', label: 'Cardiac & ECG', icon: '📈' },
-      'renal':     { code: '2.2', label: 'Renal & ABG', icon: '🧪' },
-      'renal_abg': { code: '2.2', label: 'Renal & ABG', icon: '🧪' },
-      'pharm':     { code: '3.1', label: 'Pharmacology', icon: '💊' },
-      'soap':      { code: '3.2', label: 'SOAP Notes', icon: '📋' },
-      'admin':     { code: '4.1', label: 'UArizona Admin', icon: '🎓' },
-      '5.1':       { code: '5.1', label: 'Cardiovascular Med', icon: '❤️' },
-      'cardio':    { code: '5.1', label: 'Cardiovascular Med', icon: '❤️' },
-      '5.2':       { code: '5.2', label: 'Pulmonology', icon: '🫁' },
-      '5.3':       { code: '5.3', label: 'Gastroenterology', icon: '🍏' },
-      '5.4':       { code: '5.4', label: 'Endocrinology', icon: '🦋' },
-      '6.1':       { code: '6.1', label: 'Pediatrics', icon: '🧸' },
-      '6.2':       { code: '6.2', label: 'OB/GYN', icon: '🤰' }
-    };
-
-    // Normalize any question's unit/topic to a standard code like "1.1", "6.1", "6.2"
-    function resolveQuestionNodeCode(q) {
-      const rawTopic = String(q.topic || '').trim();
-      const rawUnit = String(q.unit || '').trim();
-
-      // Direct match in legacy/known map
-      if (LEGACY_TOPIC_MAP[rawTopic]) return LEGACY_TOPIC_MAP[rawTopic].code;
-      if (LEGACY_TOPIC_MAP[rawUnit]) return LEGACY_TOPIC_MAP[rawUnit].code;
-
-      // Match explicit numeric pattern like "6.1", "unit6.1", "6.2"
-      const topicMatch = rawTopic.match(/(\d+\.\d+)/);
-      if (topicMatch) return topicMatch[1];
-
-      const unitMatch = rawUnit.match(/(\d+\.\d+)/);
-      if (unitMatch) return unitMatch[1];
-
-      // Fallback for phase1..phase6
-      const phaseMatch = rawUnit.match(/phase(\d+)/i);
-      if (phaseMatch) return `${phaseMatch[1]}.1`;
-
-      return '1.2';
-    }
-
-    function renderDynamicRoadmap() {
-      const container = document.getElementById('dynamicRoadmapContainer');
-      const bank = window.EXPANDED_QUESTION_BANK || [];
-      if (!container) return;
-
-      // Group questions by major unit ("1", "2", ... "6", etc.) and sub-node ("6.1", "6.2")
-      const groupedUnits = {};
-
-      bank.forEach(q => {
-        const nodeCode = resolveQuestionNodeCode(q);
-        const majorUnit = nodeCode.split('.')[0] || '1';
-
-        if (!groupedUnits[majorUnit]) {
-          groupedUnits[majorUnit] = {};
-        }
-        if (!groupedUnits[majorUnit][nodeCode]) {
-          const preset = Object.values(LEGACY_TOPIC_MAP).find(m => m.code === nodeCode);
-          groupedUnits[majorUnit][nodeCode] = {
-            code: nodeCode,
-            label: preset ? preset.label : (q.category || `Module ${nodeCode}`),
-            icon: preset ? preset.icon : '⭐',
-            questions: []
-          };
-        }
-        groupedUnits[majorUnit][nodeCode].questions.push(q);
-      });
-
-      const sortedMajorKeys = Object.keys(groupedUnits).sort((a, b) => Number(a) - Number(b));
-
-      container.innerHTML = sortedMajorKeys.map(majorKey => {
-        const meta = UNIT_METADATA[majorKey] || {
-          title: `Expansion Unit ${majorKey}`,
-          subtitle: `Dynamic Clinical Modules (${majorKey}.x)`,
-          icon: '🌟',
-          bgGradient: 'from-[#14B8A6] to-[#0D9488]',
-          borderBottom: 'border-[#115E59]',
-          nodeBg: 'bg-[#14B8A6] border-[#0D9488] hover:bg-[#2DD4BF]'
-        };
-
-        const nodesObj = groupedUnits[majorKey];
-        const sortedNodeCodes = Object.keys(nodesObj).sort((a, b) =>
-          a.localeCompare(b, undefined, { numeric: true })
-        );
-
-        const offsets = ['', 'translate-x-10', '-translate-x-10'];
-
-        const stonesHtml = sortedNodeCodes.map((code, idx) => {
-          const node = nodesObj[code];
-          const offsetClass = offsets[idx % offsets.length];
-          return `
-            <div class="flex flex-col items-center ${offsetClass}">
-              <button data-node-code="${node.code}" class="roadmap-node-btn w-20 h-20 rounded-full ${meta.nodeBg} border-b-8 text-white flex flex-col items-center justify-center font-black shadow-lg transition btn-3d">
-                <span class="text-2xl">${node.icon}</span>
-                <span class="text-[11px] font-black tracking-wide">${node.code}</span>
-              </button>
-              <span class="text-xs font-black text-slate-700 mt-1.5">${node.label}</span>
-              <span class="text-[10px] font-bold text-slate-400">${node.questions.length} Qs</span>
-            </div>
-          `;
-        }).join('');
-
-        return `
-          <div class="space-y-4">
-            <div class="bg-gradient-to-b ${meta.bgGradient} rounded-3xl p-4 text-white shadow-md border-b-4 ${meta.borderBottom}">
-              <div class="flex justify-between items-center">
-                <div>
-                  <span class="text-[10px] font-black uppercase tracking-wider bg-black/20 px-2.5 py-0.5 rounded-full">Unit ${majorKey}</span>
-                  <h2 class="text-lg font-black mt-1">${meta.title}</h2>
-                  <p class="text-xs text-white/90 font-bold">${meta.subtitle}</p>
-                </div>
-                <div class="text-3xl">${meta.icon}</div>
-              </div>
-            </div>
-            <div class="flex flex-col items-center space-y-5 py-2">
-              ${stonesHtml}
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // =========================================================
-    // 2. GAME STATE, STREAKS & LOVE NOTE MILESTONES
-    // =========================================================
-    const BADGES = [
-      { id: 'first_lesson', icon: '🥹', title: 'First Step, My Love!', note: 'I’m so proud of you my love! You completed your first PA prep lesson! 🥹💖' },
-      { id: 'kaylove_combo', icon: '🔥', title: 'Good Job Kaylove! 💖', note: 'Good job Kaylove! 💖 5 correct answers in a row — your clinical instincts are unstoppable!' },
-      { id: 'unit6_explorer', icon: '👶', title: 'Clinical Rotation Ready', note: 'Practicing Unit 6.1 & 6.2 already?! Future PA-C Kailyn is crushing Peds and OB/GYN!' }
-    ];
-
-    let gameState = {
-      xp: 0,
-      hearts: 5,
-      streak: 1,
-      lastStudyDate: null,
-      completedRounds: 0,
-      mistakesIds: [],
-      unlockedBadges: []
-    };
-
-    function loadGameState() {
-      try {
-        const saved = localStorage.getItem('kailyn_pa_prep_state');
-        if (saved) {
-          gameState = { ...gameState, ...JSON.parse(saved) };
-        }
-      } catch (e) {}
-      updateDailyStreak();
-      updateTopBarUI();
-    }
-
-    function saveGameState() {
-      try {
-        localStorage.setItem('kailyn_pa_prep_state', JSON.stringify(gameState));
-      } catch (e) {}
-    }
-
-    function updateDailyStreak() {
-      const today = new Date().toISOString().split('T')[0];
-      if (!gameState.lastStudyDate) {
-        gameState.streak = 1;
-        gameState.lastStudyDate = today;
-      } else if (gameState.lastStudyDate !== today) {
-        const last = new Date(gameState.lastStudyDate);
-        const curr = new Date(today);
-        const diffDays = Math.round((curr - last) / (1000 * 60 * 60 * 24));
-        gameState.streak = (diffDays === 1) ? gameState.streak + 1 : 1;
-        gameState.lastStudyDate = today;
-      }
-      saveGameState();
-    }
-
-    function updateTopBarUI() {
-      document.getElementById('topStreakCount').textContent = gameState.streak;
-      document.getElementById('topXpCount').textContent = gameState.xp;
-      document.getElementById('topHeartsCount').textContent = gameState.hearts;
-      const quizHearts = document.getElementById('quizHeartsRemaining');
-      if (quizHearts) quizHearts.textContent = gameState.hearts;
-    }
-
-    function unlockBadge(badgeId) {
-      if (!gameState.unlockedBadges.includes(badgeId)) {
-        gameState.unlockedBadges.push(badgeId);
-        saveGameState();
-        const badge = BADGES.find(b => b.id === badgeId);
-        if (badge) {
-          showMascotSpeech(`${badge.icon} ${badge.note}`);
-        }
-      }
-    }
-
-    function renderTrophyModal() {
-      const list = document.getElementById('trophyListContainer');
-      list.innerHTML = BADGES.map(b => {
-        const unlocked = gameState.unlockedBadges.includes(b.id);
-        return `
-          <div class="p-3 rounded-2xl border-2 ${unlocked ? 'bg-amber-50 border-amber-300' : 'bg-slate-50 border-slate-200 opacity-60'} flex items-start space-x-3">
-            <div class="text-2xl">${unlocked ? b.icon : '🔒'}</div>
-            <div>
-              <h4 class="text-xs font-black text-slate-800">${b.title}</h4>
-              <p class="text-[11px] font-bold text-slate-600 mt-0.5">${unlocked ? b.note : 'Keep studying to unlock this love note!'}</p>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // =========================================================
-    // 3. TRUE FISHER-YATES SHUFFLE & QUIZ ENGINE
-    // =========================================================
-    function shuffleArray(arr) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    let activeDeck = [];
-    let currentQuizIndex = 0;
-    let selectedOptionIndex = null;
-    let comboStreak = 0;
-    let hasAnsweredCurrentQuestion = false;
-    let currentSessionMeta = {};
-
-    function startNodeQuiz(nodeCode) {
-      const bank = window.EXPANDED_QUESTION_BANK || [];
-      const matching = bank.filter(q => resolveQuestionNodeCode(q) === nodeCode);
-      const pool = matching.length > 0 ? matching : bank;
-
-      activeDeck = shuffleArray(pool).slice(0, 10);
-      currentQuizIndex = 0;
-      comboStreak = 0;
-
-      if (nodeCode === '6.1' || nodeCode === '6.2') {
-        unlockBadge('unit6_explorer');
-      }
-
-      switchTab('quiz');
-      loadQuizQuestion();
-      showMascotSpeech(`You've got this, Kailyn! ❤️ Starting Module ${nodeCode}! 🩺`);
-    }
-
-    function loadQuizQuestion() {
-      hasAnsweredCurrentQuestion = false;
-      selectedOptionIndex = null;
-      document.getElementById('resultDrawer').classList.add('hidden');
-      document.getElementById('quizActionFooter').classList.remove('hidden');
-
-      const q = activeDeck[currentQuizIndex];
-      if (!q) {
-        finishQuizSession();
-        return;
-      }
-
-      const pct = Math.round((currentQuizIndex / activeDeck.length) * 100);
-      document.getElementById('quizProgressBar').style.width = `${Math.max(8, pct)}%`;
-
-      const nodeCode = resolveQuestionNodeCode(q);
-      document.getElementById('qCategoryPill').textContent = `UNIT ${nodeCode} • ${(q.category || 'CLINICAL').toUpperCase()}`;
-      document.getElementById('quizQuestionText').textContent = q.prompt;
-
-      // Render Anatomy / Clinical Image if present
-      const imgWrap = document.getElementById('qImageContainer');
-      const imgEl = document.getElementById('qImageElement');
-      if (q.imageUrl) {
-        imgEl.src = q.imageUrl;
-        imgWrap.classList.remove('hidden');
-      } else {
-        imgEl.src = '';
-        imgWrap.classList.add('hidden');
-      }
-
-      const voiceBtn = document.getElementById('qVoiceBtn');
-      if (q.audioText) {
-        voiceBtn.classList.remove('hidden');
-      } else {
-        voiceBtn.classList.add('hidden');
-      }
-
-      // Shuffle choices without mutating original question object
-      const paired = shuffleArray(
-        q.options.map((opt, idx) => ({
-          text: opt,
-          isCorrect: idx === q.correct
-        }))
-      );
-
-      currentSessionMeta = {
-        correctIndex: paired.findIndex(o => o.isCorrect),
-        shuffledOptions: paired
-      };
-
-      const container = document.getElementById('quizChoicesContainer');
-      const letters = ['A', 'B', 'C', 'D'];
-      container.innerHTML = paired.map((optObj, idx) => `
-        <button data-choice-idx="${idx}" class="quiz-choice-btn w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition">
-          <span class="w-7 h-7 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-xs flex items-center justify-center shrink-0">
-            ${letters[idx]}
-          </span>
-          <span class="text-xs font-bold text-slate-800 leading-snug flex-1">${optObj.text}</span>
-        </button>
-      `).join('');
-
-      const checkBtn = document.getElementById('btnCheckAnswer');
-      checkBtn.textContent = 'Check Answer';
-      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d bg-slate-300 border-b-4 border-slate-400 cursor-not-allowed';
-    }
-
-    function selectQuizChoice(idx) {
-      if (hasAnsweredCurrentQuestion) return;
-      selectedOptionIndex = idx;
-
-      document.querySelectorAll('.quiz-choice-btn').forEach((btn, i) => {
-        btn.className = (i === idx)
-          ? 'quiz-choice-btn w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-selected'
-          : 'quiz-choice-btn w-full text-left p-3.5 rounded-2xl btn-card-3d flex items-center space-x-3 transition';
-      });
-
-      const checkBtn = document.getElementById('btnCheckAnswer');
-      checkBtn.className = 'w-full py-3.5 rounded-2xl text-white font-black text-sm uppercase tracking-wider shadow-md transition btn-3d btn-green-3d';
-    }
-
-    function handleCheckOrNext() {
-      if (selectedOptionIndex === null) return;
-      if (hasAnsweredCurrentQuestion) {
-        advanceNextQuestion();
-        return;
-      }
-
-      hasAnsweredCurrentQuestion = true;
-      const q = activeDeck[currentQuizIndex];
-      const isCorrect = (selectedOptionIndex === currentSessionMeta.correctIndex);
-
-      const drawer = document.getElementById('resultDrawer');
-      const drawerIcon = document.getElementById('resultIcon');
-      const drawerTitle = document.getElementById('resultTitle');
-      const drawerExp = document.getElementById('resultExplanation');
-      const drawerBtn = document.getElementById('btnDrawerContinue');
-
-      document.getElementById('quizActionFooter').classList.add('hidden');
-      drawer.classList.remove('hidden');
-
-      const choiceButtons = document.querySelectorAll('.quiz-choice-btn');
-
-      if (isCorrect) {
-        comboStreak++;
-        gameState.xp += 15;
-
-        if (comboStreak >= 2) {
-          const banner = document.getElementById('comboBanner');
-          const bannerText = document.getElementById('comboBannerText');
-          bannerText.textContent = `🔥 ${comboStreak} in a Row, Kaylove! 💖 +15 XP`;
-          banner.classList.remove('hidden');
-        }
-        if (comboStreak >= 5) {
-          unlockBadge('kaylove_combo');
-        }
-
-        if (choiceButtons[selectedOptionIndex]) {
-          choiceButtons[selectedOptionIndex].className = 'quiz-choice-btn w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
-        }
-
-        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#58CC02] bg-[#D7FFB8] transition-all';
-        drawerIcon.className = 'w-10 h-10 rounded-full bg-[#58CC02] text-white flex items-center justify-center font-black text-xl shrink-0';
-        drawerIcon.textContent = '✓';
-        drawerTitle.className = 'text-base font-black text-[#357B01]';
-        drawerTitle.textContent = comboStreak > 1 ? `Good job Kaylove! 💖 🔥 Combo x${comboStreak}` : 'I’m proud of you my love! 🥹';
-        drawerExp.className = 'text-xs font-bold mt-1 text-[#357B01] leading-relaxed';
-        drawerExp.innerHTML = `<span class="font-black">UA Clinical Pearl:</span> ${q.pearl}`;
-        drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d btn-green-3d';
-
-        gameState.mistakesIds = gameState.mistakesIds.filter(id => id !== q.id);
-      } else {
-        comboStreak = 0;
-        document.getElementById('comboBanner').classList.add('hidden');
-        gameState.hearts = Math.max(1, gameState.hearts - 1);
-
-        if (!gameState.mistakesIds.includes(q.id)) {
-          gameState.mistakesIds.push(q.id);
-        }
-
-        if (choiceButtons[selectedOptionIndex]) {
-          choiceButtons[selectedOptionIndex].className = 'quiz-choice-btn w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-incorrect';
-        }
-        if (choiceButtons[currentSessionMeta.correctIndex]) {
-          choiceButtons[currentSessionMeta.correctIndex].className = 'quiz-choice-btn w-full text-left p-3.5 rounded-2xl flex items-center space-x-3 transition btn-card-correct';
-        }
-
-        const correctText = currentSessionMeta.shuffledOptions[currentSessionMeta.correctIndex].text;
-        drawer.className = 'mt-4 p-4 rounded-3xl border-2 border-[#FF4B4B] bg-[#FFDFE0] transition-all animate-shake';
-        drawerIcon.className = 'w-10 h-10 rounded-full bg-[#FF4B4B] text-white flex items-center justify-center font-black text-xl shrink-0';
-        drawerIcon.textContent = '✕';
-        drawerTitle.className = 'text-base font-black text-[#EA2B2B]';
-        drawerTitle.textContent = 'Correct solution:';
-        drawerExp.className = 'text-xs font-bold mt-1 text-[#931717] leading-relaxed';
-        drawerExp.innerHTML = `<span class="font-black">${correctText}</span><br><br><span class="font-black">Why:</span> ${q.pearl}`;
-        drawerBtn.className = 'mt-3.5 w-full py-3 rounded-2xl text-white font-black text-sm uppercase tracking-wider transition btn-3d bg-[#FF4B4B] border-b-4 border-[#EA2B2B]';
-      }
-
-      saveGameState();
-      updateTopBarUI();
-    }
-
-    function advanceNextQuestion() {
-      if (currentQuizIndex < activeDeck.length - 1) {
-        currentQuizIndex++;
-        loadQuizQuestion();
-      } else {
-        finishQuizSession();
-      }
-    }
-
-    function finishQuizSession() {
-      gameState.completedRounds++;
-      gameState.xp += 30;
-      unlockBadge('first_lesson');
-      saveGameState();
-      updateTopBarUI();
-      showMascotSpeech('🎉 Lesson Complete! I’m so proud of you my love! +30 XP 🥹💖');
-      switchTab('roadmap');
-    }
-
-    // =========================================================
-    // 4. SPEECH SYNTHESIS & SPANISH AUDIO LAB
-    // =========================================================
-    function speakSpanish(text) {
-      if (!('speechSynthesis' in window) || !text) return;
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      const voices = window.speechSynthesis.getVoices();
-      const esVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('es'));
-      if (esVoice) u.voice = esVoice;
-      u.lang = 'es-MX';
-      u.rate = 0.92;
-      window.speechSynthesis.speak(u);
-    }
-
-    function renderSpanishClinicCards(filter = 'all') {
-      const phrases = window.SPANISH_CLINIC_PHRASES || [];
-      const allBtn = document.querySelector('#spanishFilterRow button[data-tag="all"]');
-      if (allBtn) allBtn.textContent = `All (${phrases.length})`;
-
-      const container = document.getElementById('spanishCardsList');
-      const filtered = filter === 'all'
-        ? phrases.map((p, idx) => ({ ...p, originalIndex: idx }))
-        : phrases.map((p, idx) => ({ ...p, originalIndex: idx })).filter(p => p.tag === filter);
-
-      container.innerHTML = filtered.map(item => `
-        <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 flex items-center justify-between shadow-sm hover:border-[#1CB0F6] transition">
-          <div class="flex-1 pr-2">
-            <h4 class="text-xs font-black text-slate-800">${item.es}</h4>
-            <p class="text-[11px] font-bold text-slate-500 mt-0.5">${item.en}</p>
-          </div>
-          <button data-phrase-idx="${item.originalIndex}" aria-label="Play Spanish pronunciation" class="spanish-speak-btn w-10 h-10 rounded-2xl bg-[#EBF7FF] border-2 border-b-4 border-[#84D8FF] text-[#1CB0F6] flex items-center justify-center text-sm btn-3d shrink-0">
-            <i class="fa-solid fa-volume-high"></i>
-          </button>
-        </div>
-      `).join('');
-    }
-
-    // =========================================================
-    // 5. MISTAKES REMEDIATION VIEW
-    // =========================================================
-    function renderMistakesView() {
-      const container = document.getElementById('mistakesContainer');
-      const bank = window.EXPANDED_QUESTION_BANK || [];
-      const missed = bank.filter(q => gameState.mistakesIds.includes(q.id));
-
-      if (missed.length === 0) {
-        container.innerHTML = `
-          <div class="bg-white rounded-3xl p-6 border-2 border-slate-200 text-center space-y-2">
-            <span class="text-4xl">🛡️</span>
-            <h3 class="text-sm font-black text-slate-800">Zero Mistakes, Kaylove! 💖</h3>
-            <p class="text-xs font-bold text-slate-500">You have cleared every single missed question. I’m so proud of you my love! 🥹</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = `
-        <button id="btnPracticeMistakes" class="w-full py-3 rounded-2xl text-white font-black text-xs uppercase tracking-wider btn-3d bg-[#FF4B4B] border-b-4 border-[#EA2B2B] shadow-sm mb-3">
-          Practice ${missed.length} Missed Question${missed.length > 1 ? 's' : ''} Now
-        </button>
-      ` + missed.map(q => `
-        <div class="bg-white rounded-2xl p-3.5 border-2 border-slate-200 space-y-1">
-          <span class="text-[9px] font-black uppercase tracking-wider text-[#EA2B2B] bg-[#FFDFE0] px-2 py-0.5 rounded-md">${ resolveQuestionNodeCode(q) } • ${q.category}</span>
-          <h4 class="text-xs font-black text-slate-800 mt-1">${q.prompt}</h4>
-          <p class="text-[11px] font-bold text-[#46A302] bg-[#D7FFB8]/50 p-2 rounded-xl mt-1">
-            <span class="font-black">Correct:</span> ${q.options[q.correct]}
-          </p>
-        </div>
-      `).join('');
-    }
-
-    // =========================================================
-    // 6. UI HELPERS & EVENT LISTENERS
-    // =========================================================
-    function showMascotSpeech(text) {
-      const txt = document.getElementById('mascotText');
-      if (txt) txt.textContent = text;
-    }
-
-    function switchTab(tabKey) {
-      ['roadmap', 'quiz', 'spanish', 'mistakes'].forEach(k => {
-        const view = document.getElementById(`tab-${k}`);
-        const nav = document.getElementById(`nav-${k}`);
-        if (k === tabKey) {
-          view.classList.remove('hidden');
-          nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-[#58CC02] font-black transition';
-        } else {
-          view.classList.add('hidden');
-          nav.className = 'nav-item flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 font-bold hover:text-slate-600 transition';
-        }
-      });
-
-      if (tabKey === 'roadmap') renderDynamicRoadmap();
-      if (tabKey === 'spanish') renderSpanishClinicCards();
-      if (tabKey === 'mistakes') renderMistakesView();
-      if (tabKey === 'quiz' && activeDeck.length === 0) {
-        startNodeQuiz('1.1');
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      loadGameState();
-      renderDynamicRoadmap();
-      renderSpanishClinicCards();
-
-      // Delegated clicks
-      document.body.addEventListener('click', (e) => {
-        const nodeBtn = e.target.closest('.roadmap-node-btn');
-        if (nodeBtn) {
-          startNodeQuiz(nodeBtn.dataset.nodeCode);
-          return;
-        }
-
-        const choiceBtn = e.target.closest('.quiz-choice-btn');
-        if (choiceBtn) {
-          selectQuizChoice(Number(choiceBtn.dataset.choiceIdx));
-          return;
-        }
-
-        const speakBtn = e.target.closest('.spanish-speak-btn');
-        if (speakBtn) {
-          const idx = Number(speakBtn.dataset.phraseIdx);
-          const item = (window.SPANISH_CLINIC_PHRASES || [])[idx];
-          if (item) speakSpanish(item.es);
-          return;
-        }
-
-        const filterBtn = e.target.closest('.span-filter-pill');
-        if (filterBtn) {
-          document.querySelectorAll('.span-filter-pill').forEach(b => {
-            b.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700';
-          });
-          filterBtn.className = 'span-filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-black bg-[#1CB0F6] text-white';
-          renderSpanishClinicCards(filterBtn.dataset.tag);
-          return;
-        }
-
-        const navBtn = e.target.closest('.nav-item');
-        if (navBtn) {
-          switchTab(navBtn.dataset.tab);
-          return;
-        }
-
-        if (e.target.closest('#btnPracticeMistakes')) {
-          const bank = window.EXPANDED_QUESTION_BANK || [];
-          const missed = bank.filter(q => gameState.mistakesIds.includes(q.id));
-          if (missed.length > 0) {
-            activeDeck = shuffleArray(missed);
-            currentQuizIndex = 0;
-            switchTab('quiz');
-            loadQuizQuestion();
-          }
-        }
-      });
-
-      document.getElementById('btnCheckAnswer').addEventListener('click', handleCheckOrNext);
-      document.getElementById('btnDrawerContinue').addEventListener('click', advanceNextQuestion);
-      document.getElementById('btnExitQuiz').addEventListener('click', () => switchTab('roadmap'));
-      document.getElementById('qVoiceBtn').addEventListener('click', () => {
-        const q = activeDeck[currentQuizIndex];
-        if (q && q.audioText) speakSpanish(q.audioText);
-      });
-
-      // Trophy Modal
-      const trophyModal = document.getElementById('trophyModal');
-      document.getElementById('btnOpenTrophies').addEventListener('click', () => {
-        renderTrophyModal();
-        trophyModal.classList.remove('hidden');
-      });
-      document.getElementById('btnCloseTrophies').addEventListener('click', () => {
-        trophyModal.classList.add('hidden');
-      });
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') trophyModal.classList.add('hidden');
-      });
-    });
-  </script>
+  <!-- LOAD EXTERNAL QUESTION BANK & MODULAR APPLICATION -->
+  <script src="questions.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
+
 </html>
